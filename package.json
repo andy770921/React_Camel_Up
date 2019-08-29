@@ -19,12 +19,22 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
+    "style-loader": "^1.0.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "babylonjs": "^4.0.3",
+    "babylonjs-gui": "^4.0.3",
+    "babylonjs-loaders": "^4.0.3",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-babylonjs": "^1.0.3",
+    "react-dom": "^16.9.0",
+    "react-three": "^0.9.7",
+    "three": "^0.107.0",
+    "three-gltf-loader": "^1.107.0",
+    "three-obj-mtl-loader": "^1.0.3",
+    "three-orbitcontrols": "^2.102.2"
   }
 }
