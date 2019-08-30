@@ -4,8 +4,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 
-let speed = 0;
-
 let jumpInfo = {
     x: 12,
     y: 17.2,
@@ -14,21 +12,24 @@ let jumpInfo = {
     onGround: true,
     triggerJump: false,
     jumpPower: -1,  // power of jump smaller jumps higher eg -10 smaller than -5
-    moveSpeed: 0.25,
-    world : {
+    moveSpeed: 0.72, // moveSpeed: 0.252, 0.501, 0.72 
+    world: {
         gravity: 0.08, // strength per frame of gravity
-        drag: 0.999, // play with this value to change drag
+        drag: 1, // 0.999 play with this value to change drag
         // groundDrag: 0.9, // play with this value to change ground movement
-        ground: 17.2
-      }
+        ground: 17.2 //17.2, 18.6
+    }
 };
+
+
 
 class ThreeScene extends Component {
     state = {
         camels: [],
         run: false,
         step: 0,
-        boardPosLevelOne: [{ x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }]
+        boardPosLevelOne: [{ x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }],
+        jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.72 }
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -194,6 +195,7 @@ class ThreeScene extends Component {
 
                     const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0 };
                     this.setState(prevState => ({
+                        ...prevState,
                         camels: [...prevState.camels, newObj]
                     }));
 
@@ -221,6 +223,7 @@ class ThreeScene extends Component {
 
                     const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0 };
                     this.setState(prevState => ({
+                        ...prevState,
                         camels: [...prevState.camels, newObj]
                     }));
 
@@ -243,27 +246,34 @@ class ThreeScene extends Component {
                 case 73: // ^
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
+                    jumpInfo.moveSpeed = this.state.jumpPara.oneStepSpeed;
                     this.setState(prevState => ({
-                        camels: prevState.camels,
+                        ...prevState,
                         run: true,
-                        step: 1
+                        step: 1,
                     }));
                     //this.state.camels[0].camel.position.x -= 0.1;
                     //this.planerMove(this.state.camels[0].camel, 1);
                     //this.state.camels[0].camel.position.z += 0.1;
                     break;
                 case 74: // <-
-                console.log("key B");
+                    console.log("key B");
+                    jumpInfo.triggerJump = true;
+                    jumpInfo.onGround = false;
+                    jumpInfo.moveSpeed = this.state.jumpPara.twoStepSpeed;
                     this.setState(prevState => ({
-                        camels: prevState.camels,
+                        ...prevState,
                         run: true,
                         step: 2
                     }));
                     break;
                 case 75: // ->
-                console.log("key C");
+                    console.log("key C");
+                    jumpInfo.triggerJump = true;
+                    jumpInfo.onGround = false;
+                    jumpInfo.moveSpeed = this.state.jumpPara.threeStepSpeed;
                     this.setState(prevState => ({
-                        camels: prevState.camels,
+                        ...prevState,
                         run: true,
                         step: 3
                     }));
@@ -295,67 +305,44 @@ class ThreeScene extends Component {
     }
 
     moveAction = (camelObj, camelId, newBoxNum, endXyz, isPlanerMove) => {
-        const jumpXyz = {
-            x: (this.state.camels[camelId].position.x + endXyz.x) / 2,
-            y: 21,
-            z: (this.state.camels[camelId].camel.position.z + endXyz.z) / 2
-        };
 
-        function update() {
+        let updateXyz = () => {
 
             // react to keyboard state
-            if (jumpInfo.triggerJump) { jumpInfo.dy = jumpInfo.jumpPower; jumpInfo.dx = -jumpInfo.moveSpeed; jumpInfo.triggerJump= false;}
-            //if (jumpInfo.x > -100) { jumpInfo.dx = -jumpInfo.moveSpeed; } // else  { jumpInfo.dx = 0; }
-         
+            if (jumpInfo.triggerJump) { jumpInfo.dy = jumpInfo.jumpPower; jumpInfo.dx = -jumpInfo.moveSpeed; jumpInfo.triggerJump = false; }
+
             // apply gravity drag and move player
             jumpInfo.dy += jumpInfo.world.gravity;
             jumpInfo.dy *= jumpInfo.world.drag;
             jumpInfo.dx *= jumpInfo.onGround ? 0 : jumpInfo.world.drag;
             jumpInfo.x += jumpInfo.dx;
             jumpInfo.y -= jumpInfo.dy;
-        
+
             // test ground contact and left and right limits
-            if (jumpInfo.y <= jumpInfo.world.ground) {
-              jumpInfo.y = jumpInfo.world.ground;
-              jumpInfo.dy = 0;
-              jumpInfo.onGround = true;
+            if (jumpInfo.dy > 0 && jumpInfo.y <= jumpInfo.world.ground) {
+                jumpInfo.y = jumpInfo.world.ground;
+                jumpInfo.dy = 0;
+                jumpInfo.onGround = true;
+                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum };
+                const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), refreshedObj];
+                this.setState(prevState => ({
+                    ...prevState,
+                    camels: newArray,
+                    run: false,
+                    step: 0
+                }));
             } else {
                 jumpInfo.onGround = false;
             }
 
             return { afterX: jumpInfo.x, afterY: jumpInfo.y };
-          }
+        }
 
-
-        // bug 在這邊的邏輯
-        // console.log(Math.abs(camelObj.position.x * 10000 - endXyz.x * 10000));
         if (isPlanerMove) {
-            let { afterX, afterY } = update();
+            let { afterX, afterY } = updateXyz();
             console.log(afterX, afterY);
             camelObj.position.x = afterX;
             camelObj.position.y = afterY;
-
-            // if (Math.abs(camelObj.position.x * 10000 - endXyz.x * 10000) > 10) {
-            //     //(camelObj.position.x > endXyz.x) ? (camelObj.position.x -= speed) : (camelObj.position.x += speed);
-            //     if (camelObj.position.x > endXyz.x) { camelObj.position.x -= speed; } else { camelObj.position.x += speed; }
-            //     if (jumpXyz.x - camelObj.position.x < 0) { camelObj.position.y += speed; }
-            //     else if (camelObj.position.y > endXyz.y) { camelObj.position.y -= speed; }
-
-            // }
-            // if (Math.abs(camelObj.position.z * 10000) - Math.abs(endXyz.z * 10000) > 10) {
-            //     (camelObj.position.z > endXyz.z) ? (camelObj.position.z -= speed) : (camelObj.position.z += speed);
-            // }
-            // if (Math.abs(camelObj.position.x * 10000) - Math.abs(endXyz.x * 10000) <= 10 && Math.abs(camelObj.position.z * 10000) - Math.abs(endXyz.z * 10000) <= 10) {
-            //     const newObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum };
-            //     const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), newObj];
-            //     this.setState(prevState => ({
-            //         ...prevState,
-            //         camels: newArray,
-            //         run: false
-            //     }));
-            //     return;
-            // }
-            
         }
 
 
@@ -384,27 +371,12 @@ class ThreeScene extends Component {
 
     }
     move = () => {
-
         if (this.state.camels != 0) {
-            const maxSpeed = 0.1;
-            const acceleration = 0.001;
             if (this.state.run) {
                 let targetCameld = 0;
                 let targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCameld)));
-                this.planerMove(this.state.camels[targetCamelIndex].camel, targetCameld, this.state.step);
-                speed += acceleration;
-                if (speed > maxSpeed) {
-                    speed = maxSpeed;
-                }
-            } else if (speed > 0 && this.state.run === false) {
-                speed -= acceleration;
-                if (speed < 0) {
-                    speed = 0;
-                }
-            }
-            if (speed === 0) {
-                return;
-            }
+                this.planerMove(this.state.camels[targetCamelIndex].camel, targetCameld, this.state.step);         
+            } 
         }
     }
     render() {
