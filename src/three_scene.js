@@ -28,6 +28,7 @@ class ThreeScene extends Component {
         camels: [],
         run: false,
         step: 0,
+        level: 0,
         boardPosLevelOne: [{ x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }],
         jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.72 }
     }
@@ -192,7 +193,6 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 17.2, 12);
-
                     const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0 };
                     this.setState(prevState => ({
                         ...prevState,
@@ -220,7 +220,6 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 18.6, 12);
-
                     const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0 };
                     this.setState(prevState => ({
                         ...prevState,
@@ -309,7 +308,13 @@ class ThreeScene extends Component {
         let updateXyz = () => {
 
             // react to keyboard state
-            if (jumpInfo.triggerJump) { jumpInfo.dy = jumpInfo.jumpPower; jumpInfo.dx = -jumpInfo.moveSpeed; jumpInfo.triggerJump = false; }
+            if (jumpInfo.triggerJump) { 
+                let camelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === camelId)));
+                jumpInfo.x = this.state.camels[camelIndex].position.x;
+                jumpInfo.y = this.state.camels[camelIndex].position.y;
+                jumpInfo.dy = jumpInfo.jumpPower; 
+                jumpInfo.dx = -jumpInfo.moveSpeed; 
+                jumpInfo.triggerJump = false; }
 
             // apply gravity drag and move player
             jumpInfo.dy += jumpInfo.world.gravity;
@@ -340,7 +345,7 @@ class ThreeScene extends Component {
 
         if (isPlanerMove) {
             let { afterX, afterY } = updateXyz();
-            console.log(afterX, afterY);
+            //console.log(afterX, afterY);
             camelObj.position.x = afterX;
             camelObj.position.y = afterY;
         }
