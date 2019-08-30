@@ -8,12 +8,14 @@ let jumpInfo = {
     x: 12,
     y: 17.2,
     z: 12,
+    r: 0,
     dx: 0, // delta x and y
     dy: 0,
     onGround: true,
     triggerJump: false,
     jumpPower: -1,  // power of jump smaller jumps higher eg -10 smaller than -5
     moveSpeed: 0.72, // moveSpeed: 0.252, 0.501, 0.72 
+    rotationSpeed: -0.063,
     world: {
         gravity: 0.08, // strength per frame of gravity
         drag: 1, // 0.999 play with this value to change drag
@@ -199,7 +201,7 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 17.2, 12);
-                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1 };
+                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
                     this.setState(prevState => ({
                         ...prevState,
                         camels: [...prevState.camels, newObj]
@@ -226,7 +228,7 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 18.6, 12);
-                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1 };
+                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
                     this.setState(prevState => ({
                         ...prevState,
                         camels: [...prevState.camels, newObj]
@@ -247,10 +249,11 @@ class ThreeScene extends Component {
         this.start();
 
         document.body.addEventListener("keydown", e => {
-            let targetLevel = 2;
+            // 在此指定: a. 要跳到第幾層  b. 按哪個鈕要跳幾步
+            let targetLevel = 1;
             switch (e.keyCode) {
-                case 73: // ^
-                targetLevel = 3;
+                case 73: // press i
+                //targetLevel = 3;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.oneStepSpeed;
@@ -260,13 +263,10 @@ class ThreeScene extends Component {
                         step: 1,
                         level: targetLevel
                     }));
-                    //this.state.camels[0].camel.position.x -= 0.1;
-                    //this.planerMove(this.state.camels[0].camel, 1);
-                    //this.state.camels[0].camel.position.z += 0.1;
                     break;
-                case 74: // <-
+                case 74: // press j
                     console.log("key B");
-                    targetLevel = 1;
+                    //targetLevel = 1;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.twoStepSpeed;
@@ -277,8 +277,8 @@ class ThreeScene extends Component {
                         level: targetLevel
                     }));
                     break;
-                case 75: // ->
-                targetLevel = 4;
+                case 75: // press k
+                //targetLevel = 4;
                     console.log("key C");
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
@@ -314,7 +314,7 @@ class ThreeScene extends Component {
         this.renderer.render(this.scene, this.camera);
     }
 
-    moveAction = (camelObj, camelId, newBoxNum, newLevel, endXyz, isLinearMove) => {
+    moveAction = (camelObj, camelId, newBoxNum, newLevel, rotation, endXyz, isLinearMove) => {
 
         let updateXyz = () => {
 
@@ -342,7 +342,7 @@ class ThreeScene extends Component {
                 jumpInfo.y = jumpInfo.world.ground;
                 jumpInfo.dy = 0;
                 jumpInfo.onGround = true;
-                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel };
+                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel, rotation: (isLinearMove)? (rotation + 90):(rotation)};
                 const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), refreshedObj];
                 this.setState(prevState => ({
                     ...prevState,
@@ -357,42 +357,44 @@ class ThreeScene extends Component {
             return { afterX: jumpInfo.x, afterY: jumpInfo.y };
         }
 
-        if (isLinearMove) {
-            let { afterX, afterY } = updateXyz();
-            //console.log(afterX, afterY);
-            camelObj.position.x = afterX;
-            camelObj.position.y = afterY;
-        }
+        let { afterX, afterY } = updateXyz();
+        camelObj.position.x = afterX;
+        camelObj.position.y = afterY;
 
-
+        if (!isLinearMove) {
+            jumpInfo.r += jumpInfo.rotationSpeed;
+            camelObj.rotation.y = jumpInfo.r;
+        } 
     }
     assignMove = () => {
-        //const beforeXyz = { x: camelObj.position.x, y: camelObj.position.y, z: camelObj.position.z };
+        // const beforeXyz = { x: camelObj.position.x, y: camelObj.position.y, z: camelObj.position.z };
+        // 在此指定: a. 哪一隻駱駝跳  b. 是否轉向
         const targetCameld = 0;
+        const isLinear = false;
 
         const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCameld)));
         const camelObj = this.state.camels[targetCamelIndex].camel;
+        const rotation = this.state.camels[targetCamelIndex].rotation;
         const step = this.state.step;
         const level = this.state.level;
         let newBoxNum = 0;
-        let camelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === 0)));
         let findXyz = (level, boxNum) => {
             const yLevel = this.state.levelHeight * ( parseInt(level) - 1 );
-            return {x: this.state.boardPosLevelOne[boxNum].x, y: this.state.boardPosLevelOne[boxNum].y + yLevel , z: this.state.boardPosLevelOne[boxNum].z };
+            return { x: this.state.boardPosLevelOne[boxNum].x, y: this.state.boardPosLevelOne[boxNum].y + yLevel , z: this.state.boardPosLevelOne[boxNum].z };
         }
 
         switch (parseInt(step)) {
             case 1:
-                newBoxNum = this.state.camels[camelIndex].boxNum + 1;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
+                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 1;
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             case 2:
-                newBoxNum = this.state.camels[camelIndex].boxNum + 2;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
+                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 2;
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             case 3:
-                newBoxNum = this.state.camels[camelIndex].boxNum + 3;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
+                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 3;
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             default:
                 return;
