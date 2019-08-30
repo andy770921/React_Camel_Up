@@ -7,6 +7,7 @@ import OrbitControls from 'three-orbitcontrols';
 let jumpInfo = {
     x: 12,
     y: 17.2,
+    z: 12,
     dx: 0, // delta x and y
     dy: 0,
     onGround: true,
@@ -29,7 +30,12 @@ class ThreeScene extends Component {
         run: false,
         step: 0,
         level: 0,
-        boardPosLevelOne: [{ x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }],
+        boardPosLevelOne: [
+            { x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }, 
+            { x: -12, y: 17.2, z: 6 }, { x: -12, y: 17.2, z: 0 }, { x: -12, y: 17.2, z: -6 }, { x: -12, y: 17.2, z: -12 }, { x: -6, y: 17.2, z: -12 }, 
+            { x: 0, y: 17.2, z: -12 }, { x: 6, y: 17.2, z: -12 }, { x: 12, y: 17.2, z: -12 }, { x: 12, y: 17.2, z: -6 }, { x: 12, y: 17.2, z: 0 },
+            { x: 12, y: 17.2, z: 6 } ],
+        levelHeight: 1.4,
         jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.72 }
     }
     componentDidMount() {
@@ -193,7 +199,7 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 17.2, 12);
-                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0 };
+                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1 };
                     this.setState(prevState => ({
                         ...prevState,
                         camels: [...prevState.camels, newObj]
@@ -220,7 +226,7 @@ class ThreeScene extends Component {
                     object.scale.set(0.7, 0.5, 0.7);
                     //object.rotation.y = 180;
                     object.position.set(12, 18.6, 12);
-                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0 };
+                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1 };
                     this.setState(prevState => ({
                         ...prevState,
                         camels: [...prevState.camels, newObj]
@@ -241,8 +247,10 @@ class ThreeScene extends Component {
         this.start();
 
         document.body.addEventListener("keydown", e => {
+            let targetLevel = 2;
             switch (e.keyCode) {
                 case 73: // ^
+                targetLevel = 3;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.oneStepSpeed;
@@ -250,6 +258,7 @@ class ThreeScene extends Component {
                         ...prevState,
                         run: true,
                         step: 1,
+                        level: targetLevel
                     }));
                     //this.state.camels[0].camel.position.x -= 0.1;
                     //this.planerMove(this.state.camels[0].camel, 1);
@@ -257,16 +266,19 @@ class ThreeScene extends Component {
                     break;
                 case 74: // <-
                     console.log("key B");
+                    targetLevel = 1;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.twoStepSpeed;
                     this.setState(prevState => ({
                         ...prevState,
                         run: true,
-                        step: 2
+                        step: 2,
+                        level: targetLevel
                     }));
                     break;
                 case 75: // ->
+                targetLevel = 4;
                     console.log("key C");
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
@@ -274,7 +286,8 @@ class ThreeScene extends Component {
                     this.setState(prevState => ({
                         ...prevState,
                         run: true,
-                        step: 3
+                        step: 3,
+                        level: targetLevel
                     }));
                     break;
             }
@@ -293,8 +306,6 @@ class ThreeScene extends Component {
         cancelAnimationFrame(this.frameId);
     }
     animate = () => {
-        // this.cube.rotation.x += 0.01
-        // this.cube.rotation.y += 0.01
         this.renderScene();
         this.move();
         this.frameId = window.requestAnimationFrame(this.animate);
@@ -303,18 +314,21 @@ class ThreeScene extends Component {
         this.renderer.render(this.scene, this.camera);
     }
 
-    moveAction = (camelObj, camelId, newBoxNum, endXyz, isPlanerMove) => {
+    moveAction = (camelObj, camelId, newBoxNum, newLevel, endXyz, isLinearMove) => {
 
         let updateXyz = () => {
 
             // react to keyboard state
-            if (jumpInfo.triggerJump) { 
+            if (jumpInfo.triggerJump) {
                 let camelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === camelId)));
                 jumpInfo.x = this.state.camels[camelIndex].position.x;
+                jumpInfo.z = this.state.camels[camelIndex].position.z;
                 jumpInfo.y = this.state.camels[camelIndex].position.y;
-                jumpInfo.dy = jumpInfo.jumpPower; 
-                jumpInfo.dx = -jumpInfo.moveSpeed; 
-                jumpInfo.triggerJump = false; }
+                jumpInfo.world.ground = endXyz.y;
+                jumpInfo.dy = jumpInfo.jumpPower;
+                jumpInfo.dx = -jumpInfo.moveSpeed;
+                jumpInfo.triggerJump = false;
+            }
 
             // apply gravity drag and move player
             jumpInfo.dy += jumpInfo.world.gravity;
@@ -328,7 +342,7 @@ class ThreeScene extends Component {
                 jumpInfo.y = jumpInfo.world.ground;
                 jumpInfo.dy = 0;
                 jumpInfo.onGround = true;
-                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum };
+                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel };
                 const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), refreshedObj];
                 this.setState(prevState => ({
                     ...prevState,
@@ -343,7 +357,7 @@ class ThreeScene extends Component {
             return { afterX: jumpInfo.x, afterY: jumpInfo.y };
         }
 
-        if (isPlanerMove) {
+        if (isLinearMove) {
             let { afterX, afterY } = updateXyz();
             //console.log(afterX, afterY);
             camelObj.position.x = afterX;
@@ -352,22 +366,33 @@ class ThreeScene extends Component {
 
 
     }
-    planerMove = (camelObj, camelId, step) => {
+    assignMove = () => {
         //const beforeXyz = { x: camelObj.position.x, y: camelObj.position.y, z: camelObj.position.z };
+        const targetCameld = 0;
+
+        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCameld)));
+        const camelObj = this.state.camels[targetCamelIndex].camel;
+        const step = this.state.step;
+        const level = this.state.level;
         let newBoxNum = 0;
         let camelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === 0)));
+        let findXyz = (level, boxNum) => {
+            const yLevel = this.state.levelHeight * ( parseInt(level) - 1 );
+            return {x: this.state.boardPosLevelOne[boxNum].x, y: this.state.boardPosLevelOne[boxNum].y + yLevel , z: this.state.boardPosLevelOne[boxNum].z };
+        }
+
         switch (parseInt(step)) {
             case 1:
                 newBoxNum = this.state.camels[camelIndex].boxNum + 1;
-                this.moveAction(camelObj, camelId, newBoxNum, this.state.boardPosLevelOne[newBoxNum], true);
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
                 break;
             case 2:
                 newBoxNum = this.state.camels[camelIndex].boxNum + 2;
-                this.moveAction(camelObj, camelId, newBoxNum, this.state.boardPosLevelOne[newBoxNum], true);
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
                 break;
             case 3:
                 newBoxNum = this.state.camels[camelIndex].boxNum + 3;
-                this.moveAction(camelObj, camelId, newBoxNum, this.state.boardPosLevelOne[newBoxNum], true);
+                this.moveAction(camelObj, targetCameld, newBoxNum, level, findXyz(level, newBoxNum), true);
                 break;
             default:
                 return;
@@ -378,10 +403,8 @@ class ThreeScene extends Component {
     move = () => {
         if (this.state.camels != 0) {
             if (this.state.run) {
-                let targetCameld = 0;
-                let targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCameld)));
-                this.planerMove(this.state.camels[targetCamelIndex].camel, targetCameld, this.state.step);         
-            } 
+                this.assignMove();
+            }
         }
     }
     render() {
