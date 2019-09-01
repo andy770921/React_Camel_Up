@@ -38,6 +38,7 @@ class ThreeScene extends Component {
             { x: 0, y: 17.2, z: -12 }, { x: 6, y: 17.2, z: -12 }, { x: 12, y: 17.2, z: -12 }, { x: 12, y: 17.2, z: -6 }, { x: 12, y: 17.2, z: 0 },
             { x: 12, y: 17.2, z: 6 } ],
         levelHeight: 1.4,
+        turnRightYrotation: -1.575,
         jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.72 }
     }
     componentDidMount() {
@@ -203,7 +204,6 @@ class ThreeScene extends Component {
                     object.position.set(12, 17.2, 12);
                     const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
                     this.setState(prevState => ({
-                        ...prevState,
                         camels: [...prevState.camels, newObj]
                     }));
 
@@ -230,7 +230,6 @@ class ThreeScene extends Component {
                     object.position.set(12, 18.6, 12);
                     const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
                     this.setState(prevState => ({
-                        ...prevState,
                         camels: [...prevState.camels, newObj]
                     }));
 
@@ -258,7 +257,6 @@ class ThreeScene extends Component {
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.oneStepSpeed;
                     this.setState(prevState => ({
-                        ...prevState,
                         run: true,
                         step: 1,
                         level: targetLevel
@@ -271,7 +269,6 @@ class ThreeScene extends Component {
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.twoStepSpeed;
                     this.setState(prevState => ({
-                        ...prevState,
                         run: true,
                         step: 2,
                         level: targetLevel
@@ -284,7 +281,6 @@ class ThreeScene extends Component {
                     jumpInfo.onGround = false;
                     jumpInfo.moveSpeed = this.state.jumpPara.threeStepSpeed;
                     this.setState(prevState => ({
-                        ...prevState,
                         run: true,
                         step: 3,
                         level: targetLevel
@@ -324,6 +320,7 @@ class ThreeScene extends Component {
                 jumpInfo.x = this.state.camels[camelIndex].position.x;
                 jumpInfo.z = this.state.camels[camelIndex].position.z;
                 jumpInfo.y = this.state.camels[camelIndex].position.y;
+                jumpInfo.r = this.state.camels[camelIndex].rotation;
                 jumpInfo.world.ground = endXyz.y;
                 jumpInfo.dy = jumpInfo.jumpPower;
                 jumpInfo.dx = -jumpInfo.moveSpeed;
@@ -342,10 +339,10 @@ class ThreeScene extends Component {
                 jumpInfo.y = jumpInfo.world.ground;
                 jumpInfo.dy = 0;
                 jumpInfo.onGround = true;
-                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel, rotation: (isLinearMove)? (rotation + 90):(rotation)};
+                const refreshedObj = { camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel, 
+                                       rotation: (isLinearMove)? (rotation):(rotation + this.state.turnRightYrotation)};
                 const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), refreshedObj];
                 this.setState(prevState => ({
-                    ...prevState,
                     camels: newArray,
                     run: false,
                     step: 0
