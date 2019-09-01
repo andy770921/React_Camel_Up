@@ -11,10 +11,12 @@ let jumpInfo = {
     r: 0,
     dx: 0, // delta x and y
     dy: 0,
+    dz: 0,
     onGround: true,
     triggerJump: false,
     jumpPower: -1,  // power of jump smaller jumps higher eg -10 smaller than -5
     moveSpeed: 0.72, // moveSpeed: 0.252, 0.501, 0.72 
+    moveSpeedZ: 0,
     rotationSpeed: -0.063,
     world: {
         gravity: 0.08, // strength per frame of gravity
@@ -31,7 +33,6 @@ class ThreeScene extends Component {
         camels: [],
         run: false,
         step: 0,
-        level: 0,
         boardPosLevelOne: [
             { x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 }, 
             { x: -12, y: 17.2, z: 6 }, { x: -12, y: 17.2, z: 0 }, { x: -12, y: 17.2, z: -6 }, { x: -12, y: 17.2, z: -12 }, { x: -6, y: 17.2, z: -12 }, 
@@ -248,42 +249,33 @@ class ThreeScene extends Component {
         this.start();
 
         document.body.addEventListener("keydown", e => {
-            // 在此指定: a. 要跳到第幾層  b. 按哪個鈕要跳幾步
-            let targetLevel = 1;
+            // 在此指定: a. 按哪個鈕要跳幾步
+
             switch (e.keyCode) {
                 case 73: // press i
-                //targetLevel = 3;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
-                    jumpInfo.moveSpeed = this.state.jumpPara.oneStepSpeed;
                     this.setState(prevState => ({
                         run: true,
                         step: 1,
-                        level: targetLevel
                     }));
                     break;
                 case 74: // press j
                     console.log("key B");
-                    //targetLevel = 1;
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
-                    jumpInfo.moveSpeed = this.state.jumpPara.twoStepSpeed;
                     this.setState(prevState => ({
                         run: true,
                         step: 2,
-                        level: targetLevel
                     }));
                     break;
                 case 75: // press k
-                //targetLevel = 4;
                     console.log("key C");
                     jumpInfo.triggerJump = true;
                     jumpInfo.onGround = false;
-                    jumpInfo.moveSpeed = this.state.jumpPara.threeStepSpeed;
                     this.setState(prevState => ({
                         run: true,
                         step: 3,
-                        level: targetLevel
                     }));
                     break;
             }
@@ -324,6 +316,7 @@ class ThreeScene extends Component {
                 jumpInfo.world.ground = endXyz.y;
                 jumpInfo.dy = jumpInfo.jumpPower;
                 jumpInfo.dx = -jumpInfo.moveSpeed;
+                jumpInfo.dz = -jumpInfo.moveSpeedZ;
                 jumpInfo.triggerJump = false;
             }
 
@@ -332,6 +325,7 @@ class ThreeScene extends Component {
             jumpInfo.dy *= jumpInfo.world.drag;
             jumpInfo.dx *= jumpInfo.onGround ? 0 : jumpInfo.world.drag;
             jumpInfo.x += jumpInfo.dx;
+            jumpInfo.z += jumpInfo.dz;
             jumpInfo.y -= jumpInfo.dy;
 
             // test ground contact and left and right limits
@@ -351,53 +345,113 @@ class ThreeScene extends Component {
                 jumpInfo.onGround = false;
             }
 
-            return { afterX: jumpInfo.x, afterY: jumpInfo.y };
+            return { afterX: jumpInfo.x, afterY: jumpInfo.y, afterZ: jumpInfo.z };
         }
 
-        let { afterX, afterY } = updateXyz();
+        let { afterX, afterY, afterZ } = updateXyz();
         camelObj.position.x = afterX;
         camelObj.position.y = afterY;
+        camelObj.position.z = afterZ;
 
         if (!isLinearMove) {
             jumpInfo.r += jumpInfo.rotationSpeed;
             camelObj.rotation.y = jumpInfo.r;
         } 
     }
+    judgeSpeedAndRotate = (finalBoxNum) => {
+        let returnSpeedValue = (step) => {
+            switch (parseInt(step)) {
+                case 1:
+                    return this.state.jumpPara.oneStepSpeed;
+                case 2:
+                    return this.state.jumpPara.twoStepSpeed;
+                case 3:
+                    return this.state.jumpPara.threeStepSpeed;
+                default:
+                    return;
+            }
+        }
+        if (finalBoxNum === 4 || finalBoxNum === 12) { 
+            // 在邊角格的轉向控制 -1 
+            const moveSpeedX = (finalBoxNum === 4)? (returnSpeedValue(this.state.step)):(-returnSpeedValue(this.state.step));
+            return {isLinear: false, moveSpeedX: moveSpeedX, moveSpeedZ: 0 };
+        } if (finalBoxNum === 8) { 
+            // 在邊角格的轉向控制 -2
+            const moveSpeedZ = returnSpeedValue(this.state.step);
+            return {isLinear: false, moveSpeedX: 0, moveSpeedZ: moveSpeedZ };
+        } else if ( (finalBoxNum === 5 || finalBoxNum === 9 || finalBoxNum === 13) && 
+                    ( this.state.step === 2 || this.state.step === 3)) { 
+            // 在邊角格前的跳躍轉向控制 -1 
+            const moveSpeedX = (finalBoxNum === 5)? (returnSpeedValue(this.state.step-1)) : ((finalBoxNum === 9) ? (-returnSpeedValue(1)) : (-returnSpeedValue(this.state.step-1)));
+            const moveSpeedZ = (finalBoxNum === 5)? (returnSpeedValue(1)) : ( (finalBoxNum === 9) ? (returnSpeedValue(this.state.step-1)) : (-returnSpeedValue(1)) );
+            return {isLinear: false, moveSpeedX: moveSpeedX, moveSpeedZ: moveSpeedZ };
+        } else if ((finalBoxNum === 6 || finalBoxNum === 10 || finalBoxNum === 14) && this.state.step === 3) {
+            // 在邊角格前的跳躍轉向控制 -2
+            const moveSpeedX = (finalBoxNum === 6)? ( returnSpeedValue(this.state.step-2)): ((finalBoxNum === 10) ? (-returnSpeedValue(2)) : (-returnSpeedValue(this.state.step-2)));
+            const moveSpeedZ = (finalBoxNum === 6)? ( returnSpeedValue(2)) : ((finalBoxNum === 10) ? (returnSpeedValue(this.state.step-2)) : (-returnSpeedValue(2)));
+            return {isLinear: false, moveSpeedX: moveSpeedX, moveSpeedZ: moveSpeedZ };
+        } else if (finalBoxNum >= 5 && finalBoxNum <= 7 ) {
+            // 直線前進控制 -1
+            const moveSpeedZ = returnSpeedValue(this.state.step);
+            return {isLinear: true, moveSpeedX: 0, moveSpeedZ: moveSpeedZ };
+        } else if (finalBoxNum >= 9 && finalBoxNum <= 11 ) {
+            // 直線前進控制 -2
+            const moveSpeedX = -returnSpeedValue(this.state.step);
+            return {isLinear: true, moveSpeedX: moveSpeedX, moveSpeedZ: 0 };
+        } else if (finalBoxNum >= 13 && finalBoxNum <= 18 ) {
+            // 終點前直線前進控制
+            let moveSpeedZ = 0;
+            if (finalBoxNum <= 16) { moveSpeedZ = -returnSpeedValue(this.state.step);}
+            else if (finalBoxNum === 17 && this.state.step !== 1) { moveSpeedZ = -returnSpeedValue(this.state.step - 1);}
+            else if (finalBoxNum === 18 && this.state.step === 3 ) { moveSpeedZ = -returnSpeedValue(this.state.step - 2);}
+            return {isLinear: true, moveSpeedX: 0, moveSpeedZ: moveSpeedZ };
+        } else if (finalBoxNum >= 17) {
+            // 超過終點前原地跳躍控制
+            return {isLinear: true, moveSpeedX: 0, moveSpeedZ: 0 };
+        } 
+        else {return {isLinear: true, moveSpeedX: returnSpeedValue(this.state.step), moveSpeedZ: 0 };}
+    }
     assignMove = () => {
-        // const beforeXyz = { x: camelObj.position.x, y: camelObj.position.y, z: camelObj.position.z };
-        // 在此指定: a. 哪一隻駱駝跳  b. 是否轉向
+
+        // 在此指定: a. 哪一隻駱駝跳 b. 要跳到第幾層 
         const targetCameld = 0;
-        const isLinear = false;
+        const targetLevel = 1;
 
         const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCameld)));
         const camelObj = this.state.camels[targetCamelIndex].camel;
         const rotation = this.state.camels[targetCamelIndex].rotation;
         const step = this.state.step;
-        const level = this.state.level;
+        const level = targetLevel;
         let newBoxNum = 0;
         let findXyz = (level, boxNum) => {
+            if (boxNum <= 15) {
             const yLevel = this.state.levelHeight * ( parseInt(level) - 1 );
             return { x: this.state.boardPosLevelOne[boxNum].x, y: this.state.boardPosLevelOne[boxNum].y + yLevel , z: this.state.boardPosLevelOne[boxNum].z };
+            } if (boxNum >= 16) {
+            const yLevel = this.state.levelHeight * ( parseInt(level) - 1 );
+            return { x: this.state.boardPosLevelOne[0].x, y: this.state.boardPosLevelOne[0].y + yLevel , z: this.state.boardPosLevelOne[0].z };
+            }
         }
 
         switch (parseInt(step)) {
             case 1:
                 newBoxNum = this.state.camels[targetCamelIndex].boxNum + 1;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             case 2:
                 newBoxNum = this.state.camels[targetCamelIndex].boxNum + 2;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             case 3:
                 newBoxNum = this.state.camels[targetCamelIndex].boxNum + 3;
-                this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
                 break;
             default:
                 return;
         }
-        return;
+        const { isLinear , moveSpeedX, moveSpeedZ } = this.judgeSpeedAndRotate(newBoxNum);
+        jumpInfo.moveSpeed = moveSpeedX;
+        jumpInfo.moveSpeedZ = moveSpeedZ;
+        this.moveAction(camelObj, targetCameld, newBoxNum, level, rotation, findXyz(level, newBoxNum), isLinear);
 
+        return;
     }
     move = () => {
         if (this.state.camels != 0) {
