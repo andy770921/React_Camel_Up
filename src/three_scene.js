@@ -4,6 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 
+/*
 let jumpInfo = {
     x: 12,
     y: 17.2,
@@ -25,15 +26,75 @@ let jumpInfo = {
         ground: 17.2 //17.2, 18.6
     }
 };
-
-
+*/
+class physicalWorld {
+    // constructor 括號內，先寫者意義為，用 let jumpInfo = new physicalWorld({ x = 50 }); ，指定其中一個物件內容後，其他內容的預設值
+    // constructor 括號內，後寫者意義為，用 let jumpInfo = new physicalWorld();，直接產生的預設值
+    constructor({
+        x = 12,
+        y = 17.2,
+        z = 12,
+        r = 0,
+        dx = 0,
+        dy = 0,
+        dz = 0,
+        dr = 0,
+        onGround = true,
+        triggerJump = false,
+        duringJump = false,
+        jumpPower = -1,
+        moveSpeed = 0.72,
+        moveSpeedZ = 0,
+        rotationSpeed = -0.063,
+        world = {
+            gravity: 0.08,
+            drag: 1,
+            ground: 17.2
+        } } =
+        {
+            x: 12,
+            y: 17.2,
+            z: 12,
+            r: 0,
+            dx: 0,
+            dy: 0,
+            dz: 0,
+            dr: 0,
+            onGround: true,
+            triggerJump: false,
+            duringJump: false,
+            jumpPower: -1,
+            moveSpeed: 0.72,
+            moveSpeedZ: 0,
+            rotationSpeed: -0.063,
+            world: { gravity: 0.08, drag: 1, ground: 17.2 }
+        }) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.r = r;
+        this.dx = dx;
+        this.dy = dy;
+        this.dz = dz;
+        this.dr = dr;
+        this.onGround = onGround;
+        this.triggerJump = triggerJump;
+        this.duringJump = duringJump;
+        this.jumpPower = jumpPower;
+        this.moveSpeed = moveSpeed;
+        this.moveSpeedZ = moveSpeedZ;
+        this.rotationSpeed = rotationSpeed;
+        this.world = world;
+    }
+}
+let jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
 
 class ThreeScene extends Component {
     state = {
         camels: [],
-        run: false,
         step: 0,
-        targetJumpCamelId: [0],
+        targetJumpCamelId: 0,
+        upperCamels: [],
         boardPosLevelOne: [
             { x: 12, y: 17.2, z: 12 }, { x: 6, y: 17.2, z: 12 }, { x: 0, y: 17.2, z: 12 }, { x: -6, y: 17.2, z: 12 }, { x: -12, y: 17.2, z: 12 },
             { x: -12, y: 17.2, z: 6 }, { x: -12, y: 17.2, z: 0 }, { x: -12, y: 17.2, z: -6 }, { x: -12, y: 17.2, z: -12 }, { x: -6, y: 17.2, z: -12 },
@@ -41,7 +102,7 @@ class ThreeScene extends Component {
             { x: 12, y: 17.2, z: 6 }],
         levelHeight: 1.4,
         turnRightYrotation: -1.575,
-        jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.72 }
+        jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.74 }
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -202,9 +263,8 @@ class ThreeScene extends Component {
                 this.objLoader3.setMaterials(materials);
                 this.objLoader3.load('camel_4.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
-                    //object.rotation.y = 180;
                     object.position.set(12, 17.2, 12);
-                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
+                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -228,9 +288,8 @@ class ThreeScene extends Component {
                 this.objLoader4.setMaterials(materials);
                 this.objLoader4.load('camel_4.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
-                    //object.rotation.y = 180;
                     object.position.set(12, 18.6, 12);
-                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1, rotation: 0 };
+                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 1, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -251,54 +310,89 @@ class ThreeScene extends Component {
 
         document.body.addEventListener("keydown", e => {
             // 在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
+            
+            let setNextLevel = (setThisId, step, jumpCamelId) => {
+                const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === setThisId)));
+                const boxNum = this.state.camels[targetCamelIndex].boxNum;
+                const nextBoxNum = boxNum + step;
+                const nextBoxCamels = this.state.camels.filter(element => (element.boxNum === nextBoxNum));
+                const thisBoxLowerCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level < this.state.camels[targetCamelIndex].level));
+                const jumpCamel = this.state.camels.find(element => (element.id === jumpCamelId));
+                if (jumpCamel.boxNum === boxNum && jumpCamel.level < this.state.camels[targetCamelIndex].level) {
+                    return thisBoxLowerCamels.length + nextBoxCamels.length + 1;
+                } else {
+                    return nextBoxCamels.length + 1;
+                }
+            }
+            let setUpperCamelsArray = (searchThisIdAbove) => {
+                const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === searchThisIdAbove)));
+                const upperCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level > this.state.camels[targetCamelIndex].level));
+                return upperCamels;
+            }
+            let setNextBox = (setThisId, step) => {
+                const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === setThisId)));
+                const boxNum = this.state.camels[targetCamelIndex].boxNum;
+                return boxNum + step;
+            }
+            
             switch (e.keyCode) {
                 case 73: // press i
-                    jumpInfo.triggerJump = true;
-                    jumpInfo.onGround = false;
+                    let jumpCamelId = 0;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
-                        run: true,
+                        camels: [...prevState.camels.filter(element => (0 !== element.id)), { ...prevState.camels.find(element => (0 === element.id)), ...{ nextBoxNum: setNextBox(0, 1), nextLevel: setNextLevel(0, 1, jumpCamelId), run: true } }],
                         step: 1,
-                        targetJumpCamelId: 0
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: setUpperCamelsArray(jumpCamelId)
                     }));
                     break;
                 case 74: // press j
+                    jumpCamelId = 0;
                     console.log("key B");
-                    jumpInfo.triggerJump = true;
-                    jumpInfo.onGround = false;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
-                        run: true,
+                        camels: [...prevState.camels.filter(element => (0 !== element.id)), { ...prevState.camels.find(element => (0 === element.id)), ...{ nextBoxNum: setNextBox(0, 2), nextLevel: setNextLevel(0, 2, jumpCamelId), run: true } }],
                         step: 2,
-                        targetJumpCamelId: 0
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: setUpperCamelsArray(jumpCamelId)
                     }));
                     break;
                 case 75: // press k
+                    jumpCamelId = 0;
                     console.log("key C");
-                    jumpInfo.triggerJump = true;
-                    jumpInfo.onGround = false;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
-                        run: true,
+                        camels: [...prevState.camels.filter(element => (0 !== element.id)), { ...prevState.camels.find(element => (0 === element.id)), ...{ nextBoxNum: setNextBox(0, 3), nextLevel: setNextLevel(0, 3, jumpCamelId), run: true } }],
                         step: 3,
-                        targetJumpCamelId: 0
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: setUpperCamelsArray(jumpCamelId)
                     }));
                     break;
                 case 76: // press l
+                    jumpCamelId = 1;
                     console.log("key D");
-                    jumpInfo.triggerJump = true;
-                    jumpInfo.onGround = false;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
-                        run: true,
+                        camels: [...prevState.camels.filter(element => (1 !== element.id)), { ...prevState.camels.find(element => (1 === element.id)), ...{ nextBoxNum: setNextBox(1, 1), nextLevel: setNextLevel(1, 1, jumpCamelId), run: true } }],
                         step: 1,
-                        targetJumpCamelId: 1
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: setUpperCamelsArray(jumpCamelId)
                     }));
                     break;
                 case 32: // press space
+                    jumpCamelId = 1;
                     console.log("key space");
-                    jumpInfo.triggerJump = true;
-                    jumpInfo.onGround = false;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
-                        run: true,
+                        camels: [...prevState.camels.filter(element => (1 !== element.id)), { ...prevState.camels.find(element => (1 === element.id)), ...{ nextBoxNum: setNextBox(1, 2), nextLevel: setNextLevel(1, 2, jumpCamelId), run: true } }],
                         step: 2,
-                        targetJumpCamelId: 1
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: setUpperCamelsArray(jumpCamelId)
                     }));
                     break;
                 default:
@@ -327,62 +421,74 @@ class ThreeScene extends Component {
         this.renderer.render(this.scene, this.camera);
     }
 
-    moveAction = (camelObj, camelId, newBoxNum, newLevel, rotation, endXyz, isLinearMove) => {
+    moveAction = (camelObj, camelId, newBoxNum, newLevel, rotation, endXyz, isLinearMove, moveSpeedX, moveSpeedZ) => {
 
         let updateXyz = () => {
 
             // react to keyboard state
-            if (jumpInfo.triggerJump) {
+            if (jumpInfo[camelId].triggerJump) {
                 let camelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === camelId)));
-                jumpInfo.x = this.state.camels[camelIndex].position.x;
-                jumpInfo.z = this.state.camels[camelIndex].position.z;
-                jumpInfo.y = this.state.camels[camelIndex].position.y;
-                jumpInfo.r = this.state.camels[camelIndex].rotation;
-                jumpInfo.world.ground = endXyz.y;
-                jumpInfo.dy = jumpInfo.jumpPower;
-                jumpInfo.dx = -jumpInfo.moveSpeed;
-                jumpInfo.dz = -jumpInfo.moveSpeedZ;
-                jumpInfo.triggerJump = false;
-            }
+                jumpInfo[camelId].moveSpeed = moveSpeedX;
+                jumpInfo[camelId].moveSpeedZ = moveSpeedZ;
 
+                jumpInfo[camelId].x = this.state.camels[camelIndex].position.x;
+                jumpInfo[camelId].z = this.state.camels[camelIndex].position.z;
+                jumpInfo[camelId].y = this.state.camels[camelIndex].position.y;
+                // jumpInfo[camelId].r = this.state.camels[camelIndex].rotation;  因為 rotation 針對在上方的駱駝，可能未設定到，故不需要此行設定
+                jumpInfo[camelId].world.ground = endXyz.y;
+                jumpInfo[camelId].dy = jumpInfo[camelId].jumpPower;
+                jumpInfo[camelId].dx = -jumpInfo[camelId].moveSpeed;
+                jumpInfo[camelId].dz = -jumpInfo[camelId].moveSpeedZ;
+                jumpInfo[camelId].triggerJump = false;
+                // console.log("A", camelId);
+            }
+            //console.log("B", camelId);
             // apply gravity drag and move player
-            jumpInfo.dy += jumpInfo.world.gravity;
-            jumpInfo.dy *= jumpInfo.world.drag;
-            jumpInfo.dx *= jumpInfo.onGround ? 0 : jumpInfo.world.drag;
-            jumpInfo.x += jumpInfo.dx;
-            jumpInfo.z += jumpInfo.dz;
-            jumpInfo.y -= jumpInfo.dy;
+            jumpInfo[camelId].dy += jumpInfo[camelId].world.gravity;
+            jumpInfo[camelId].dy *= jumpInfo[camelId].world.drag;
+            jumpInfo[camelId].dx *= jumpInfo.onGround ? 0 : jumpInfo[camelId].world.drag;
+            jumpInfo[camelId].x += jumpInfo[camelId].dx;
+            jumpInfo[camelId].z += jumpInfo[camelId].dz;
+            jumpInfo[camelId].y -= jumpInfo[camelId].dy;
+
 
             // test ground contact and left and right limits
-            if (jumpInfo.dy > 0 && jumpInfo.y <= jumpInfo.world.ground) {
-                jumpInfo.y = jumpInfo.world.ground;
-                jumpInfo.dy = 0;
-                jumpInfo.onGround = true;
+            if (jumpInfo[camelId].dy > 0 && jumpInfo[camelId].y <= jumpInfo[camelId].world.ground) {
+                jumpInfo[camelId].y = jumpInfo[camelId].world.ground;
+                jumpInfo[camelId].dy = 0;
+                jumpInfo[camelId].dx = 0;
+                jumpInfo[camelId].dz = 0;
+                jumpInfo[camelId].dr = 0;
+                jumpInfo[camelId].onGround = true;
+                jumpInfo[camelId].duringJump = false;
+                // 以下 rotation 針對在上方的駱駝，可能會未設定到
                 const refreshedObj = {
                     camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel,
-                    rotation: (isLinearMove) ? (rotation) : (rotation + this.state.turnRightYrotation)
+                    rotation: (isLinearMove) ? (rotation) : (rotation + this.state.turnRightYrotation), run: false, nextBoxNum: -100, nextLevel: -100,
                 };
-                const newArray = [...this.state.camels.filter(element => (camelId !== element.id)), refreshedObj];
                 this.setState(prevState => ({
-                    camels: newArray,
-                    run: false,
+                    camels: [...prevState.camels.filter(element => (camelId !== element.id)), refreshedObj],
                     step: 0
                 }));
+                //console.log("C", camelId, jumpInfo[camelId]);
             } else {
-                jumpInfo.onGround = false;
+                jumpInfo[camelId].onGround = false;
+                //console.log("DD", camelId, jumpInfo[camelId].y, jumpInfo[camelId].world.ground, jumpInfo[camelId].dy);
             }
-
-            return { afterX: jumpInfo.x, afterY: jumpInfo.y, afterZ: jumpInfo.z };
+            return { afterX: jumpInfo[camelId].x, afterY: jumpInfo[camelId].y, afterZ: jumpInfo[camelId].z };
         }
 
         let { afterX, afterY, afterZ } = updateXyz();
+
         camelObj.position.x = afterX;
         camelObj.position.y = afterY;
         camelObj.position.z = afterZ;
 
         if (!isLinearMove) {
-            jumpInfo.r += jumpInfo.rotationSpeed;
-            camelObj.rotation.y = jumpInfo.r;
+            jumpInfo[camelId].dr = jumpInfo[camelId].rotationSpeed; 
+            jumpInfo[camelId].r += jumpInfo[camelId].dr;
+            camelObj.rotation.y = jumpInfo[camelId].r;
+            // console.log("E", camelId, jumpInfo[camelId].r);
         }
     }
     judgeSpeedAndRotate = (levelBeforeJump, level, finalBoxNum) => {
@@ -397,7 +503,7 @@ class ThreeScene extends Component {
                 case 2:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.twoStepSpeed; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.twoStepSpeed - 0.01; }
-                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.03; }
+                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.04; }
                     else { return this.state.jumpPara.twoStepSpeed; }
                 case 3:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.threeStepSpeed; }
@@ -448,54 +554,71 @@ class ThreeScene extends Component {
         }
         else { return { isLinear: true, moveSpeedX: returnSpeedValue(this.state.step), moveSpeedZ: 0 }; }
     }
-    assignMove = () => {
-        const targetCamelId = this.state.targetJumpCamelId;
-        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === targetCamelId)));
+    assignMove = (camelId) => {
+        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === camelId)));
         const camelObj = this.state.camels[targetCamelIndex].camel;
         const rotation = this.state.camels[targetCamelIndex].rotation;
         const levelBeforeJump = this.state.camels[targetCamelIndex].level;
-        const step = this.state.step;
-        let newBoxNum = 0;
-        let findLevel = (boxNum) => {
-            const sameBoxLevels = this.state.camels.map(element => ((element.boxNum === boxNum) ? element.level : 0));
-            return Math.max(...sameBoxLevels) + 1;
-        }
+        const levelAfterJump = this.state.camels[targetCamelIndex].nextLevel;
+        let newBoxNum = this.state.camels[targetCamelIndex].nextBoxNum;
         let findXyz = (boxNum) => {
-            const level = findLevel(boxNum);
             if (boxNum <= 15) {
-                const yLevel = this.state.levelHeight * (parseInt(level) - 1);
+                const yLevel = this.state.levelHeight * (parseInt(levelAfterJump) - 1);
                 return { x: this.state.boardPosLevelOne[boxNum].x, y: this.state.boardPosLevelOne[boxNum].y + yLevel, z: this.state.boardPosLevelOne[boxNum].z };
             } if (boxNum >= 16) {
-                const yLevel = this.state.levelHeight * (parseInt(level) - 1);
+                const yLevel = this.state.levelHeight * (parseInt(levelAfterJump) - 1);
                 return { x: this.state.boardPosLevelOne[0].x, y: this.state.boardPosLevelOne[0].y + yLevel, z: this.state.boardPosLevelOne[0].z };
             }
         }
-
-        switch (parseInt(step)) {
-            case 1:
-                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 1;
-                break;
-            case 2:
-                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 2;
-                break;
-            case 3:
-                newBoxNum = this.state.camels[targetCamelIndex].boxNum + 3;
-                break;
-            default:
-                return;
-        }
-        const { isLinear, moveSpeedX, moveSpeedZ } = this.judgeSpeedAndRotate(levelBeforeJump,findLevel(newBoxNum), newBoxNum);
-        jumpInfo.moveSpeed = moveSpeedX;
-        jumpInfo.moveSpeedZ = moveSpeedZ;
-        this.moveAction(camelObj, targetCamelId, newBoxNum, findLevel(newBoxNum), rotation, findXyz(newBoxNum), isLinear);
+        const { isLinear, moveSpeedX, moveSpeedZ } = this.judgeSpeedAndRotate(levelBeforeJump, levelAfterJump, newBoxNum);
+        //console.log("LLL", camelId, isLinear, moveSpeedX, moveSpeedZ );
+        this.moveAction(camelObj, camelId, newBoxNum, levelAfterJump, rotation, findXyz(newBoxNum), isLinear, moveSpeedX, moveSpeedZ);
 
         return;
 
     }
     move = () => {
+        let assignUpperCamel = () => {
+            if (this.state.upperCamels.length !== 0) {
+                const upperCamel = this.state.upperCamels[0];
+                if (jumpInfo[upperCamel.id].duringJump === false) {
+                    jumpInfo[upperCamel.id].triggerJump = true;
+                    jumpInfo[upperCamel.id].onGround = false;
+                    jumpInfo[upperCamel.id].duringJump = true;
+                    let setNextLevel = (setThisId, step, jumpCamelId) => {
+                        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === setThisId)));
+                        const boxNum = this.state.camels[targetCamelIndex].boxNum;
+                        const nextBoxNum = boxNum + step;
+                        const nextBoxCamels = this.state.camels.filter(element => (element.boxNum === nextBoxNum));
+                        const thisBoxLowerCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level < this.state.camels[targetCamelIndex].level));
+                        const jumpCamel = this.state.camels.find(element => (element.id === jumpCamelId));
+                        if (jumpCamel.boxNum === boxNum && jumpCamel.level < this.state.camels[targetCamelIndex].level) {
+                            return thisBoxLowerCamels.length + nextBoxCamels.length + 1;
+                        } else {
+                            return nextBoxCamels.length + 1;
+                        }
+                    }
+                    let setNextBox = (setThisId, step) => {
+                        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === setThisId)));
+                        const boxNum = this.state.camels[targetCamelIndex].boxNum;
+                        return boxNum + step;
+                    }
+
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (upperCamel.id !== element.id)), { ...prevState.camels.find(element => (upperCamel.id === element.id)), ...{  nextBoxNum: setNextBox(upperCamel.id, prevState.step), nextLevel: setNextLevel(upperCamel.id, prevState.step, this.state.targetJumpCamelId),run: true } }],
+                    }));
+                }
+                this.assignMove(upperCamel.id);
+
+                return;
+            }
+            else { return; }
+        }
+
         if (this.state.camels) {
-            if (this.state.run) {
-                this.assignMove();
+            if (this.state.camels.find(element => (element.run === true)) !== undefined) {
+                this.assignMove(this.state.targetJumpCamelId);
+                assignUpperCamel();
             }
         }
     }
