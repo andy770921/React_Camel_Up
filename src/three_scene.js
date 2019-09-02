@@ -434,7 +434,7 @@ class ThreeScene extends Component {
                 jumpInfo[camelId].x = this.state.camels[camelIndex].position.x;
                 jumpInfo[camelId].z = this.state.camels[camelIndex].position.z;
                 jumpInfo[camelId].y = this.state.camels[camelIndex].position.y;
-                // jumpInfo[camelId].r = this.state.camels[camelIndex].rotation;  因為 rotation 針對在上方的駱駝，可能未設定到，故不需要此行設定
+                jumpInfo[camelId].r = this.state.camels[camelIndex].rotation; 
                 jumpInfo[camelId].world.ground = endXyz.y;
                 jumpInfo[camelId].dy = jumpInfo[camelId].jumpPower;
                 jumpInfo[camelId].dx = -jumpInfo[camelId].moveSpeed;
@@ -461,16 +461,17 @@ class ThreeScene extends Component {
                 jumpInfo[camelId].dr = 0;
                 jumpInfo[camelId].onGround = true;
                 jumpInfo[camelId].duringJump = false;
-                // 以下 rotation 針對在上方的駱駝，可能會未設定到
+ 
                 const refreshedObj = {
                     camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel,
-                    rotation: (isLinearMove) ? (rotation) : (rotation + this.state.turnRightYrotation), run: false, nextBoxNum: -100, nextLevel: -100,
+                    rotation: (isLinearMove) ? (this.state.camels[camelId].rotation) : (this.state.camels[camelId].rotation + this.state.turnRightYrotation), run: false, nextBoxNum: -100, nextLevel: -100,
                 };
                 this.setState(prevState => ({
                     camels: [...prevState.camels.filter(element => (camelId !== element.id)), refreshedObj],
                     step: 0
                 }));
-                //console.log("C", camelId, jumpInfo[camelId]);
+                // console.log("C", camelId, this.state.camels[camelId].rotation);
+                // console.log("C", camelId, jumpInfo[camelId]);
             } else {
                 jumpInfo[camelId].onGround = false;
                 //console.log("DD", camelId, jumpInfo[camelId].y, jumpInfo[camelId].world.ground, jumpInfo[camelId].dy);
