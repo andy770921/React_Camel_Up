@@ -1,0 +1,12 @@
+# Blender MTL File: 'camel.blend'
+# Material Count: 1
+
+newmtl Mat
+Ns 50.000007
+Ka 0.549000 0.549000 0.549000
+Kd 1.000000 0.027097 0.010509
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 1.000000
+d 1.000000
+illum 3
