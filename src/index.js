@@ -1,4 +1,6 @@
-import './index.css';
+import './css/normalize.css';
+import './css/common.css';
+import './css/index.css';
 import React from "react";
 import ReactDOM from "react-dom";
 import ThreeScene from "./three_scene";

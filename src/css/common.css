@@ -1,0 +1,45 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+@font-face {
+    font-family: "PingFangTC-Regular";
+    src: url(PingFang-TC-Regular.otf) format("opentype");
+  }
+  
+  
+  * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* for removing the mobile highlight */
+  }
+  body {
+      font-family: PingFangTC-Regular, sans-serif;
+      line-height: 1.6;
+      letter-spacing: 0.08em;
+      margin: 0px;
+  }
+  
+  a { 
+      text-decoration: none;
+  }
+  
+  p{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+  }
+  button {
+    margin: 0;
+    padding: 0;
+    border: 0px solid transparent; 
+    outline: none;   
+    background-color: transparent;
+  }
+  
+  
+  /* 拉下預選字選單 不顯示藍底 可以換掉白色 */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+  }

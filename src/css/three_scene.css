@@ -1,0 +1,37 @@
+/* ================================= 
+    Base Layout Styles
+==================================== */
+
+.pos-relative {
+    position: relative;
+}
+
+/* 旋轉視角按鈕 */
+
+.camera-area {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    border-radius: 40px;
+    background-color: #ffffff;
+}
+.camera-btn {
+    display: inline-block;
+    width: 50px;
+    font-size: 18px;
+}
+.camera-img {
+    width: 40px;
+    margin-top: 7px;
+}
+
+.camera-area:hover {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: 0 0px 20px rgba(0, 0, 0, .075), inset 0 0 9px rgba(102, 175, 233, .6);
+    box-shadow: 0 0px 20px rgba(0, 0, 0, .075), inset 0 0 9px rgba(102, 175, 233, 0.6)
+}
+/* ================================= 
+  Media Queries
+==================================== */

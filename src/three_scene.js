@@ -1,3 +1,6 @@
+import './css/normalize.css';
+import './css/common.css';
+import './css/three_scene.css';
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -87,7 +90,9 @@ class physicalWorld {
         this.world = world;
     }
 }
-let jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
+
+// 共四隻駱駝，建立四個獨立的座標系，避免移動時交叉干擾
+let jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
 
 class ThreeScene extends Component {
     state = {
@@ -102,7 +107,13 @@ class ThreeScene extends Component {
             { x: 12, y: 17.2, z: 6 }],
         levelHeight: 1.4,
         turnRightYrotation: -1.575,
-        jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.74 }
+        jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.74 },
+        presentPerspective: 0,
+        perspective: [{ x: 12.224269097110634, y: 28.06120661987065, z: 20.449256738974572, rx: -0.9410425931753215, ry: 0.3385117004158438, rz: 0.4275815303874366 },
+            { x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 },
+            { x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 },
+            { x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }
+        ]
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -124,6 +135,7 @@ class ThreeScene extends Component {
 
         // SECOND PERSPECTIVE
         this.camera.position.set(12.224269097110634, 28.06120661987065, 20.449256738974572);
+        this.camera.rotation.set(-0.9410425931753215, 0.3385117004158438, 0.4275815303874366);
 
         // THIRD PERSPECTIVE
         // this.camera.position.set( -10.498, 28.194, -20.637 );
@@ -348,18 +360,18 @@ class ThreeScene extends Component {
             });
 
         // ADD MOUSE CTRL
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.25;
-        this.controls.enableZoom = true;
-        this.controls.update();
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        // this.controls.enableDamping = true;
+        // this.controls.dampingFactor = 0.25;
+        // this.controls.enableZoom = true;
+        // this.controls.update();
 
         this.start();
 
         document.body.addEventListener("keydown", e => {
             let setUpperCamelsArray = (searchThisIdAbove) => {
                 const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === searchThisIdAbove)));
-                const upperCamels = this.state.camels.filter(element => ( element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level > this.state.camels[targetCamelIndex].level));
+                const upperCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level > this.state.camels[targetCamelIndex].level));
                 if (upperCamels) {
                     for (let i = 0; i < upperCamels.length; i++) {
                         const a = upperCamels[i].id;
@@ -369,7 +381,7 @@ class ThreeScene extends Component {
                 }
                 return upperCamels;
             }
-          // 在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
+            // 在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
             switch (e.keyCode) {
                 case 73: // press i
                     {
@@ -377,9 +389,11 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].triggerJump = true;
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)), 
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(0, 1), nextLevel: this.setNextLevel(0, 1, jumpCamelId), run: true } }],
+                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(0, 1), nextLevel: this.setNextLevel(0, 1, jumpCamelId), run: true }
+                            }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -394,8 +408,10 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                    ...{ nextBoxNum: this.setNextBox(0, 2), nextLevel: this.setNextLevel(0, 2, jumpCamelId), run: true } }],
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(0, 2), nextLevel: this.setNextLevel(0, 2, jumpCamelId), run: true }
+                            }],
                             step: 2,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -410,8 +426,10 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(0, 3), nextLevel: this.setNextLevel(0, 3, jumpCamelId), run: true } }],
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(0, 3), nextLevel: this.setNextLevel(0, 3, jumpCamelId), run: true }
+                            }],
                             step: 3,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -426,8 +444,10 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(1, 1), nextLevel: this.setNextLevel(1, 1, jumpCamelId), run: true } }],
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(1, 1), nextLevel: this.setNextLevel(1, 1, jumpCamelId), run: true }
+                            }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -442,8 +462,10 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(1, 2), nextLevel: this.setNextLevel(1, 2, jumpCamelId), run: true } }],
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(1, 2), nextLevel: this.setNextLevel(1, 2, jumpCamelId), run: true }
+                            }],
                             step: 2,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -457,9 +479,11 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].triggerJump = true;
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)), 
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(2, 1), nextLevel: this.setNextLevel(2, 1, jumpCamelId), run: true } }],
+                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(2, 1), nextLevel: this.setNextLevel(2, 1, jumpCamelId), run: true }
+                            }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -474,8 +498,10 @@ class ThreeScene extends Component {
                         jumpInfo[jumpCamelId].onGround = false;
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                                    { ...prevState.camels.find(element => (jumpCamelId === element.id)), 
-                                    ...{ nextBoxNum: this.setNextBox(3, 1), nextLevel: this.setNextLevel(3, 1, jumpCamelId), run: true } }],
+                            {
+                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                                ...{ nextBoxNum: this.setNextBox(3, 1), nextLevel: this.setNextLevel(3, 1, jumpCamelId), run: true }
+                            }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
                             upperCamels: setUpperCamelsArray(jumpCamelId)
@@ -684,13 +710,13 @@ class ThreeScene extends Component {
     move = () => {
         let assignUpperCamel = () => {
             if (this.state.upperCamels.length !== 0) {
-                for (let i = 0; i < this.state.upperCamels.length; i++) {         
+                for (let i = 0; i < this.state.upperCamels.length; i++) {
                     const upperCamel = this.state.upperCamels[i];
                     if (jumpInfo[upperCamel.id].duringJump === true) {
                         this.setState(prevState => ({
                             camels: [...prevState.camels.filter(element => (upperCamel.id !== element.id)), { ...prevState.camels.find(element => (upperCamel.id === element.id)), ...{ nextBoxNum: this.setNextBox(upperCamel.id, prevState.step), nextLevel: this.setNextLevel(upperCamel.id, prevState.step, this.state.targetJumpCamelId), run: true } }],
                         }));
-                    this.assignMove(upperCamel.id);
+                        this.assignMove(upperCamel.id);
                     }
                 }
                 return;
@@ -700,17 +726,56 @@ class ThreeScene extends Component {
 
         if (this.state.camels) {
             if (this.state.camels.find(element => (element.run === true)) !== undefined) {
-                if (jumpInfo[this.state.targetJumpCamelId].onGround === false) {this.assignMove(this.state.targetJumpCamelId);}
+                if (jumpInfo[this.state.targetJumpCamelId].onGround === false) { this.assignMove(this.state.targetJumpCamelId); }
                 assignUpperCamel();
             }
         }
     }
+    moveView = (targetAxisObj) => {
+        // console.log("hi");
+        // console.log(this.camera.position.x, this.camera.position.y, this.camera.position.z);
+        // console.log(this.camera.rotation.x, this.camera.rotation.y, this.camera.rotation.z);
+        let { x, y, z } = this.camera.position;
+        let { x: rx, y: ry, z: rz } = this.camera.rotation;
+        let { x: targetX, y: targetY, z: targetZ, rx: targetRx, ry: targetRy, rz: targetRz } = targetAxisObj;
+        let totalStepSegments = 100;
+        let cameraMove = window.setInterval(() => {
+            if (Math.abs(this.camera.position.x - targetX) < 1 / totalStepSegments * Math.abs(x - targetX)) { window.clearInterval(cameraMove); return; }
+            this.camera.position.x = this.camera.position.x + (targetX - x) / totalStepSegments;
+            this.camera.position.y = this.camera.position.y + (targetY - y) / totalStepSegments;
+            this.camera.position.z = this.camera.position.z + (targetZ - z) / totalStepSegments;
+            this.camera.rotation.x = this.camera.rotation.x + (targetRx - rx) / totalStepSegments;
+            this.camera.rotation.y = this.camera.rotation.y + (targetRy - ry) / totalStepSegments;
+            this.camera.rotation.z = this.camera.rotation.z + (targetRz - rz) / totalStepSegments;
+            }, 1500 / totalStepSegments
+        );
+    }
+    handleViewPlus = () => {
+        this.moveView(this.state.perspective[(this.state.presentPerspective + 1 ) % 4 ]);
+        this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective + 1) % 4 }));
+    }
+    handleViewMinus = () => {
+        this.moveView(this.state.perspective[(this.state.presentPerspective - 1 ) % 4 >= 0?  ((this.state.presentPerspective - 1 ) % 4) : 
+            ((this.state.presentPerspective - 1 ) % 4 + 4) ]);
+        this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective - 1 ) % 4 >= 0?  ((prevState.presentPerspective - 1 ) % 4) : 
+            ((prevState.presentPerspective - 1 ) % 4 + 4) }));
+    }
+
     render() {
         return (
-            <div
-                style={{ width: '90vw', height: '60vh', marginLeft: '5vw' }}
-                ref={(mount) => { this.mount = mount }}
-            />
+            <div>
+                <div className="pos-relative" style={{ width: '90vw', height: '60vh', marginLeft: '5vw' }} ref={(mount) => { this.mount = mount }}>
+                <div className="camera-area">
+                    <button className="camera-btn" onClick={this.handleViewPlus} >＋</button>
+                    <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
+                    <button className="camera-btn" onClick={this.handleViewMinus} >&#8722;</button>
+                </div>
+                </div>
+                {/* <button onClick={() => this.moveView({ x: 12.224269097110634, y: 28.06120661987065, z: 20.449256738974572, rx: -0.9410425931753215, ry: 0.3385117004158438, rz: 0.4275815303874366 }) }> First View </button>
+                <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
+                <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
+                <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
+            </div>
         )
     }
 }
