@@ -110,9 +110,9 @@ class ThreeScene extends Component {
         jumpPara: { oneStepSpeed: 0.252, twoStepSpeed: 0.501, threeStepSpeed: 0.74 },
         presentPerspective: 0,
         perspective: [{ x: 12.224269097110634, y: 28.06120661987065, z: 20.449256738974572, rx: -0.9410425931753215, ry: 0.3385117004158438, rz: 0.4275815303874366 },
-            { x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 },
-            { x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 },
-            { x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }
+        { x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 },
+        { x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 },
+        { x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }
         ]
     }
     componentDidMount() {
@@ -359,12 +359,88 @@ class ThreeScene extends Component {
                 });
             });
 
+        // ADD DICE
+
+        this.objLoader7 = new OBJLoader();
+        this.objLoader7.setPath('asset/dice_obj/');
+        this.mtlLoader7 = new MTLLoader();
+        this.mtlLoader7.setPath('asset/dice_obj/');
+        new Promise((resolve) => {
+            this.mtlLoader7.load('red-dice.mtl', (materials) => {
+                resolve(materials);
+            });
+        })
+            .then((materials) => {
+                materials.preload();
+                this.objLoader7.setMaterials(materials);
+                this.objLoader7.load('dice.obj', (object) => {
+                    object.scale.set(1, 1, 1);
+                    object.position.set(9, 20, 12);
+                    this.scene.add(object);
+                });
+            });
+
+        this.objLoader8 = new OBJLoader();
+        this.objLoader8.setPath('asset/dice_obj/');
+        this.mtlLoader8 = new MTLLoader();
+        this.mtlLoader8.setPath('asset/dice_obj/');
+        new Promise((resolve) => {
+            this.mtlLoader8.load('blue-dice.mtl', (materials) => {
+                resolve(materials);
+            });
+        })
+            .then((materials) => {
+                materials.preload();
+                this.objLoader8.setMaterials(materials);
+                this.objLoader8.load('dice.obj', (object) => {
+                    object.scale.set(1, 1, 1);
+                    object.position.set(6, 20, 12);
+                    this.scene.add(object);
+                });
+            });
+        this.objLoader9 = new OBJLoader();
+        this.objLoader9.setPath('asset/dice_obj/');
+        this.mtlLoader9 = new MTLLoader();
+        this.mtlLoader9.setPath('asset/dice_obj/');
+        new Promise((resolve) => {
+            this.mtlLoader9.load('orange-dice.mtl', (materials) => {
+                resolve(materials);
+            });
+        })
+            .then((materials) => {
+                materials.preload();
+                this.objLoader9.setMaterials(materials);
+                this.objLoader9.load('dice.obj', (object) => {
+                    object.scale.set(1, 1, 1);
+                    object.position.set(3, 20, 12);
+                    this.scene.add(object);
+                });
+            });
+        this.objLoader10 = new OBJLoader();
+        this.objLoader10.setPath('asset/dice_obj/');
+        this.mtlLoader10 = new MTLLoader();
+        this.mtlLoader10.setPath('asset/dice_obj/');
+        new Promise((resolve) => {
+            this.mtlLoader10.load('green-dice.mtl', (materials) => {
+                resolve(materials);
+            });
+        })
+            .then((materials) => {
+                materials.preload();
+                this.objLoader10.setMaterials(materials);
+                this.objLoader10.load('dice.obj', (object) => {
+                    object.scale.set(1, 1, 1);
+                    object.position.set(0, 20, 12);
+                    this.scene.add(object);
+                });
+            });
+
         // ADD MOUSE CTRL
-        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        // this.controls.enableDamping = true;
-        // this.controls.dampingFactor = 0.25;
-        // this.controls.enableZoom = true;
-        // this.controls.update();
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.25;
+        this.controls.enableZoom = true;
+        this.controls.update();
 
         this.start();
 
@@ -747,29 +823,31 @@ class ThreeScene extends Component {
             this.camera.rotation.x = this.camera.rotation.x + (targetRx - rx) / totalStepSegments;
             this.camera.rotation.y = this.camera.rotation.y + (targetRy - ry) / totalStepSegments;
             this.camera.rotation.z = this.camera.rotation.z + (targetRz - rz) / totalStepSegments;
-            }, 1500 / totalStepSegments
+        }, 1500 / totalStepSegments
         );
     }
     handleViewPlus = () => {
-        this.moveView(this.state.perspective[(this.state.presentPerspective + 1 ) % 4 ]);
+        this.moveView(this.state.perspective[(this.state.presentPerspective + 1) % 4]);
         this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective + 1) % 4 }));
     }
     handleViewMinus = () => {
-        this.moveView(this.state.perspective[(this.state.presentPerspective - 1 ) % 4 >= 0?  ((this.state.presentPerspective - 1 ) % 4) : 
-            ((this.state.presentPerspective - 1 ) % 4 + 4) ]);
-        this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective - 1 ) % 4 >= 0?  ((prevState.presentPerspective - 1 ) % 4) : 
-            ((prevState.presentPerspective - 1 ) % 4 + 4) }));
+        this.moveView(this.state.perspective[(this.state.presentPerspective - 1) % 4 >= 0 ? ((this.state.presentPerspective - 1) % 4) :
+            ((this.state.presentPerspective - 1) % 4 + 4)]);
+        this.setState(prevState => ({
+            presentPerspective: (prevState.presentPerspective - 1) % 4 >= 0 ? ((prevState.presentPerspective - 1) % 4) :
+                ((prevState.presentPerspective - 1) % 4 + 4)
+        }));
     }
 
     render() {
         return (
             <div>
                 <div className="pos-relative" style={{ width: '90vw', height: '60vh', marginLeft: '5vw' }} ref={(mount) => { this.mount = mount }}>
-                <div className="camera-area">
-                    <button className="camera-btn" onClick={this.handleViewPlus} >＋</button>
-                    <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
-                    <button className="camera-btn" onClick={this.handleViewMinus} >&#8722;</button>
-                </div>
+                    <div className="camera-area">
+                        <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
+                        <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
+                        <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
+                    </div>
                 </div>
                 {/* <button onClick={() => this.moveView({ x: 12.224269097110634, y: 28.06120661987065, z: 20.449256738974572, rx: -0.9410425931753215, ry: 0.3385117004158438, rz: 0.4275815303874366 }) }> First View </button>
                 <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>

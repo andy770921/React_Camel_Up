@@ -25,7 +25,11 @@
     width: 40px;
     margin-top: 7px;
 }
-
+.arrow-img {
+    width: 35px;
+    margin-top: 7px;
+    padding: 7px;
+}
 .camera-area:hover {
     border-color: #66afe9;
     outline: 0;
