@@ -113,7 +113,8 @@ class ThreeScene extends Component {
         { x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 },
         { x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 },
         { x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }
-        ]
+        ],
+        pyramid: {}
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -240,7 +241,7 @@ class ThreeScene extends Component {
                 });
             });
 
-        // ADD CENTER
+        // ADD PYRAMID
         this.objLoader2 = new OBJLoader();
         this.objLoader2.setPath('asset/center_obj/');
         this.mtlLoader2 = new MTLLoader();
@@ -256,6 +257,8 @@ class ThreeScene extends Component {
                 this.objLoader2.load('Aztec Pyramid.obj', (object) => {
                     object.scale.set(0.25, 0.25, 0.25);
                     object.position.set(0, 15, 0);
+                    const newObj = { pyramidObj: object, position: { x: 0, y: 15, z: 0 }, aboveGround: true, triggerMoving: false };
+                    this.setState({ pyramid: newObj });
                     this.scene.add(object);
                 });
             });
@@ -806,6 +809,30 @@ class ThreeScene extends Component {
                 assignUpperCamel();
             }
         }
+        if (this.state.pyramid && this.state.pyramid.triggerMoving === true) { this.movePyramid(); }
+
+    }
+    assignPyramid = () => {
+        this.setState(prevState => ({
+            pyramid: { ...prevState.pyramid, ...{ triggerMoving: true } }
+        }));
+    }
+    movePyramid = () => {
+        if (this.state.pyramid.aboveGround === true) {
+            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y - 0.1;
+            if (this.state.pyramid.pyramidObj.position.y < 9) {
+                this.setState(prevState => ({
+                    pyramid: { ...prevState.pyramid, ...{ aboveGround: false, triggerMoving: false } }
+                }));
+            }
+        } else if (this.state.pyramid.aboveGround === false){
+            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y + 0.1;
+            if (this.state.pyramid.pyramidObj.position.y > 15) {
+                this.setState(prevState => ({
+                    pyramid: { ...prevState.pyramid, ...{ aboveGround: true, triggerMoving: false } }
+                }));
+            }
+        }
     }
     moveView = (targetAxisObj) => {
         // console.log("hi");
@@ -849,8 +876,8 @@ class ThreeScene extends Component {
                         <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
                     </div>
                 </div>
-                {/* <button onClick={() => this.moveView({ x: 12.224269097110634, y: 28.06120661987065, z: 20.449256738974572, rx: -0.9410425931753215, ry: 0.3385117004158438, rz: 0.4275815303874366 }) }> First View </button>
-                <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
+                <button onClick={this.assignPyramid}> movePyramid </button>
+                {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
                 <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
                 <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
             </div>
