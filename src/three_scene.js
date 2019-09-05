@@ -1,8 +1,13 @@
 import './css/normalize.css';
 import './css/common.css';
 import './css/three_scene.css';
+import './three-usage/debug.js';
+import './three-usage/dice.js';
+import { DiceManager, DiceD6 } from './three-usage/dice.js';
 import React, { Component } from 'react';
 import * as THREE from 'three';
+import * as CANNON from "cannon";
+import { TimelineMax, CSSPlugin, ScrollToPlugin, Draggable } from "gsap/all";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
@@ -114,7 +119,9 @@ class ThreeScene extends Component {
         { x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 },
         { x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }
         ],
-        pyramid: {}
+        pyramid: {},
+        dices: [],
+        rigidBody: {}
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -131,31 +138,26 @@ class ThreeScene extends Component {
             1000
         );
 
-        // FIRST PERSPECTIVE
-        // this.camera.position.set( 0.025, 32.272, 16.959 );
-
-        // SECOND PERSPECTIVE
+        // SET PERSPECTIVE
         this.camera.position.set(12.224269097110634, 28.06120661987065, 20.449256738974572);
         this.camera.rotation.set(-0.9410425931753215, 0.3385117004158438, 0.4275815303874366);
-
-        // THIRD PERSPECTIVE
-        // this.camera.position.set( -10.498, 28.194, -20.637 );
 
         // ADD LIGHT
         this.light = new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
         this.scene.add(this.light);
         // this.light = new THREE.AmbientLight(0xffffff); // soft white light
         // this.scene.add(this.light);
+
         // ADD RENDERER
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setClearColor('#000000');
         this.renderer.setSize(width, height);
         this.mount.appendChild(this.renderer.domElement);
+
         // ADD CUBE
         const cubedlength = 6;
         const cubeDepth = 15.5;
         const geometry = new THREE.BoxGeometry(cubedlength, 1.5, cubedlength);
-        //const material = new THREE.MeshBasicMaterial({ color: '#433F81' });
         const material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/sand/sand15.jpg'), side: THREE.DoubleSide });
         const materialTex = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/sand/sand12.jpg'), side: THREE.DoubleSide });
         this.cube = new THREE.Mesh(geometry, material);
@@ -379,6 +381,10 @@ class ThreeScene extends Component {
                 this.objLoader7.load('dice.obj', (object) => {
                     object.scale.set(1, 1, 1);
                     object.position.set(9, 20, 12);
+                    const newObj = { diceObj: object, id: 51, color: 'red' };
+                    this.setState(prevState => ({
+                        dices: [...prevState.dices, newObj]
+                    }));
                     this.scene.add(object);
                 });
             });
@@ -398,6 +404,10 @@ class ThreeScene extends Component {
                 this.objLoader8.load('dice.obj', (object) => {
                     object.scale.set(1, 1, 1);
                     object.position.set(6, 20, 12);
+                    const newObj = { diceObj: object, id: 52, color: 'blue' };
+                    this.setState(prevState => ({
+                        dices: [...prevState.dices, newObj]
+                    }));
                     this.scene.add(object);
                 });
             });
@@ -416,6 +426,10 @@ class ThreeScene extends Component {
                 this.objLoader9.load('dice.obj', (object) => {
                     object.scale.set(1, 1, 1);
                     object.position.set(3, 20, 12);
+                    const newObj = { diceObj: object, id: 53, color: 'orange' };
+                    this.setState(prevState => ({
+                        dices: [...prevState.dices, newObj]
+                    }));
                     this.scene.add(object);
                 });
             });
@@ -434,10 +448,21 @@ class ThreeScene extends Component {
                 this.objLoader10.load('dice.obj', (object) => {
                     object.scale.set(1, 1, 1);
                     object.position.set(0, 20, 12);
+                    const newObj = { diceObj: object, id: 54, color: 'green' };
+                    this.setState(prevState => ({
+                        dices: [...prevState.dices, newObj]
+                    }));
                     this.scene.add(object);
                 });
             });
 
+        // ADD CYLINDER
+
+        const cylinderGeometry = new THREE.CylinderGeometry(5, 13, 15, 8);
+        const cylinderMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/sand/test.jpg'), side: THREE.DoubleSide });
+        this.cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+        this.cylinder.position.set(0, 9, 0);
+        this.scene.add(this.cylinder);
         // ADD MOUSE CTRL
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableDamping = true;
@@ -446,6 +471,81 @@ class ThreeScene extends Component {
         this.controls.update();
 
         this.start();
+
+        // ADD CANNON ENGINE
+        this.world = new CANNON.World();
+        this.world.gravity.set(0, -10, 0);
+        this.world.broadphase = new CANNON.NaiveBroadphase();
+
+        // ADD CANNON RIGID BODY
+
+        // let box_cm = new CANNON.Material();
+
+        // const boxShape = new CANNON.Box(new CANNON.Vec3(1, 1, 1));
+        // const boxBody = new CANNON.Body({
+        //     mass: 5,
+        //     position: new CANNON.Vec3(12, 19, 12),
+        //     shape: boxShape,
+        //     material: box_cm
+        // });
+
+        // //boxBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), -2 * Math.PI / 360 * 45 );
+
+        // this.world.add(boxBody);
+
+        let groundShape = new CANNON.Plane();
+        let ground_cm = new CANNON.Material();
+        let groundBody = new CANNON.Body({
+            mass: 0,
+            position: new CANNON.Vec3(12, 18, 12),
+            shape: groundShape,
+            material: ground_cm
+        });
+
+        // setFromAxisAngle 旋轉 X 軸 -90 度
+        groundBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -2 * Math.PI / 360 * 90);
+
+        this.world.add(groundBody);
+
+        // ADD CANNON OUTER FRAME
+        this.cannonDebugRenderer = new THREE.CannonDebugRenderer(this.scene, this.world);
+
+        // ADD TWEEN LIB
+
+        this.tween = new TimelineMax();
+
+        DiceManager.setWorld(this.world);
+        console.log(DiceManager);
+        // ADD RIGID BODY CONTACT
+
+        let box_ground = new CANNON.ContactMaterial(ground_cm, DiceManager.diceBodyMaterial, { // Step 3 : 兩個剛體碰撞後的摩擦力、彈跳力
+            friction: 1,
+            restitution: 0.3
+        });
+        this.world.addContactMaterial(box_ground);
+
+        // Create a dice
+        this.dice = new DiceD6({ size: 1.3, backColor: 'rgba(255, 255, 0, 0)' });
+        this.scene.add(this.dice.getObject());
+
+        // If you want to place the mesh somewhere else, you have to update the body
+        this.dice.getObject().position.x = 12;
+        this.dice.getObject().position.y = 20;
+        this.dice.getObject().position.z = 12;
+        // this.dice.getObject().rotation.x = 20 * Math.PI / 180;
+        this.dice.updateBodyFromMesh();
+
+        // ADD to REACT STATE
+        this.setState(prevState => ({
+            rigidBody: { obj: this.dice.object.body, id: 61 }
+        }));
+
+        // ADD to REACT STATE
+
+        // this.setState(prevState => ({
+        //     boxBodyInfo: { boxBody: boxBody, initPosition: boxBody.position, initRotation: boxBody.quaternion }
+        // }));
+
 
         document.body.addEventListener("keydown", e => {
             let setUpperCamelsArray = (searchThisIdAbove) => {
@@ -608,6 +708,9 @@ class ThreeScene extends Component {
         this.renderScene();
         this.move();
         this.frameId = window.requestAnimationFrame(this.animate);
+        this.world.step(1 / 60);            // for CANNON engine: Update physics
+        this.cannonDebugRenderer.update();    // for CANNON engine: Update debug frame
+        this.dice.updateMeshFromBody(); // Call this after updating the physics world for rearranging the mesh according to the body
     }
     renderScene = () => {
         this.renderer.render(this.scene, this.camera);
@@ -810,6 +913,28 @@ class ThreeScene extends Component {
             }
         }
         if (this.state.pyramid && this.state.pyramid.triggerMoving === true) { this.movePyramid(); }
+        if (this.state.rigidBody && this.state.dices.length === 4) {
+            this.state.dices[0].diceObj.position.copy(this.state.rigidBody.obj.position);
+            this.state.dices[0].diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
+        }
+
+    }
+
+    rollDice = () => {
+        var diceValues = [];
+        this.dice.getObject().position.x = 12;
+        this.dice.getObject().position.y = 20;
+        this.dice.getObject().position.z = 12;
+        this.dice.getObject().quaternion.x = (Math.random() * 90 - 45) * Math.PI / 180;
+        this.dice.getObject().quaternion.z = (Math.random() * 90 - 45) * Math.PI / 180;
+        this.dice.updateBodyFromMesh();
+        if (this.state.dices[0].diceObj) { this.dice.updateBodyFromInsertDiceObj(this.state.dices[0].diceObj); }
+        let rand = Math.random() * 2;
+        let yRand = Math.random() * 6;
+        this.dice.getObject().body.velocity.set(rand, 4 + yRand, rand);
+        this.dice.getObject().body.angularVelocity.set(10 * Math.random() + 5, 10 * Math.random() + 5, 10 * Math.random() + 5);
+        diceValues.push({ dice: this.dice, value: 2 });
+        DiceManager.prepareValues(diceValues, this.state.dices[0].diceObj);
 
     }
     assignPyramid = () => {
@@ -825,7 +950,7 @@ class ThreeScene extends Component {
                     pyramid: { ...prevState.pyramid, ...{ aboveGround: false, triggerMoving: false } }
                 }));
             }
-        } else if (this.state.pyramid.aboveGround === false){
+        } else if (this.state.pyramid.aboveGround === false) {
             this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y + 0.1;
             if (this.state.pyramid.pyramidObj.position.y > 15) {
                 this.setState(prevState => ({
@@ -835,7 +960,6 @@ class ThreeScene extends Component {
         }
     }
     moveView = (targetAxisObj) => {
-        // console.log("hi");
         // console.log(this.camera.position.x, this.camera.position.y, this.camera.position.z);
         // console.log(this.camera.rotation.x, this.camera.rotation.y, this.camera.rotation.z);
         let { x, y, z } = this.camera.position;
@@ -865,7 +989,50 @@ class ThreeScene extends Component {
                 ((prevState.presentPerspective - 1) % 4 + 4)
         }));
     }
-
+    judgeDiceNumber = () => {
+        // console.log(this.state.dices[0].diceObj.quaternion.x, this.state.dices[0].diceObj.quaternion.y, this.state.dices[0].diceObj.quaternion.z, this.state.dices[0].diceObj.quaternion.w);
+        // console.log(this.state.dices[0].diceObj.rotation.x, this.state.dices[0].diceObj.rotation.y, this.state.dices[0].diceObj.rotation.z);
+        const { x, y, z, w } = this.state.dices[0].diceObj.quaternion;
+        if (Math.abs(x) - Math.abs(w) < 0.01 && Math.abs(y) - Math.abs(z) < 0.01) {
+            console.log(Math.abs(x) - Math.abs(w), Math.abs(y) - Math.abs(z));
+            console.log("dice number is 1");
+        } else if ((Math.abs(x) < 0.01 && Math.abs(z) < 0.01) || Math.abs(w) < 0.01) {
+            console.log("dice number is 2");
+        } else if (Math.abs(x) - Math.abs(y) < 0.01 && Math.abs(z) - Math.abs(w) < 0.01) {
+            console.log(Math.abs(x) - Math.abs(y), Math.abs(z) - Math.abs(w));
+            console.log("dice number is 3");
+        } else {
+            console.log("I don't know this dice number");
+        }
+        // this.tween.to(this.state.boxBodyInfo.boxBody.quaternion, 2, {
+        //     x: 1,
+        //     // y: 0,
+        //     z: 1,
+        //     w: 0,
+        //     // x: 12,
+        //     // y: 26,
+        //     // z: 12,
+        //     onStart: () => {
+        //         console.log("start");
+        //         //   this.state.boxBodyInfo.boxBody.quaternion = this.state.boxBodyInfo.initQuaternion;
+        //         //   this.state.boxBodyInfo.boxBody.position = this.state.boxBodyInfo.initPosition;
+        //     },
+        //     onUpdate: () => {
+        //         //console.log("update");
+        //         console.log(this.state.boxBodyInfo.boxBody.position);
+        //         // 归 0 设置
+        //         //   this.state.boxBodyInfo.boxBody.velocity.setZero();
+        //         //   this.state.boxBodyInfo.boxBody.initVelocity.setZero();
+        //         //   this.state.boxBodyInfo.boxBody.angularVelocity.setZero();
+        //         //   this.state.boxBodyInfo.boxBody.initAngularVelocity.setZero();
+        //         //   this.state.boxBodyInfo.boxBody.angularFactor.setZero();
+        //     },
+        //     onComplete: () => {
+        //         console.log(this.state.boxBodyInfo.boxBody);
+        //         console.log("hi");
+        //     }
+        // });
+    }
     render() {
         return (
             <div>
@@ -877,10 +1044,12 @@ class ThreeScene extends Component {
                     </div>
                 </div>
                 <button onClick={this.assignPyramid}> movePyramid </button>
+                <button onClick={this.rollDice}> roll </button>
+                <button onClick={this.judgeDiceNumber}> judge </button>
                 {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
                 <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
                 <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
-            </div>
+            </div >
         )
     }
 }
