@@ -36,6 +36,51 @@
     -webkit-box-shadow: 0 0px 20px rgba(0, 0, 0, .075), inset 0 0 9px rgba(102, 175, 233, .6);
     box-shadow: 0 0px 20px rgba(0, 0, 0, .075), inset 0 0 9px rgba(102, 175, 233, 0.6)
 }
+
+.dice-area {
+    position: absolute;
+    bottom: -18px;
+    right: -8px;
+    /* bottom: -57px;
+    left: calc(50% - 435px/2); */
+}
+
+.dice-his-img {
+    width: 435px;
+}
+
+
+.dice-color-img1 {
+    position: absolute;
+    top: 31px;
+    left: 45px;
+    width: 56px;
+    height: 50px;
+}
+
+.dice-color-img2 {
+    position: absolute;
+    top: 31px;
+    left: calc(95px + 45px);
+    width: 56px;
+    height: 50px;
+}
+
+.dice-color-img3 {
+    position: absolute;
+    top: 31px;
+    left: calc(95px*2 + 45px);
+    width: 56px;
+    height: 50px;
+}
+
+.dice-color-img4 {
+    position: absolute;
+    top: 31px;
+    left: calc(95px*3 + 46px);
+    width: 56px;
+    height: 50px;
+}
 /* ================================= 
   Media Queries
 ==================================== */

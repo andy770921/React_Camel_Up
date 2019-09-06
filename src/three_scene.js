@@ -379,7 +379,7 @@ class ThreeScene extends Component {
                 materials.preload();
                 this.objLoader7.setMaterials(materials);
                 this.objLoader7.load('dice.obj', (object) => {
-                    object.scale.set(1, 1, 1);
+                    object.scale.set(2, 2, 2);
                     object.position.set(9, 20, 12);
                     const newObj = { diceObj: object, id: 51, color: 'red' };
                     this.setState(prevState => ({
@@ -402,7 +402,7 @@ class ThreeScene extends Component {
                 materials.preload();
                 this.objLoader8.setMaterials(materials);
                 this.objLoader8.load('dice.obj', (object) => {
-                    object.scale.set(1, 1, 1);
+                    object.scale.set(2, 2, 2);
                     object.position.set(6, 20, 12);
                     const newObj = { diceObj: object, id: 52, color: 'blue' };
                     this.setState(prevState => ({
@@ -424,7 +424,7 @@ class ThreeScene extends Component {
                 materials.preload();
                 this.objLoader9.setMaterials(materials);
                 this.objLoader9.load('dice.obj', (object) => {
-                    object.scale.set(1, 1, 1);
+                    object.scale.set(2, 2, 2);
                     object.position.set(3, 20, 12);
                     const newObj = { diceObj: object, id: 53, color: 'orange' };
                     this.setState(prevState => ({
@@ -446,7 +446,7 @@ class ThreeScene extends Component {
                 materials.preload();
                 this.objLoader10.setMaterials(materials);
                 this.objLoader10.load('dice.obj', (object) => {
-                    object.scale.set(1, 1, 1);
+                    object.scale.set(2, 2, 2);
                     object.position.set(0, 20, 12);
                     const newObj = { diceObj: object, id: 54, color: 'green' };
                     this.setState(prevState => ({
@@ -459,7 +459,7 @@ class ThreeScene extends Component {
         // ADD CYLINDER
 
         const cylinderGeometry = new THREE.CylinderGeometry(5, 13, 15, 8);
-        const cylinderMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/sand/test.jpg'), side: THREE.DoubleSide });
+        const cylinderMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/rock/rock4.jpg'), side: THREE.DoubleSide });
         this.cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
         this.cylinder.position.set(0, 9, 0);
         this.scene.add(this.cylinder);
@@ -497,7 +497,7 @@ class ThreeScene extends Component {
         let ground_cm = new CANNON.Material();
         let groundBody = new CANNON.Body({
             mass: 0,
-            position: new CANNON.Vec3(12, 18, 12),
+            position: new CANNON.Vec3(0, 16.5, 0),
             shape: groundShape,
             material: ground_cm
         });
@@ -512,26 +512,26 @@ class ThreeScene extends Component {
 
         // ADD TWEEN LIB
 
-        this.tween = new TimelineMax();
+        // this.tween = new TimelineMax();
 
-        DiceManager.setWorld(this.world);
-        console.log(DiceManager);
         // ADD RIGID BODY CONTACT
 
+        DiceManager.setWorld(this.world);
+
         let box_ground = new CANNON.ContactMaterial(ground_cm, DiceManager.diceBodyMaterial, { // Step 3 : 兩個剛體碰撞後的摩擦力、彈跳力
-            friction: 1,
-            restitution: 0.3
+            friction: 100,
+            restitution: 0.1
         });
         this.world.addContactMaterial(box_ground);
 
         // Create a dice
-        this.dice = new DiceD6({ size: 1.3, backColor: 'rgba(255, 255, 0, 0)' });
+        this.dice = new DiceD6({ size: 2.6, backColor: 'rgba(255, 255, 0, 0)' });
         this.scene.add(this.dice.getObject());
 
         // If you want to place the mesh somewhere else, you have to update the body
-        this.dice.getObject().position.x = 12;
-        this.dice.getObject().position.y = 20;
-        this.dice.getObject().position.z = 12;
+        this.dice.getObject().position.x = 0;
+        this.dice.getObject().position.y = 18;
+        this.dice.getObject().position.z = 0;
         // this.dice.getObject().rotation.x = 20 * Math.PI / 180;
         this.dice.updateBodyFromMesh();
 
@@ -546,7 +546,7 @@ class ThreeScene extends Component {
         //     boxBodyInfo: { boxBody: boxBody, initPosition: boxBody.position, initRotation: boxBody.quaternion }
         // }));
 
-
+        window.addEventListener('resize', this.onWindowResize, false);
         document.body.addEventListener("keydown", e => {
             let setUpperCamelsArray = (searchThisIdAbove) => {
                 const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === searchThisIdAbove)));
@@ -692,6 +692,8 @@ class ThreeScene extends Component {
             }
         });
     }
+
+    
     componentWillUnmount() {
         this.stop();
         this.mount.removeChild(this.renderer.domElement);
@@ -703,6 +705,14 @@ class ThreeScene extends Component {
     }
     stop = () => {
         cancelAnimationFrame(this.frameId);
+    }    
+    onWindowResize = () => {
+        // Camera frustum aspect ratio
+        this.camera.aspect = this.mount.clientWidth / this.mount.clientHeight;
+        // After making changes to aspect
+        this.camera.updateProjectionMatrix();
+        // Reset size
+        this.renderer.setSize(window.innerWidth*0.9 , window.innerHeight*0.7);
     }
     animate = () => {
         this.renderScene();
@@ -922,9 +932,9 @@ class ThreeScene extends Component {
 
     rollDice = () => {
         var diceValues = [];
-        this.dice.getObject().position.x = 12;
+        this.dice.getObject().position.x = 0;
         this.dice.getObject().position.y = 20;
-        this.dice.getObject().position.z = 12;
+        this.dice.getObject().position.z = 0;
         this.dice.getObject().quaternion.x = (Math.random() * 90 - 45) * Math.PI / 180;
         this.dice.getObject().quaternion.z = (Math.random() * 90 - 45) * Math.PI / 180;
         this.dice.updateBodyFromMesh();
@@ -1036,11 +1046,18 @@ class ThreeScene extends Component {
     render() {
         return (
             <div>
-                <div className="pos-relative" style={{ width: '90vw', height: '60vh', marginLeft: '5vw' }} ref={(mount) => { this.mount = mount }}>
+                <div className="pos-relative" style={{ width: '90vw', height: '70vh', marginLeft: '5vw', marginTop: '5vh', marginBottom: '15vh' }} ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
                         <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
                         <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
                         <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
+                    </div>
+                    <div className="dice-area">
+                        <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
+                        <div><img className="dice-color-img1" src="./imgs/red_1.png"></img></div>
+                        <div><img className="dice-color-img2" src="./imgs/blue_1.png"></img></div>
+                        <div><img className="dice-color-img3" src="./imgs/orange_1.png"></img></div>
+                        <div><img className="dice-color-img4" src="./imgs/green_1.png"></img></div>
                     </div>
                 </div>
                 <button onClick={this.assignPyramid}> movePyramid </button>

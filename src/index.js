@@ -133,7 +133,7 @@ class App extends React.Component {
     }
     render () {
         return (
-            <div>
+            <div className="background">
                 <p> My name is { this.state.name } and I am { this.state.age }. </p>
                 <ThreeScene />
 
