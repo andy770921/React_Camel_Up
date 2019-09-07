@@ -148,7 +148,7 @@ class DiceObject {
     }
 
     isFinished() {
-        let threshold = 1;
+        let threshold = 0.01;
         
         let angularVelocity = this.object.body.angularVelocity;
         let velocity = this.object.body.velocity;

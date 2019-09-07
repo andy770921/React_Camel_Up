@@ -121,7 +121,8 @@ class ThreeScene extends Component {
         ],
         pyramid: {},
         dices: [],
-        rigidBody: {}
+        rigidBody: {},
+        targetDiceObj: {}
     }
     componentDidMount() {
         const width = this.mount.clientWidth;
@@ -281,7 +282,7 @@ class ThreeScene extends Component {
                 this.objLoader3.load('camel.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
                     object.position.set(12, 17.2, 12);
-                    const newObj = { camel: object, id: 0, position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
+                    const newObj = { camel: object, id: 0, color: 'orange', position: { x: 12, y: 17.2, z: 12 }, boxNum: 0, level: 1, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -306,7 +307,7 @@ class ThreeScene extends Component {
                 this.objLoader4.load('camel.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
                     object.position.set(12, 18.6, 12);
-                    const newObj = { camel: object, id: 1, position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 2, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
+                    const newObj = { camel: object, id: 1, color: 'green', position: { x: 12, y: 18.6, z: 12 }, boxNum: 0, level: 2, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -331,7 +332,7 @@ class ThreeScene extends Component {
                 this.objLoader5.load('camel.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
                     object.position.set(12, 20, 12);
-                    const newObj = { camel: object, id: 2, position: { x: 12, y: 20, z: 12 }, boxNum: 0, level: 3, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
+                    const newObj = { camel: object, id: 2, color: 'red', position: { x: 12, y: 20, z: 12 }, boxNum: 0, level: 3, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -355,7 +356,7 @@ class ThreeScene extends Component {
                 this.objLoader6.load('camel.obj', (object) => {
                     object.scale.set(0.7, 0.5, 0.7);
                     object.position.set(12, 21.4, 12);
-                    const newObj = { camel: object, id: 3, position: { x: 12, y: 21.4, z: 12 }, boxNum: 0, level: 4, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
+                    const newObj = { camel: object, id: 3, color: 'blue', position: { x: 12, y: 21.4, z: 12 }, boxNum: 0, level: 4, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0 };
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
@@ -366,12 +367,13 @@ class ThreeScene extends Component {
 
         // ADD DICE
 
+
         this.objLoader7 = new OBJLoader();
         this.objLoader7.setPath('asset/dice_obj/');
         this.mtlLoader7 = new MTLLoader();
         this.mtlLoader7.setPath('asset/dice_obj/');
         new Promise((resolve) => {
-            this.mtlLoader7.load('red-dice.mtl', (materials) => {
+            this.mtlLoader7.load('orange-dice.mtl', (materials) => {
                 resolve(materials);
             });
         })
@@ -380,21 +382,21 @@ class ThreeScene extends Component {
                 this.objLoader7.setMaterials(materials);
                 this.objLoader7.load('dice.obj', (object) => {
                     object.scale.set(2, 2, 2);
-                    object.position.set(9, 20, 12);
-                    const newObj = { diceObj: object, id: 51, color: 'red' };
+                    object.position.set(7.6 - 15.2, 16, 7.6);
+                    object.visible = false;
+                    const newObj = { diceObj: object, id: 51, color: 'orange' };
                     this.setState(prevState => ({
                         dices: [...prevState.dices, newObj]
                     }));
                     this.scene.add(object);
                 });
             });
-
         this.objLoader8 = new OBJLoader();
         this.objLoader8.setPath('asset/dice_obj/');
         this.mtlLoader8 = new MTLLoader();
         this.mtlLoader8.setPath('asset/dice_obj/');
         new Promise((resolve) => {
-            this.mtlLoader8.load('blue-dice.mtl', (materials) => {
+            this.mtlLoader8.load('green-dice.mtl', (materials) => {
                 resolve(materials);
             });
         })
@@ -403,8 +405,9 @@ class ThreeScene extends Component {
                 this.objLoader8.setMaterials(materials);
                 this.objLoader8.load('dice.obj', (object) => {
                     object.scale.set(2, 2, 2);
-                    object.position.set(6, 20, 12);
-                    const newObj = { diceObj: object, id: 52, color: 'blue' };
+                    object.position.set(7.6, 16, 7.6);
+                    object.visible = false;
+                    const newObj = { diceObj: object, id: 52, color: 'green' };
                     this.setState(prevState => ({
                         dices: [...prevState.dices, newObj]
                     }));
@@ -416,7 +419,7 @@ class ThreeScene extends Component {
         this.mtlLoader9 = new MTLLoader();
         this.mtlLoader9.setPath('asset/dice_obj/');
         new Promise((resolve) => {
-            this.mtlLoader9.load('orange-dice.mtl', (materials) => {
+            this.mtlLoader9.load('red-dice.mtl', (materials) => {
                 resolve(materials);
             });
         })
@@ -425,20 +428,24 @@ class ThreeScene extends Component {
                 this.objLoader9.setMaterials(materials);
                 this.objLoader9.load('dice.obj', (object) => {
                     object.scale.set(2, 2, 2);
-                    object.position.set(3, 20, 12);
-                    const newObj = { diceObj: object, id: 53, color: 'orange' };
+                    object.position.set(7.6 - 15.2, 16, 7.6 - 15.2);
+                    object.visible = false;
+                    const newObj = { diceObj: object, id: 53, color: 'red' };
                     this.setState(prevState => ({
                         dices: [...prevState.dices, newObj]
                     }));
                     this.scene.add(object);
                 });
             });
+
+
+
         this.objLoader10 = new OBJLoader();
         this.objLoader10.setPath('asset/dice_obj/');
         this.mtlLoader10 = new MTLLoader();
         this.mtlLoader10.setPath('asset/dice_obj/');
         new Promise((resolve) => {
-            this.mtlLoader10.load('green-dice.mtl', (materials) => {
+            this.mtlLoader10.load('blue-dice.mtl', (materials) => {
                 resolve(materials);
             });
         })
@@ -447,15 +454,15 @@ class ThreeScene extends Component {
                 this.objLoader10.setMaterials(materials);
                 this.objLoader10.load('dice.obj', (object) => {
                     object.scale.set(2, 2, 2);
-                    object.position.set(0, 20, 12);
-                    const newObj = { diceObj: object, id: 54, color: 'green' };
+                    object.position.set(7.6, 16, 7.6 - 15.2);
+                    object.visible = false;
+                    const newObj = { diceObj: object, id: 54, color: 'blue' };
                     this.setState(prevState => ({
                         dices: [...prevState.dices, newObj]
                     }));
                     this.scene.add(object);
                 });
             });
-
         // ADD CYLINDER
 
         const cylinderGeometry = new THREE.CylinderGeometry(5, 13, 15, 8);
@@ -537,7 +544,7 @@ class ThreeScene extends Component {
 
         // ADD to REACT STATE
         this.setState(prevState => ({
-            rigidBody: { obj: this.dice.object.body, id: 61 }
+            rigidBody: { obj: this.dice.object.body, id: 61, triggerRolling: false }
         }));
 
         // ADD to REACT STATE
@@ -548,18 +555,6 @@ class ThreeScene extends Component {
 
         window.addEventListener('resize', this.onWindowResize, false);
         document.body.addEventListener("keydown", e => {
-            let setUpperCamelsArray = (searchThisIdAbove) => {
-                const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === searchThisIdAbove)));
-                const upperCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level > this.state.camels[targetCamelIndex].level));
-                if (upperCamels) {
-                    for (let i = 0; i < upperCamels.length; i++) {
-                        const a = upperCamels[i].id;
-                        jumpInfo[a].duringJump = true;
-                        jumpInfo[a].triggerJump = true;
-                    }
-                }
-                return upperCamels;
-            }
             // 在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
             switch (e.keyCode) {
                 case 73: // press i
@@ -575,7 +570,7 @@ class ThreeScene extends Component {
                             }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -593,7 +588,7 @@ class ThreeScene extends Component {
                             }],
                             step: 2,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -611,7 +606,7 @@ class ThreeScene extends Component {
                             }],
                             step: 3,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -629,7 +624,7 @@ class ThreeScene extends Component {
                             }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -647,7 +642,7 @@ class ThreeScene extends Component {
                             }],
                             step: 2,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -665,7 +660,7 @@ class ThreeScene extends Component {
                             }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -683,7 +678,7 @@ class ThreeScene extends Component {
                             }],
                             step: 1,
                             targetJumpCamelId: jumpCamelId,
-                            upperCamels: setUpperCamelsArray(jumpCamelId)
+                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
                         }));
                         break;
                     }
@@ -693,7 +688,7 @@ class ThreeScene extends Component {
         });
     }
 
-    
+
     componentWillUnmount() {
         this.stop();
         this.mount.removeChild(this.renderer.domElement);
@@ -705,14 +700,14 @@ class ThreeScene extends Component {
     }
     stop = () => {
         cancelAnimationFrame(this.frameId);
-    }    
+    }
     onWindowResize = () => {
         // Camera frustum aspect ratio
         this.camera.aspect = this.mount.clientWidth / this.mount.clientHeight;
         // After making changes to aspect
         this.camera.updateProjectionMatrix();
         // Reset size
-        this.renderer.setSize(window.innerWidth*0.9 , window.innerHeight*0.7);
+        this.renderer.setSize(window.innerWidth * 0.9, window.innerHeight * 0.7);
     }
     animate = () => {
         this.renderScene();
@@ -724,6 +719,18 @@ class ThreeScene extends Component {
     }
     renderScene = () => {
         this.renderer.render(this.scene, this.camera);
+    }
+    setUpperCamelsArray = (searchThisIdAbove) => {
+        const targetCamelIndex = this.state.camels.indexOf(this.state.camels.find(element => (element.id === searchThisIdAbove)));
+        const upperCamels = this.state.camels.filter(element => (element.boxNum === this.state.camels[targetCamelIndex].boxNum && element.level > this.state.camels[targetCamelIndex].level));
+        if (upperCamels) {
+            for (let i = 0; i < upperCamels.length; i++) {
+                const a = upperCamels[i].id;
+                jumpInfo[a].duringJump = true;
+                jumpInfo[a].triggerJump = true;
+            }
+        }
+        return upperCamels;
     }
 
     moveAction = (camelObj, camelId, newBoxNum, newLevel, endXyz, isLinearMove, moveSpeedX, moveSpeedZ) => {
@@ -765,9 +772,27 @@ class ThreeScene extends Component {
                 jumpInfo[camelId].dr = 0;
                 jumpInfo[camelId].onGround = true;
                 jumpInfo[camelId].duringJump = false;
+                
+                let camelColor = "";
+                switch(camelId) {
+                    case 0:
+                        camelColor = "orange";
+                        break;
+                    case 1:
+                        camelColor = "green";
+                        break;
+                    case 2:
+                        camelColor = "red";
+                        break;
+                    case 3:
+                        camelColor = "blue";
+                        break;
+                    default:
+                        return;
+                }
 
                 const refreshedObj = {
-                    camel: camelObj, id: camelId, position: endXyz, boxNum: newBoxNum, level: newLevel,
+                    camel: camelObj, id: camelId, color: camelColor, position: endXyz, boxNum: newBoxNum, level: newLevel,
                     rotation: (isLinearMove) ? (this.state.camels[camelIndex].rotation) : (this.state.camels[camelIndex].rotation + this.state.turnRightYrotation), run: false, nextBoxNum: -100, nextLevel: -100,
                 };
                 this.setState(prevState => ({
@@ -923,29 +948,34 @@ class ThreeScene extends Component {
             }
         }
         if (this.state.pyramid && this.state.pyramid.triggerMoving === true) { this.movePyramid(); }
-        if (this.state.rigidBody && this.state.dices.length === 4) {
-            this.state.dices[0].diceObj.position.copy(this.state.rigidBody.obj.position);
-            this.state.dices[0].diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
+        if (this.state.rigidBody.obj && this.state.dices.length === 4 && this.state.rigidBody.triggerRolling === true && this.state.targetDiceObj) {
+            this.assignPosition(this.state.targetDiceObj);
         }
 
     }
 
-    rollDice = () => {
-        var diceValues = [];
+    rollDice = (diceObj) => {
+        //var diceValues = [];
         this.dice.getObject().position.x = 0;
         this.dice.getObject().position.y = 20;
         this.dice.getObject().position.z = 0;
         this.dice.getObject().quaternion.x = (Math.random() * 90 - 45) * Math.PI / 180;
         this.dice.getObject().quaternion.z = (Math.random() * 90 - 45) * Math.PI / 180;
         this.dice.updateBodyFromMesh();
-        if (this.state.dices[0].diceObj) { this.dice.updateBodyFromInsertDiceObj(this.state.dices[0].diceObj); }
+        if (diceObj) { this.dice.updateBodyFromInsertDiceObj(diceObj); }
         let rand = Math.random() * 2;
         let yRand = Math.random() * 6;
         this.dice.getObject().body.velocity.set(rand, 4 + yRand, rand);
         this.dice.getObject().body.angularVelocity.set(10 * Math.random() + 5, 10 * Math.random() + 5, 10 * Math.random() + 5);
-        diceValues.push({ dice: this.dice, value: 2 });
-        DiceManager.prepareValues(diceValues, this.state.dices[0].diceObj);
+        //diceValues.push({ dice: this.dice, value: 2 });
+        //DiceManager.prepareValues(diceValues, this.state.dices[0].diceObj);
 
+    }
+    assignPosition = (diceObj) => {
+        diceObj.position.copy(this.state.rigidBody.obj.position);
+        diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
+        // this.state.dices[0].diceObj.position.copy(this.state.rigidBody.obj.position);
+        // this.state.dices[0].diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
     }
     assignPyramid = () => {
         this.setState(prevState => ({
@@ -999,21 +1029,25 @@ class ThreeScene extends Component {
                 ((prevState.presentPerspective - 1) % 4 + 4)
         }));
     }
-    judgeDiceNumber = () => {
+    judgeDiceNumber = (diceObj) => {
         // console.log(this.state.dices[0].diceObj.quaternion.x, this.state.dices[0].diceObj.quaternion.y, this.state.dices[0].diceObj.quaternion.z, this.state.dices[0].diceObj.quaternion.w);
         // console.log(this.state.dices[0].diceObj.rotation.x, this.state.dices[0].diceObj.rotation.y, this.state.dices[0].diceObj.rotation.z);
-        const { x, y, z, w } = this.state.dices[0].diceObj.quaternion;
-        if (Math.abs(x) - Math.abs(w) < 0.01 && Math.abs(y) - Math.abs(z) < 0.01) {
-            console.log(Math.abs(x) - Math.abs(w), Math.abs(y) - Math.abs(z));
+        const { x, y, z, w } = diceObj.quaternion;
+        console.log(x, y, z, w);
+        if (Math.abs(Math.abs(x) - Math.abs(w)) < 0.01 && Math.abs(Math.abs(y) - Math.abs(z)) < 0.01) {
             console.log("dice number is 1");
+            return 1;
         } else if ((Math.abs(x) < 0.01 && Math.abs(z) < 0.01) || Math.abs(w) < 0.01) {
             console.log("dice number is 2");
-        } else if (Math.abs(x) - Math.abs(y) < 0.01 && Math.abs(z) - Math.abs(w) < 0.01) {
-            console.log(Math.abs(x) - Math.abs(y), Math.abs(z) - Math.abs(w));
+            return 2;
+        } else if (Math.abs(Math.abs(x) - Math.abs(y)) < 0.01 && Math.abs(Math.abs(z) - Math.abs(w)) < 0.01) {
             console.log("dice number is 3");
+            return 3;
         } else {
             console.log("I don't know this dice number");
+            return;
         }
+
         // this.tween.to(this.state.boxBodyInfo.boxBody.quaternion, 2, {
         //     x: 1,
         //     // y: 0,
@@ -1043,6 +1077,87 @@ class ThreeScene extends Component {
         //     }
         // });
     }
+    camelRun = () => {
+        if (this.state.rigidBody.triggerRolling === false) {
+            // 讓金字塔下降
+            this.assignPyramid();
+
+            function returnNwithProbability(probabilityObj) {
+                // 使用法如下，物件建立邏輯為， 名稱 : 百分之幾的機率
+                // const probabilityObj = {"1": 20, "2": 5, "3": 15, "4": 10, "5": 50};
+                // returnNwithProbability(probabilityObj); 會回傳有相應機率的名稱。
+                let denominator = 0;
+                let intervalArray = [-1];
+                for (var propName in probabilityObj) {
+                    denominator += probabilityObj[propName];
+                    intervalArray.push(denominator);
+                }
+                const randomNumToHundred = Math.round(Math.random() * denominator);
+
+                for (let i = 0; i < intervalArray.length - 1; i++) {
+                    if (randomNumToHundred > intervalArray[i] && randomNumToHundred <= intervalArray[i + 1]) {
+                        let finalName = Object.entries(probabilityObj).slice(0)[i][0];
+                        return finalName;
+                    }
+                }
+            }
+            const selectedColor = returnNwithProbability({ "red": 25, "green": 25, "blue": 25, "orange": 25 });
+            const selectedDiceIndex = this.state.dices.indexOf(this.state.dices.find(element => (element.color === selectedColor)));
+            const selectedDiceObj = this.state.dices[selectedDiceIndex].diceObj;
+            const jumpCamelId = this.state.camels.find(element => (element.color === selectedColor)).id;
+            console.log(selectedColor);
+
+            // 設定骰子可見與消失
+
+            this.state.dices.find(element => (element.color === selectedColor)).diceObj.visible = true;
+            this.state.dices.filter(element => (element.color !== selectedColor)).forEach(el => { el.diceObj.visible = false; });
+
+            // triggerRolling: 將會 1. 使指定函式開始運作，讓骰子與剛體位置重合
+            this.setState(prevState => ({
+                rigidBody: { ...prevState.rigidBody, ...{ triggerRolling: true } },
+                targetDiceObj: prevState.dices[selectedDiceIndex].diceObj
+            }));
+            // 1 秒後，開始呼叫轉動函數，讓骰子開始轉
+            let enableCheck = false;
+            window.setTimeout(() => { this.rollDice(selectedDiceObj); enableCheck = true; }, 1000);
+
+            // 每 0.5 秒會檢查轉完沒
+            // 轉完後會檢查數字，回傳數字值，用此數字值設定進 state ，為駱駝該走的步數。哪隻駱駝該走，也在此同時設定進 state
+            // 檢查完後兩秒，再升起金字塔、讓骰子變不可見、讓骰子剛體回到金字塔中心
+
+            let keepChecking = window.setInterval(() => {
+                if (enableCheck && this.dice.isFinished()) {
+                    const step = this.judgeDiceNumber(selectedDiceObj);
+                    console.log(step);
+                    console.log(jumpCamelId);
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(jumpCamelId, step), nextLevel: this.setNextLevel(jumpCamelId, step, jumpCamelId), run: true }
+                        }],
+                        step: step,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId),
+                        rigidBody: { ...prevState.rigidBody, ...{ triggerRolling: false } },
+                        targetDiceObj: {}
+                    }));
+                    enableCheck = false;
+                    window.setTimeout(()=>{
+                        this.assignPyramid(); 
+                        selectedDiceObj.visible = false;
+                        this.state.rigidBody.obj.position.x = 0;
+                        this.state.rigidBody.obj.position.y = 18;
+                        this.state.rigidBody.obj.position.z = 0;
+                    }, 2000);
+                    window.clearInterval(keepChecking);
+                    return;
+                }
+            }, 500);
+        }
+    }
     render() {
         return (
             <div>
@@ -1061,12 +1176,13 @@ class ThreeScene extends Component {
                     </div>
                 </div>
                 <button onClick={this.assignPyramid}> movePyramid </button>
-                <button onClick={this.rollDice}> roll </button>
-                <button onClick={this.judgeDiceNumber}> judge </button>
+                <button onClick={() => this.rollDice(this.state.dices[0].diceObj)}> roll </button>
+                <button onClick={() => this.judgeDiceNumber(this.state.targetDiceObj)}> judge </button>
+                <button onClick={this.camelRun}> camelRun </button>
                 {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
                 <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
                 <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
-            </div >
+            </div>
         )
     }
 }

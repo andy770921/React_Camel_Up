@@ -53,17 +53,17 @@
 .dice-color-img1 {
     position: absolute;
     top: 31px;
-    left: 45px;
-    width: 56px;
-    height: 50px;
+    left: 44.3px;
+    width: 57px;
+    height: 52px;
 }
 
 .dice-color-img2 {
     position: absolute;
-    top: 31px;
-    left: calc(95px + 45px);
-    width: 56px;
-    height: 50px;
+    top: 30px;
+    left: calc(95px + 44.3px);
+    width: 57px;
+    height: 53px;
 }
 
 .dice-color-img3 {
