@@ -838,8 +838,8 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.oneStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.oneStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.oneStepSpeed + 0.03; }
-                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.05; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.oneStepSpeed + 0.07; }
+                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.07; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.oneStepSpeed + 0.1; }
                     else { return this.state.jumpPara.oneStepSpeed; }
                 case 2:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.twoStepSpeed; }
