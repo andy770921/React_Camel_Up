@@ -1,0 +1,18 @@
+.player-area {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+ }
+ .player-bg {
+    width: 25%;
+ }
+ .player-img {
+    width: 100%;
+ }
+ .player-area-padding {
+    padding-top: 100px;
+ 
+ }

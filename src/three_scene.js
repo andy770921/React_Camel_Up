@@ -11,6 +11,7 @@ import { TimelineMax, CSSPlugin, ScrollToPlugin, Draggable } from "gsap/all";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
+import { PlayerContext } from './contexts/playerContext';
 
 /*
 let jumpInfo = {
@@ -100,6 +101,7 @@ class physicalWorld {
 let jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
 
 class ThreeScene extends Component {
+    static contextType = PlayerContext;
     state = {
         camels: [],
         step: 0,
@@ -716,7 +718,7 @@ class ThreeScene extends Component {
         // After making changes to aspect
         this.camera.updateProjectionMatrix();
         // Reset size
-        this.renderer.setSize(window.innerWidth * 0.9, window.innerHeight * 0.7);
+        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 0.7);
     }
     animate = () => {
         this.renderScene();
@@ -855,9 +857,9 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 3) { return this.state.jumpPara.threeStepSpeed - 0.03; }
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.threeStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.threeStepSpeed - 0.01; }
-                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.threeStepSpeed + 0.03; }
-                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.threeStepSpeed + 0.05; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.07; }
+                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.threeStepSpeed + 0.07; }
+                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.threeStepSpeed + 0.11; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.15; }
                     else { return this.state.jumpPara.threeStepSpeed; }
                 default:
                     return;
@@ -1216,6 +1218,11 @@ class ThreeScene extends Component {
                         this.state.rigidBody.obj.position.x = 0;
                         this.state.rigidBody.obj.position.y = 18;
                         this.state.rigidBody.obj.position.z = 0;
+                        if (this.context.playerData.playerRound >=0 ){
+                        this.context.dispatch({ type: 'ADD_MONEY', amount: 1, 
+                            playerId: this.context.playerData.playerRound % this.context.playerData.players.length + 1});
+                        }
+                        this.context.dispatch({ type: 'PLAYER_ROUND_ADD'});
                     }, 2000);
                     window.clearInterval(keepChecking);
                     return;
@@ -1239,21 +1246,21 @@ class ThreeScene extends Component {
         }, 2000);
     }
     render() {
-        let diceImgs = this.state.historyDices.length ? (
-            this.state.historyDices.map( (element, i) => { 
-                return (
-                <div key={5000+i}><img className={`dice-color-img${i+1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000+i}></img></div>
-        )})) : ( <div></div> )
-        
-            // for (let i = 0; i < this.state.historyDices.length; i++){
-            //     const color = this.state.historyDices[i].color;
-            //     const number = this.state.historyDices[i].number;
-            //     diceImgs += <div><img className={`dice-color-img${i+1}`} src={`./imgs/${color}_${number}.png`}></img></div>;
-            // }
+            let diceImgs = this.state.historyDices.length ? (
+                this.state.historyDices.map( (element, i) => { 
+                    return (
+                    <div key={5000+i}><img className={`dice-color-img${i+1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000+i}></img></div>
+            )})) : ( <div></div> )
+        // let diceImgs = [];
+        //     for (let i = 0; i < this.state.historyDices.length; i++){
+        //         const color = this.state.historyDices[i].color;
+        //         const number = this.state.historyDices[i].number;
+        //         diceImgs.push(<div><img className={`dice-color-img${i+1}`} src={`./imgs/${color}_${number}.png`}></img></div>);
+        //     }
             
         return (
             <div>
-                <div className="pos-relative" style={{ width: '90vw', height: '70vh', marginLeft: '5vw', marginTop: '5vh', marginBottom: '15vh' }} ref={(mount) => { this.mount = mount }}>
+                <div className="pos-relative" style={{ width: '100%', height: '70vh', marginBottom: '15vh' }} ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
                         <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
                         <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
@@ -1262,10 +1269,6 @@ class ThreeScene extends Component {
                     <div className="dice-area">
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         { diceImgs }
-                        {/* <div><img className="dice-color-img1" src="./imgs/red_1.png"></img></div>
-                        <div><img className="dice-color-img2" src="./imgs/blue_1.png"></img></div>
-                        <div><img className="dice-color-img3" src="./imgs/orange_1.png"></img></div>
-                        <div><img className="dice-color-img4" src="./imgs/green_1.png"></img></div> */}
                     </div>
                 </div>
                 <button onClick={this.assignPyramid}> movePyramid </button>
@@ -1273,6 +1276,8 @@ class ThreeScene extends Component {
                 <button onClick={() => this.judgeDiceNumber(this.state.targetDiceObj)}> judge </button>
                 <button onClick={this.camelRun}> Run </button>
                 <button onClick={this.gameBegin}> Begin </button>
+                <button onClick={()=> this.context.dispatch({ type: 'ADD_MONEY', amount: 1, playerId: 1})}> disp </button>
+                <button onClick={()=> this.context.dispatch({ type: 'PLAYER_ROUND_ADD'})}> RoundAdd </button>
                 {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
                 <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
                 <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
