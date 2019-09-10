@@ -1233,7 +1233,6 @@ class ThreeScene extends Component {
                 this.camelRun();
             }
             if (i >= beginRunTimes ) { 
-                this.state.pyramid.pyramidObj.addEventListener("click", () => { this.camelRun(); })
                 window.clearInterval(keepPlaying);
                 return;
             }
