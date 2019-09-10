@@ -16,7 +16,7 @@ const PlayerInfo = () => {
     return (
         <div className="player-area">
             {playerList}
-            <p>Currently you have {playerData.length} books to get through...</p>
+            <p>Currently you have {playerData.players.length} books to get through...</p>
         </div>
     );
 }

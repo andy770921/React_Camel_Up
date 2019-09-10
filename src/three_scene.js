@@ -1262,9 +1262,9 @@ class ThreeScene extends Component {
             <div>
                 <div className="pos-relative" style={{ width: '100%', height: '70vh', marginBottom: '15vh' }} ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
-                        <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
-                        <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
                         <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
+                        <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
+                        <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
                     </div>
                     <div className="dice-area">
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
