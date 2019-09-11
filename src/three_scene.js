@@ -710,7 +710,7 @@ class ThreeScene extends Component {
         // After making changes to aspect
         this.camera.updateProjectionMatrix();
         // Reset size
-        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 0.7);
+        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 1);
     }
     animate = () => {
         this.renderScene();
@@ -832,7 +832,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.oneStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.oneStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.oneStepSpeed + 0.03; }
-                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.07; }
+                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.06; }
                     else if (levelBeforeJump - level === -3) { return this.state.jumpPara.oneStepSpeed + 0.1; }
                     else { return this.state.jumpPara.oneStepSpeed; }
                 case 2:
@@ -840,7 +840,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 3) { return this.state.jumpPara.twoStepSpeed - 0.03; }
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.twoStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.twoStepSpeed - 0.01; }
-                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.06; }
+                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.05; }
                     else if (levelBeforeJump - level === -2) { return this.state.jumpPara.twoStepSpeed + 0.10; }
                     else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.14; }
                     else { return this.state.jumpPara.twoStepSpeed; }
@@ -1241,7 +1241,7 @@ class ThreeScene extends Component {
             let diceImgs = this.state.historyDices.length ? (
                 this.state.historyDices.map( (element, i) => { 
                     return (
-                    <div key={5000+i}><img className={`dice-color-img${i+1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000+i}></img></div>
+                    <div key={5000+i}><img className={`dice-all dice-color-img${i+1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000+i}></img></div>
             )})) : ( <div></div> )
         // let diceImgs = [];
         //     for (let i = 0; i < this.state.historyDices.length; i++){
@@ -1252,7 +1252,7 @@ class ThreeScene extends Component {
             
         return (
             <div>
-                <div className="pos-relative" style={{ width: '100%', height: '70vh', marginBottom: '15vh' }} ref={(mount) => { this.mount = mount }}>
+                <div className="pos-relative" style={{ width: '100%', height: '100vh' }} ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
                         <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
                         <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
@@ -1264,13 +1264,13 @@ class ThreeScene extends Component {
                     </div>
                     <GameBtn camelRun={this.camelRun} />
                 </div>
-                <button onClick={this.assignPyramid}> movePyramid </button>
+                {/* <button onClick={this.assignPyramid}> movePyramid </button>
                 <button onClick={() => this.rollDice(this.state.dices[0].diceObj)}> roll </button>
                 <button onClick={() => this.judgeDiceNumber(this.state.targetDiceObj)}> judge </button>
                 <button onClick={this.camelRun}> Run </button>
                 <button onClick={this.gameBegin}> Begin </button>
                 <button onClick={()=> this.context.dispatch({ type: 'ADD_MONEY', amount: 1, playerId: 1})}> disp </button>
-                <button onClick={()=> this.context.dispatch({ type: 'PLAYER_ROUND_ADD'})}> RoundAdd </button>
+                <button onClick={()=> this.context.dispatch({ type: 'PLAYER_ROUND_ADD'})}> RoundAdd </button> */}
                 {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
                 <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
                 <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}

@@ -1,36 +1,59 @@
 .btn-area {
     position: absolute;
-    bottom: -8px;
-    left: calc(50% - 190px);
-    z-index: 10;
+    bottom: 6.9vw;
+    right: 0;
+    /* left: calc(50% - 190px); */
 }
 .btn-bg {
-    width: 380px;
+    width: 480px;
     z-index: 10;
 }
 
 .game-btn {
-    width: 100px;
+    width: 120px;
     z-index: 11;
     transition: transform 0.3s ease;
     cursor: pointer;
+    position: absolute;
+    top: 27px;
 }
 .game-btn:hover{
     transform: scale(1.05);
 }
 
 .btn-pos1 {
-    position: absolute;
-    top: 20px;
-    left: 17px;
+    left: 23px;
 }
 .btn-pos2 {
-    position: absolute;
-    top: 20px;
-    left: calc(17px + 123px);
+    left: calc(23px + 156px);
 }
 .btn-pos3 {
-    position: absolute;
-    top: 20px;
-    left: calc(17px + 123px*2);
+    left: calc(23px + 157px*2);
 }
+
+.head-now {
+    width: 7vw;
+    height: auto;
+    border-radius: 50%;
+    position: absolute;
+    top: -3vw;
+    left: -5vw;
+    -webkit-box-shadow: 0 0 25px rgba(180, 123, 15, 0.66), 0 0px 10px rgba(11, 6, 61, 0.75), inset 0 0px 10px rgba(0, 0, 0, .75);
+    box-shadow: 0 0 25px rgba(180, 123, 15, 0.66), 0 0px 10px rgba(11, 6, 61, 0.75), inset 0 0px 10px rgba(0, 0, 0, .75);
+    z-index: 12;
+ }
+ 
+ .name-now {
+    font-family: 'Permanent Marker', cursive;
+    position: absolute;
+    top: -3vw;
+    left: -1vw;
+    width: 15vw;
+    height: 3vw;
+    background-color: lightgray;
+    font-size: 2.2em;
+    line-height: 1.4em;
+    z-index: 5;
+    border-radius: 0% 30px 0% 0%;
+    padding-left: 4vw;
+ }

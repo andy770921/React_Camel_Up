@@ -13,9 +13,9 @@
   }
   body {
       font-family: PingFangTC-Regular, sans-serif;
-      line-height: 1.6;
       letter-spacing: 0.08em;
       margin: 0px;
+      line-height: 0;
   }
   
   a { 

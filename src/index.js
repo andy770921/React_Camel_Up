@@ -15,7 +15,7 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div className="background player-area-padding">
+            <div className="background body">
                 <PlayerContextProvider>
                 <PlayerInfo />
                 <ThreeScene />

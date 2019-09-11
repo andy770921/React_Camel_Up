@@ -5,13 +5,13 @@ export const PlayerContext = createContext();
 
 const PlayerContextProvider = (props) => {
     const [playerData, dispatch] = useReducer(playerReducer, {
-        playerRound: -4,
+        playerRound: 0,
         camelRound: 0,
         players: [
-            {name: 'Josh', money: 5, id: 1},
-            {name: 'Rita', money: 5, id: 2},
-            {name: 'Teresa', money: 5, id: 3},
-            {name: 'Andy', money: 5, id: 4}
+            {name: 'Rita', money: 5, id: 1},
+            {name: 'Josh', money: 15, id: 2},
+            {name: 'Nick', money: 25, id: 3},
+            {name: 'Teresa', money: 35, id: 4}
         ]
     });
 

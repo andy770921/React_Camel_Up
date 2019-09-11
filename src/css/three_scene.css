@@ -39,17 +39,17 @@
 
 .dice-area {
     position: absolute;
-    bottom: -14px;
-    right: 0;
-    /* bottom: -57px;
-    left: calc(50% - 435px/2); */
+    top: 0px;
+    left: 0;
 }
 
 .dice-his-img {
     width: 435px;
 }
 
-
+.dice-all {
+    border-radius: 5px;
+}
 .dice-color-img1 {
     position: absolute;
     top: 31px;
@@ -70,16 +70,16 @@
     position: absolute;
     top: 31px;
     left: calc(95px*2 + 45px);
-    width: 56px;
-    height: 50px;
+    width: 57px;
+    height: 52px;
 }
 
 .dice-color-img4 {
     position: absolute;
     top: 31px;
     left: calc(95px*3 + 46px);
-    width: 56px;
-    height: 50px;
+    width: 57px;
+    height: 52px;
 }
 /* ================================= 
   Media Queries
