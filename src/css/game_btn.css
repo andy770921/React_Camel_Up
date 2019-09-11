@@ -1,0 +1,36 @@
+.btn-area {
+    position: absolute;
+    bottom: -8px;
+    left: calc(50% - 190px);
+    z-index: 10;
+}
+.btn-bg {
+    width: 380px;
+    z-index: 10;
+}
+
+.game-btn {
+    width: 100px;
+    z-index: 11;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.game-btn:hover{
+    transform: scale(1.05);
+}
+
+.btn-pos1 {
+    position: absolute;
+    top: 20px;
+    left: 17px;
+}
+.btn-pos2 {
+    position: absolute;
+    top: 20px;
+    left: calc(17px + 123px);
+}
+.btn-pos3 {
+    position: absolute;
+    top: 20px;
+    left: calc(17px + 123px*2);
+}

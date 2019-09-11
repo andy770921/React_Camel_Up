@@ -12,6 +12,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
+import GameBtn from './components/game_btn';
 
 /*
 let jumpInfo = {
@@ -507,7 +508,7 @@ class ThreeScene extends Component {
         //     material: box_cm
         // });
 
-        // //boxBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), -2 * Math.PI / 360 * 45 );
+        // boxBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), -2 * Math.PI / 360 * 45 );
 
         // this.world.add(boxBody);
 
@@ -527,10 +528,6 @@ class ThreeScene extends Component {
 
         // ADD CANNON OUTER FRAME
         this.cannonDebugRenderer = new THREE.CannonDebugRenderer(this.scene, this.world);
-
-        // ADD TWEEN LIB
-
-        // this.tween = new TimelineMax();
 
         // ADD RIGID BODY CONTACT
 
@@ -558,11 +555,6 @@ class ThreeScene extends Component {
             rigidBody: { obj: this.dice.object.body, id: 61, triggerRolling: false }
         }));
 
-        // ADD to REACT STATE
-
-        // this.setState(prevState => ({
-        //     boxBodyInfo: { boxBody: boxBody, initPosition: boxBody.position, initRotation: boxBody.quaternion }
-        // }));
 
         window.addEventListener('resize', this.onWindowResize, false);
         document.body.addEventListener("keydown", e => {
@@ -848,9 +840,9 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 3) { return this.state.jumpPara.twoStepSpeed - 0.03; }
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.twoStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.twoStepSpeed - 0.01; }
-                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.04; }
-                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.twoStepSpeed + 0.06; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.08; }
+                    else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.06; }
+                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.twoStepSpeed + 0.10; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.14; }
                     else { return this.state.jumpPara.twoStepSpeed; }
                 case 3:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.threeStepSpeed; }
@@ -1270,6 +1262,7 @@ class ThreeScene extends Component {
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         { diceImgs }
                     </div>
+                    <GameBtn camelRun={this.camelRun} />
                 </div>
                 <button onClick={this.assignPyramid}> movePyramid </button>
                 <button onClick={() => this.rollDice(this.state.dices[0].diceObj)}> roll </button>
