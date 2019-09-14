@@ -40,6 +40,7 @@
 }
 
 .num-id {
+   font-family: 'Permanent Marker', cursive;
    width: 2vw;
    height: 2vw;
    position: absolute;
@@ -50,6 +51,7 @@
 }
 
 .num-money {
+   font-family: 'Permanent Marker', cursive;
    position: absolute;
    top: 3.7vw;
    left: 11.0vw;

@@ -15,21 +15,29 @@
     display: flex;
     border-radius: 40px;
     background-color: #ffffff;
+    height: 60px;
 }
 .camera-btn {
     display: inline-block;
     width: 60px;
-    font-size: 18px;
 }
 .camera-img {
     width: 40px;
-    margin-top: 7px;
+    margin-top: 12px;
 }
 .arrow-img {
-    width: 37px;
-    margin-top: 12px;
-    padding: 3px;
+    width: 40px;
+    margin-top: 9px;
 }
+
+.arrow-right {
+    padding-left: 10px;
+}
+
+.arrow-left {
+    padding-right: 10px;
+}
+
 .camera-area:hover {
     border-color: #66afe9;
     outline: 0;

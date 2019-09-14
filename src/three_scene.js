@@ -482,6 +482,25 @@ class ThreeScene extends Component {
         this.cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
         this.cylinder.position.set(0, 9, 0);
         this.scene.add(this.cylinder);
+
+        // ADD FINISH LINE 
+        const flagGeometry = new THREE.BoxGeometry(6.8, 1.2, 0.1);
+        const flagMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/finish_line/flag.png'), side: THREE.DoubleSide });
+        this.flagCube = new THREE.Mesh(flagGeometry, flagMaterial);
+        this.flagCube.position.set(12, 17.0, 8.7);
+        this.scene.add(this.flagCube);
+
+        const rodGeometry = new THREE.CylinderGeometry(0.3, 0.3, 3.0, 8);
+        const rodMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('asset/finish_line/rod.png'), side: THREE.DoubleSide });
+        this.rod1 = new THREE.Mesh(rodGeometry, rodMaterial);
+        this.rod1.position.set(8.7, 16.2, 8.7);
+        this.scene.add(this.rod1);
+
+        this.rod2 = new THREE.Mesh(rodGeometry, rodMaterial);
+        this.rod2.position.set(8.7 +6.6, 16.2, 8.7);
+        this.rod2.rotation.set(0, 90 * Math.PI / 180, 0);
+        this.scene.add(this.rod2);
+
         // ADD MOUSE CTRL
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableDamping = true;
@@ -1254,9 +1273,9 @@ class ThreeScene extends Component {
             <div>
                 <div className="pos-relative" style={{ width: '100%', height: '100vh' }} ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
-                        <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img" src="./imgs/camera_right.png"></img></button>
+                        <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img arrow-right" src="./imgs/camera_right.png"></img></button>
                         <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
-                        <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img" src="./imgs/camera_left.png"></img></button>
+                        <button className="camera-btn" onClick={this.handleViewMinus}><img className="arrow-img arrow-left" src="./imgs/camera_left.png"></img></button>
                     </div>
                     <div className="dice-area">
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
