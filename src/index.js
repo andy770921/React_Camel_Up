@@ -6,6 +6,8 @@ import ReactDOM from "react-dom";
 import ThreeScene from "./three_scene";
 import PlayerInfo from './components/player';
 import PlayerContextProvider from './contexts/playerContext';
+import PopupContextProvider from './contexts/popupContext';
+import PopUp from './components/pop_up';
 
 
 class App extends React.Component {
@@ -17,8 +19,11 @@ class App extends React.Component {
         return (
             <div className="background body">
                 <PlayerContextProvider>
-                <PlayerInfo />
-                <ThreeScene />
+                    <PopupContextProvider>
+                        <PlayerInfo />
+                        <PopUp />
+                        <ThreeScene />
+                    </PopupContextProvider>
                 </PlayerContextProvider>
             </div>
         )
