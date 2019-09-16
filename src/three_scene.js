@@ -7,7 +7,6 @@ import { DiceManager, DiceD6 } from './three-usage/dice.js';
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import * as CANNON from "cannon";
-import { TimelineMax, CSSPlugin, ScrollToPlugin, Draggable } from "gsap/all";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
@@ -1008,8 +1007,6 @@ class ThreeScene extends Component {
     assignPosition = (diceObj) => {
         diceObj.position.copy(this.state.rigidBody.obj.position);
         diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
-        // this.state.dices[0].diceObj.position.copy(this.state.rigidBody.obj.position);
-        // this.state.dices[0].diceObj.quaternion.copy(this.state.rigidBody.obj.quaternion);
     }
     assignPyramid = () => {
         this.setState(prevState => ({
@@ -1082,35 +1079,6 @@ class ThreeScene extends Component {
             alert("I don't know this dice number, I guess dice number is 2");
             return 2;
         }
-
-        // this.tween.to(this.state.boxBodyInfo.boxBody.quaternion, 2, {
-        //     x: 1,
-        //     // y: 0,
-        //     z: 1,
-        //     w: 0,
-        //     // x: 12,
-        //     // y: 26,
-        //     // z: 12,
-        //     onStart: () => {
-        //         console.log("start");
-        //         //   this.state.boxBodyInfo.boxBody.quaternion = this.state.boxBodyInfo.initQuaternion;
-        //         //   this.state.boxBodyInfo.boxBody.position = this.state.boxBodyInfo.initPosition;
-        //     },
-        //     onUpdate: () => {
-        //         //console.log("update");
-        //         console.log(this.state.boxBodyInfo.boxBody.position);
-        //         // 归 0 设置
-        //         //   this.state.boxBodyInfo.boxBody.velocity.setZero();
-        //         //   this.state.boxBodyInfo.boxBody.initVelocity.setZero();
-        //         //   this.state.boxBodyInfo.boxBody.angularVelocity.setZero();
-        //         //   this.state.boxBodyInfo.boxBody.initAngularVelocity.setZero();
-        //         //   this.state.boxBodyInfo.boxBody.angularFactor.setZero();
-        //     },
-        //     onComplete: () => {
-        //         console.log(this.state.boxBodyInfo.boxBody);
-        //         console.log("hi");
-        //     }
-        // });
     }
     camelRun = () => {
         if (this.state.rigidBody.triggerRolling === false) {
