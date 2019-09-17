@@ -124,10 +124,10 @@
 
 .round-bet-popup {
     width: 80%;
-    height: 60%;
+    height: 65%;
     left: calc(50% - 80%/2);
     top: calc(50% - 60%/2 - 5%);
-    padding: 5%;
+    padding: 3%;
 }
 
 .bet-card-img, .bet-card-back{
@@ -145,6 +145,7 @@
 
 .bet-card-div{
     width: 20%;
+    max-width: 200px;
     padding: 20px 0 20px 0;
     animation: 0.5s 0.5s showCards forwards;
     opacity: 0;
@@ -195,6 +196,7 @@
 
 .selected-card-img {
     width: 10%;
+    max-width: 100px;
     height: auto;
 }
 .selected-card-span{

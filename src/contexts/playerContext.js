@@ -8,11 +8,12 @@ const PlayerContextProvider = (props) => {
         playerRound: 0,
         camelRound: 0,
         players: [
-            {name: 'Rita', money: 5, id: 1},
-            {name: 'Josh', money: 15, id: 2},
-            {name: 'Nick', money: 25, id: 3},
-            {name: 'Teresa', money: 35, id: 4}
-        ]
+            {name: 'Rita', money: 5, id: 1, cardStock: []},
+            {name: 'Josh', money: 15, id: 2, cardStock: []},
+            {name: 'Nick', money: 25, id: 3, cardStock: []},
+            {name: 'Teresa', money: 35, id: 4, cardStock: []}
+        ],
+        playerIdNow: 1
     });
 
   return (

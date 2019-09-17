@@ -3,12 +3,14 @@ import '../css/common.css';
 import '../css/pop_up.css';
 import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
+import { PlayerContext } from '../contexts/playerContext';
 import { TweenLite, TimelineMax } from "gsap/all";
 
 
 const PopUp = () => {
 
     const { showCtrl, triggerPop, roundCards, sendSelectedCard, sendConfirmedCard } = useContext(PopupContext);
+    const { playerData, dispatch } = useContext(PlayerContext);
 
     const selectCard = (e) => {
         TweenLite.set(".cardWrapper", { perspective: 800 });
@@ -30,13 +32,18 @@ const PopUp = () => {
                         id: parseInt(e.currentTarget.id.substr(5))-9000 });
     }
 
-
+    const confirmCard = () => {
+        sendConfirmedCard(roundCards.selectedCard);
+        dispatch({ type: 'ADD_ROUND_CARD_END_TURN', cardObj: roundCards.selectedCard, playerId: playerData.playerIdNow });
+        alert("Receive Your Bet in this round!");
+        triggerPop();
+    }
     const roundCardList = roundCards.cards.length ? (
         roundCards.cards.map((element, i) => {
             return (
                 <div key={element.id + 9000} className={`bet-card-div`}>
-                    <div className="card" id={`card_${element.id + 9000}`} onClick={(e) => selectCard(e)} color={element.color} rewards={element.rewards}>
-                        <img src={`./imgs/bet_${element.color}_${element.rewards}.png`} className="bet-card-img front"></img>
+                    <div className="card" id={`card_${element.id + 9000}`} onClick={(e) => (parseInt(element.rewards) !== 0)? (selectCard(e)):({})} color={element.color} rewards={element.rewards}>
+                        <img src={`./imgs/bet_${element.color}_${element.rewards}.png`} className="bet-card-img front" style={(parseInt(element.rewards) === 0)? {cursor: 'default'}: {} }></img>
                         <img src="./imgs/bet_back.png" className="bet-card-back back"></img>
                     </div></div>)
         })
@@ -52,7 +59,7 @@ const PopUp = () => {
             </div> 
             <div className="flex-row btn-div">
                 <button className="btn" onClick={ () => (Object.keys(roundCards.selectedCard).length !== 0 )? 
-                        (sendConfirmedCard(roundCards.selectedCard)):( alert("Please select card first.")) }>Confirm</button>
+                        (confirmCard()):( alert("Please select card first.")) }>Confirm</button>
                 <button className="btn" onClick={triggerPop}>Cancel</button>
             </div>
         </div>;

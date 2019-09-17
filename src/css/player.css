@@ -11,7 +11,7 @@
     flex-direction: row;
     bottom: 0;
     left: 0;
-    z-index: 10;
+    z-index: 13;
  }
  .player-bg {
     width: 25vw;
@@ -59,4 +59,34 @@
    font-size: 1.7em;
 }
 
+.card-img {
+   width: 30px;
+   height: auto;
+   position: absolute;
+   left: 230px;
+   top: 30px;
+   transition: transform 0.3s ease;
+   cursor: pointer;
+   z-index: 14;
+}
+.card-img:hover {
+   transform: scale(5) translateY(-20px);
+}
 
+.card-img-pos2 {
+   left: calc(230px + 20px);
+   top: 30px;
+}
+
+.card-img-pos3 {
+   left: calc(230px + 20px*2);
+   top: 30px;
+}
+.card-img-pos4 {
+   left: calc(230px + 20px*3);
+   top: 30px;
+}
+.card-img-pos5 {
+   left: calc(230px + 20px*4);
+   top: 30px;
+}

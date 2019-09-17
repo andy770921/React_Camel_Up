@@ -11,10 +11,6 @@ import PopUp from './components/pop_up';
 
 
 class App extends React.Component {
-    state = {
-        name: "Ryu",
-        age: 30
-    }
     render() {
         return (
             <div className="background body">
