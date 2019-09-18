@@ -10,7 +10,7 @@ const PopupContextProvider = (props) => {
         isRoundBet: false,
         roundBetClassNames: { popup: 'round-bet-popup' },
         isFinalBet: false,
-        roundBetClassNames: { popup: 'final-bet-popup' }
+        finalBetClassNames: { popup: 'final-bet-popup' }
     });
     const triggerPop = () => {
         setShowCtrl({ ...showCtrl, isShow: !showCtrl.isShow, isRoundBet: false, isFinalBet: false });

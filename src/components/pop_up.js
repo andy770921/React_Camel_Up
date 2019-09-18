@@ -17,8 +17,11 @@ const PopUp = () => {
                     <button onClick={triggerPop}>Grow it</button>
                 </article> */}
             <div className={(showCtrl.isShow) ? (showCtrl.showClassNames.cover) : (showCtrl.hideClassNames.cover)}></div>
-                <div className={((showCtrl.isShow)? (showCtrl.showClassNames.popup):(showCtrl.hideClassNames.popup)) +" " + 
-                ((showCtrl.isRoundBet)? (showCtrl.roundBetClassNames.popup):(""))}>
+                <div className={
+                    ((showCtrl.isShow)? (showCtrl.showClassNames.popup):(showCtrl.hideClassNames.popup)) + " " + 
+                    ((showCtrl.isRoundBet)? (showCtrl.roundBetClassNames.popup):("")) + " " + 
+                    ((showCtrl.isFinalBet)? (showCtrl.finalBetClassNames.popup):(""))
+                }>
                 <button onClick={triggerPop} className="icon-cross-popup"><img src="./imgs/cross-3.png" className="icon-cross-img"></img></button>
                 {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}
                 {(showCtrl.isFinalBet) ? (<FinalBet />) : ("")}

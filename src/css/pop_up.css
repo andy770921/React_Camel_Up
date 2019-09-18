@@ -132,7 +132,7 @@
 
 .final-bet-popup {
     width: 80%;
-    height: 65%;
+    height: 50%;
     left: calc(50% - 80%/2);
     top: calc(50% - 60%/2 - 5%);
     padding: 3%;
