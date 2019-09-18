@@ -9,6 +9,7 @@ import PopUp from './components/pop_up';
 import PlayerContextProvider from './contexts/playerContext';
 import PopupContextProvider from './contexts/popupContext';
 import RoundContextProvider from './contexts/roundContext';
+import FinalContextProvider from './contexts/finalContext';
 
 
 class App extends React.Component {
@@ -18,9 +19,11 @@ class App extends React.Component {
                 <PlayerContextProvider>
                     <PopupContextProvider>
                         <RoundContextProvider>
-                            <PlayerInfo />
-                            <PopUp />
-                            <ThreeScene />
+                            <FinalContextProvider>
+                                <PlayerInfo />
+                                <PopUp />
+                                <ThreeScene />
+                            </FinalContextProvider>
                         </RoundContextProvider>
                     </PopupContextProvider>
                 </PlayerContextProvider>

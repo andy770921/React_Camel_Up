@@ -4,6 +4,7 @@ import '../css/pop_up.css';
 import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import RoundBet from './round_bet';
+import FinalBet from './final_bet';
 
 
 const PopUp = () => {
@@ -20,6 +21,7 @@ const PopUp = () => {
                 ((showCtrl.isRoundBet)? (showCtrl.roundBetClassNames.popup):(""))}>
                 <button onClick={triggerPop} className="icon-cross-popup"><img src="./imgs/cross-3.png" className="icon-cross-img"></img></button>
                 {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}
+                {(showCtrl.isFinalBet) ? (<FinalBet />) : ("")}
             </div>
         </div>
     );
