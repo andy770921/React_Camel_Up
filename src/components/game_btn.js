@@ -4,10 +4,12 @@ import '../css/game_btn.css';
 import React, { useContext } from "react";
 import { PlayerContext } from '../contexts/playerContext';
 import { PopupContext } from '../contexts/popupContext';
+import { RoundContext } from '../contexts/roundContext';
 
 const GameBtn = (props) => {
     const { playerData } = useContext(PlayerContext);
-    const { triggerPop, showRoundBet, initializeCards } = useContext(PopupContext);
+    const { triggerPop, showRoundBet } = useContext(PopupContext);
+    const { initializeCards } = useContext(RoundContext);
     const idNow = playerData.playerRound % 4 + 1;
     const playerNow = playerData.players.find(element => (element.id === idNow));
 

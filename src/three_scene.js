@@ -1262,7 +1262,7 @@ class ThreeScene extends Component {
                 return (
                     <div key={5000 + i}><img className={`dice-all dice-color-img${i + 1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000 + i}></img></div>
                 )
-            })) : (<div></div>)
+            })) : (<div></div>);
         // let diceImgs = [];
         //     for (let i = 0; i < this.state.historyDices.length; i++){
         //         const color = this.state.historyDices[i].color;
