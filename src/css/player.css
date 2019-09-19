@@ -63,8 +63,8 @@
    width: 30px;
    height: auto;
    position: absolute;
-   left: 230px;
-   top: 30px;
+   left: 60%;
+   bottom: 2.0vw;
    transition: transform 0.3s ease;
    cursor: pointer;
    z-index: 14;

@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import ThreeScene from "./three_scene";
 import PlayerInfo from './components/player';
 import PopUp from './components/pop_up';
+import FinalArea from './components/final_area';
 import PlayerContextProvider from './contexts/playerContext';
 import PopupContextProvider from './contexts/popupContext';
 import RoundContextProvider from './contexts/roundContext';
@@ -22,6 +23,7 @@ class App extends React.Component {
                             <FinalContextProvider>
                                 <PlayerInfo />
                                 <PopUp />
+                                <FinalArea />
                                 <ThreeScene />
                             </FinalContextProvider>
                         </RoundContextProvider>

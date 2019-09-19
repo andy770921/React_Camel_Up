@@ -44,16 +44,6 @@
 }
 
 
-.flex-column {
-    display: flex;
-    flex-direction: column;
-}
-.flex-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
 .selected-card-div{
     justify-content: center;
     align-items: center;
@@ -74,37 +64,4 @@
     margin-right: 10%;
 }
 
-.btn-div{
-    padding: 20px 0 20px 0;
-    animation: 0.5s 0.5s showCards forwards;
-    opacity: 0;
-    width: 100%;
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-}
-.btn{
-    font-family: 'Permanent Marker', cursive;
-	font-size: 1.5em;
-    width: 200px;
-    height: 50px;
-    background-color: #7aa76d;
-    border: 0px;
-	padding: 8px 10px;
-	margin: 5px 0px;
-	border-radius: 3px;
-	color: #fff;
 
-	-webkit-transition: 0.15s background-color ease;
-	   -moz-transition: 0.15s background-color ease;
-	    -ms-transition: 0.15s background-color ease;
-	     -o-transition: 0.15s background-color ease;
-	        transition: 0.15s background-color ease;
-}
-
-.btn:hover {
-	background-color: #91cd85;
-}
-.btn:active {
-	background-color: #60895a;
-}

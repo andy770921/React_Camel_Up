@@ -37,7 +37,7 @@ const RoundBet = () => {
     const confirmCard = () => {
         sendConfirmedCard(roundCards.selectedCard);
         dispatch({ type: 'ADD_ROUND_CARD_END_TURN', cardObj: roundCards.selectedCard, playerId: playerData.playerIdNow });
-        alert("Receive Your Bet in this round!");
+        alert("Receive your bet in this round!");
         triggerPop();
     }
     const roundCardList = roundCards.cards.length ? (

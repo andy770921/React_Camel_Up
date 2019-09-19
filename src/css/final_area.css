@@ -1,0 +1,64 @@
+.final-area-div {
+    position: absolute;
+    bottom: 6.9vw;
+    left: 0px;
+    z-index: 5;
+}
+
+.final-area-bg {
+    width: 30vw;
+}
+
+.final-area-img {
+    width: 100%;
+    height: auto;
+}
+
+.final-area-top-div, .final-area-last-div {
+    width: 110px;
+    position: absolute;
+}
+.final-area-card-img{
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.final-area-card-img:hover {
+    transform: scale(2.3) translateX(40px);
+}
+
+.final-area-top-pos1{
+    left: 12.0%;
+    top: 40%;
+}
+.final-area-top-pos2{
+    left: 12.5%;
+    top: 35%;
+}
+.final-area-top-pos3{
+    left: 13%;
+    top: 30%;
+}
+.final-area-top-pos4{
+    left: 13.5%;
+    top: 25%;
+}
+
+.final-area-last-pos1{
+    right: 14.5%;
+    top: 40%;
+}
+.final-area-last-pos2{
+    right: 14%;
+    top: 35%;
+}
+.final-area-last-pos3{
+    right: 13.5%;
+    top: 30%;
+}
+.final-area-last-pos4{
+    right: 13%;
+    top: 25%;
+}

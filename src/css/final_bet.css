@@ -1,0 +1,28 @@
+
+.final-card-img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.final-card-img{
+    transition: transform 0.3s ease;
+}
+.final-card-img:hover{
+    transform: scale(1.02);
+}
+
+.final-card-div{
+    width: 20%;
+    max-width: 200px;
+    margin: 20px 0 20px 0;
+    animation: 0.5s 0.5s showCards forwards;
+    opacity: 0;
+    border-radius: 8px;
+}
+
+
+@keyframes showCards{
+    from {opacity: 0;}
+     to {opacity: 1;}
+}
