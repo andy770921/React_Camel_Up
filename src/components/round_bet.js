@@ -52,6 +52,7 @@ const RoundBet = () => {
     ) : ("");
     const roundCardPage = 
         <div className="flex-column"> 
+            <span className="banner">Bet Round Winner</span>
             <div className="flex-row">{roundCardList}</div> 
             <div className="flex-row selected-card-div">
                 <span className="flex-row selected-card-span">Card selected: </span> 

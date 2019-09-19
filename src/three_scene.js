@@ -868,7 +868,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.twoStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.05; }
                     else if (levelBeforeJump - level === -2) { return this.state.jumpPara.twoStepSpeed + 0.11; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.15; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.18; }
                     else { return this.state.jumpPara.twoStepSpeed; }
                 case 3:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.threeStepSpeed; }
@@ -877,7 +877,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.threeStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.threeStepSpeed + 0.07; }
                     else if (levelBeforeJump - level === -2) { return this.state.jumpPara.threeStepSpeed + 0.15; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.19; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.21; }
                     else { return this.state.jumpPara.threeStepSpeed; }
                 default:
                     return;
@@ -1105,7 +1105,7 @@ class ThreeScene extends Component {
         return sortedArray;
     }
     camelRun = () => {
-        if (this.state.rigidBody.triggerRolling === false) {
+        if (this.state.rigidBody.triggerRolling === false && this.state.pyramid.triggerMoving === false && this.state.camels.filter(e => (e.run === true)).length === 0) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
                 this.setState({ historyDices: [] });

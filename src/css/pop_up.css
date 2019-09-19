@@ -123,17 +123,17 @@
 /* ========================== */
 
 .round-bet-popup {
-    width: 80%;
+    width: 1000px;
     height: 65%;
-    left: calc(50% - 80%/2);
+    left: calc(50% - 1000px/2);
     top: calc(50% - 60%/2 - 5%);
     padding: 3%;
 }
 
 .final-bet-popup {
-    width: 60%;
+    width: 1000px;
     height: 50%;
-    left: calc(50% - 60%/2);
+    left: calc(50% - 1000px/2);
     top: calc(50% - 50%/2 - 5%);
     padding: 3%;
 }

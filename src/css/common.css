@@ -44,6 +44,7 @@
     box-shadow: 0 0 0 30px white inset !important;
   }
 
+
 /* ========================== */
 /*     Button Settings        */
 /* ========================== */
@@ -90,6 +91,17 @@
 }
 
 /* ========================== */
+/*     Banner Text Settings      */
+/* ========================== */
+
+.banner {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3em;
+  display: inline-block;
+  text-align: center;
+  margin: 10px 0 30px 0;
+}
+/* ========================== */
 /*     Flex Box Settings      */
 /* ========================== */
 
@@ -102,4 +114,68 @@
   flex-direction: row;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+.flex-toggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5em;
+  margin: 30px 0 30px 0;
+}
+
+/* ========================== */
+/*     Toggle Settings      */
+/* ========================== */
+
+
+input[type='checkbox'].toggle {
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 55px;
+  height: 28px;
+  background-color: lightgray;
+  position: relative;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  box-shadow: none;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+input[type='checkbox'].toggle:hover:after {
+  background-color: #888686;
+}
+input[type='checkbox'].toggle:after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #6d6a6a;
+  top: 2px;
+  left: 2px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+input[type='checkbox']:checked.toggle {
+  -moz-box-shadow: inset 0 0 0 15px #60895a;
+  -webkit-box-shadow: inset 0 0 0 15px #60895a;
+  box-shadow: inset 0 0 0 15px #60895a;
+}
+
+input[type='checkbox']:checked.toggle:after {
+  left: 29px;
+  background-color: #fff;
 }

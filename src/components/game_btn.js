@@ -5,11 +5,13 @@ import React, { useContext } from "react";
 import { PlayerContext } from '../contexts/playerContext';
 import { PopupContext } from '../contexts/popupContext';
 import { RoundContext } from '../contexts/roundContext';
+import { FinalContext } from '../contexts/finalContext';
 
 const GameBtn = (props) => {
     const { playerData } = useContext(PlayerContext);
     const { showRoundBet, showFinalBet } = useContext(PopupContext);
     const { initializeCards } = useContext(RoundContext);
+    const { initializeIsShow } = useContext(FinalContext);
     const idNow = playerData.playerRound % 4 + 1;
     const playerNow = playerData.players.find(element => (element.id === idNow));
 
@@ -27,7 +29,7 @@ const GameBtn = (props) => {
             <img className="btn-bg" src="./imgs/btn_area.png"></img>
             <img className="game-btn btn-pos1" src="./imgs/pyrimid_btn.png" onClick={ camelRunAndCheckRound }></img>
             <img className="game-btn btn-pos2" src="./imgs/round_btn.png" onClick={ showRoundBet }></img>
-            <img className="game-btn btn-pos3" src="./imgs/final_btn.png" onClick={ showFinalBet }></img>
+            <img className="game-btn btn-pos3" src="./imgs/final_btn.png" onClick={ () => { showFinalBet(); initializeIsShow();} }></img>
         </div>
     );
 }

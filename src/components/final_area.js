@@ -16,12 +16,12 @@ const FinalArea = (props) => {
         finalCards.cards.map((element, i) => {
             if (element.rank ==="top"){
             return (
-                <div key={element.order + 2000} className={`final-area-top-div final-area-top-pos${element.order}`}>
+                <div key={(element.order + 2000) * (element.order + 50)} className={`final-area-top-div final-area-top-pos${element.order}`}>
                         <img src={`./imgs/final_head_${element.playerOwner}.png`} className={`final-area-card-img`}></img>
                     </div>)
         } else if (element.rank ==="last"){
             return (
-                <div key={element.order + 2500} className={`final-area-last-div final-area-last-pos${element.order}`}>
+                <div key={(element.order + 2500) * (element.order + 50)} className={`final-area-last-div final-area-last-pos${element.order}`}>
                         <img src={`./imgs/final_head_${element.playerOwner}.png`} className={`final-area-card-img`}></img>
                     </div>)
         }})

@@ -26,3 +26,11 @@
     from {opacity: 0;}
      to {opacity: 1;}
 }
+
+.toggle-span-left {
+    margin-right: 30px;
+}
+
+.toggle-span-right {
+    margin-left: 30px;
+}
