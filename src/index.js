@@ -14,6 +14,13 @@ import FinalContextProvider from './contexts/finalContext';
 
 
 class App extends React.Component {
+    state = {
+        passGameBegin: {},
+    }
+    setPassGameBegin = (func) => { 
+        this.setState({passGameBegin: func});
+    }
+
     render() {
         return (
             <div className="background body">
@@ -22,9 +29,9 @@ class App extends React.Component {
                         <RoundContextProvider>
                             <FinalContextProvider>
                                 <PlayerInfo />
-                                <PopUp />
+                                <PopUp gameBegin={this.state.passGameBegin}/>
                                 <FinalArea />
-                                <ThreeScene />
+                                <ThreeScene setAppState={this.setPassGameBegin} />
                             </FinalContextProvider>
                         </RoundContextProvider>
                     </PopupContextProvider>

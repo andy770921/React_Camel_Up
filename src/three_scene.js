@@ -11,6 +11,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
+import { PopupContext } from './contexts/popupContext';
 import GameBtn from './components/game_btn';
 
 /*
@@ -128,6 +129,7 @@ class ThreeScene extends Component {
         historyDices: []
     }
     componentDidMount() {
+        this.props.setAppState(this.gameBegin);
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
         // ADD SCENE
@@ -244,6 +246,10 @@ class ThreeScene extends Component {
                 this.objLoader.setMaterials(materials);
                 this.objLoader.load('B.obj', (object) => {
                     this.scene.add(object);
+                    // 加入載入完成後，關閉 Loading 畫面
+                    this.context.dispatch({
+                        type: 'LOAD_SUCCEED'
+                    });
                 });
             });
 
@@ -351,7 +357,6 @@ class ThreeScene extends Component {
                     this.setState(prevState => ({
                         camels: [...prevState.camels, newObj]
                     }));
-
                     this.scene.add(object);
                 });
             });
@@ -553,7 +558,7 @@ class ThreeScene extends Component {
         this.world.add(groundBody);
 
         // ADD CANNON OUTER FRAME
-        this.cannonDebugRenderer = new THREE.CannonDebugRenderer(this.scene, this.world);
+        // this.cannonDebugRenderer = new THREE.CannonDebugRenderer(this.scene, this.world);
 
         // ADD RIGID BODY CONTACT
 
@@ -717,7 +722,6 @@ class ThreeScene extends Component {
         });
     }
 
-
     componentWillUnmount() {
         this.stop();
         this.mount.removeChild(this.renderer.domElement);
@@ -743,7 +747,7 @@ class ThreeScene extends Component {
         this.move();
         this.frameId = window.requestAnimationFrame(this.animate);
         this.world.step(1 / 60);            // for CANNON engine: Update physics
-        this.cannonDebugRenderer.update();    // for CANNON engine: Update debug frame
+        // this.cannonDebugRenderer.update();    // for CANNON engine: Update debug frame
         this.dice.updateMeshFromBody(); // Call this after updating the physics world for rearranging the mesh according to the body
     }
     renderScene = () => {
@@ -858,8 +862,8 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 2) { return this.state.jumpPara.oneStepSpeed - 0.02; }
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.oneStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.oneStepSpeed + 0.03; }
-                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.06; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.oneStepSpeed + 0.09; }
+                    else if (levelBeforeJump - level === -2) { return this.state.jumpPara.oneStepSpeed + 0.65; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.oneStepSpeed + 0.10; }
                     else { return this.state.jumpPara.oneStepSpeed; }
                 case 2:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.twoStepSpeed; }
@@ -1282,8 +1286,12 @@ class ThreeScene extends Component {
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         {diceImgs}
                     </div>
-                    <GameBtn camelRun={this.camelRun} />
+                    <GameBtn camelRun={this.camelRun} isDicing={!(this.state.rigidBody.triggerRolling === false && this.state.pyramid.triggerMoving === false && this.state.camels.filter(e => (e.run === true)).length === 0)}/>
                 </div>
+                {/* <PopupContext.Consumer>{(popupContext) => {
+                    const { hideGameStart } = popupContext;
+                    if (this.state.test){ console.log("AAA"); hideGameStart(); }
+                    }}</PopupContext.Consumer> */}
                 {/* <PopupContext.Consumer>{(popupContext) => { console.log("hi", popupContext);}}</PopupContext.Consumer> */}
                 {/* <button onClick={this.assignPyramid}> movePyramid </button>
                 <button onClick={() => this.rollDice(this.state.dices[0].diceObj)}> roll </button>

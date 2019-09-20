@@ -61,6 +61,10 @@ export const playerReducer = (state, action) => {
                 players: [...state.players.filter(element => (element.id !== action.playerId)),
                 { ...selectedPlayer, ...{ cardStock: [...selectedPlayer.cardStock, action.cardObj] }}]
             };
+        case 'LOAD_SUCCEED':
+            return {...state, 
+                isLoadSucceed: true
+            };
         case 'TEST':
             console.log("hi");
             return state;

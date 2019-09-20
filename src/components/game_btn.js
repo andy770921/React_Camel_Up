@@ -12,7 +12,7 @@ const GameBtn = (props) => {
     const { showRoundBet, showFinalBet } = useContext(PopupContext);
     const { initializeCards } = useContext(RoundContext);
     const { initializeIsShow } = useContext(FinalContext);
-    const idNow = playerData.playerRound % 4 + 1;
+    const idNow = (playerData.playerRound >=0 )? (playerData.playerRound % 4 + 1) : (1);
     const playerNow = playerData.players.find(element => (element.id === idNow));
 
     const camelRunAndCheckRound = () => {
@@ -28,8 +28,8 @@ const GameBtn = (props) => {
             <div className="name-now"> {playerNow.name} </div>
             <img className="btn-bg" src="./imgs/btn_area.png"></img>
             <img className="game-btn btn-pos1" src="./imgs/pyrimid_btn.png" onClick={ camelRunAndCheckRound }></img>
-            <img className="game-btn btn-pos2" src="./imgs/round_btn.png" onClick={ showRoundBet }></img>
-            <img className="game-btn btn-pos3" src="./imgs/final_btn.png" onClick={ () => { showFinalBet(); initializeIsShow();} }></img>
+            <img className="game-btn btn-pos2" src="./imgs/round_btn.png" onClick={ (!props.isDicing)? ( () => { showRoundBet();}):(function(){}) }></img>
+            <img className="game-btn btn-pos3" src="./imgs/final_btn.png" onClick={ (!props.isDicing)? ( () => { showFinalBet(); initializeIsShow();}):(function(){})}></img>
         </div>
     );
 }

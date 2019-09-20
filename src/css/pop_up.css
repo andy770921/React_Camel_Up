@@ -137,3 +137,60 @@
     top: calc(50% - 50%/2 - 5%);
     padding: 3%;
 }
+
+/* =================================== */
+/*     Game Start Popup Setting        */
+/* =================================== */
+
+.game-start-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    /* background-color: rgba( 0, 0, 0, 1 ); */
+}
+.start-bg {
+    width: 100%;
+    height: 100%;
+    background-image: url("../../dist/imgs/game_sence.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    transform: none !important;
+    
+}
+
+.start-bg:before{
+    content: "";
+    position: absolute;
+    background: inherit;
+    width : 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(3px);
+    -moz-filter   : blur(3px);
+    -webkit-filter: blur(3px);
+    -o-filter     : blur(3px);
+}
+.start-text{
+    color: white;
+    font-size: 3em;
+    text-shadow: 0 0 0.2em gray;
+    font-weight: bold;
+    transform: none;
+}
+.btn-start-style {
+    margin-top: 50px;
+    font-size: 1.5rem;
+    border-radius: 50px;
+}

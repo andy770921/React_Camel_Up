@@ -10,7 +10,10 @@ const PopupContextProvider = (props) => {
         isRoundBet: false,
         roundBetClassNames: { popup: 'round-bet-popup' },
         isFinalBet: false,
-        finalBetClassNames: { popup: 'final-bet-popup' }
+        finalBetClassNames: { popup: 'final-bet-popup' },
+        isShowGameStart: true,
+        showGameStartClassNames: { popup: 'avgrund-popup avgrund-active start-bg', cover: 'game-start-cover' },
+        hideGameStartClassNames: { popup: 'avgrund-popup', cover: '' }
     });
     const triggerPop = () => {
         setShowCtrl({ ...showCtrl, isShow: !showCtrl.isShow, isRoundBet: false, isFinalBet: false });
@@ -21,9 +24,12 @@ const PopupContextProvider = (props) => {
     const showFinalBet = () => {
         setShowCtrl({ ...showCtrl, isShow: !showCtrl.isShow, isFinalBet: true });
     }
+    const hideGameStart = () => {
+        setShowCtrl({ ...showCtrl, isShowGameStart: false});
+    }
 
     return (
-        <PopupContext.Provider value={{ showCtrl, triggerPop, showRoundBet, showFinalBet }}>
+        <PopupContext.Provider value={{ showCtrl, triggerPop, showRoundBet, showFinalBet, hideGameStart }}>
             {props.children}
         </PopupContext.Provider>
     );

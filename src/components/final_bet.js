@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
-import { TweenLite, TimelineMax } from "gsap/all";
+import { TimelineMax } from "gsap/all";
 
 
 const FinalBet = () => {
@@ -21,12 +21,9 @@ const FinalBet = () => {
             filteredCards.push(finalCards.initialCards[k]);
         }
         for (let i = 0; i < playerOwnerCards.length; i++) {
-            console.log("hiii");
             filteredCards = filteredCards.filter((element) => !(element.color === playerOwnerCards[i].color && element.rank === playerOwnerCards[i].rank));
         }
-        console.log("playerOwnerCards[i]",filteredCards)
         filteredCards = filteredCards.filter((element) => ( element.rank === type ));
-        console.log("element.rank === type",filteredCards)
         return filteredCards;
     }
 
@@ -62,13 +59,17 @@ const FinalBet = () => {
             order: finalCards.cardsInLastArea + 1
         })
     }
+    const confirmFinal = () => {
+        sendSelectedToPool(finalCards.selectedCard.rank);
+        triggerPop();
+    }
 
     const filteredTopCards = filterCards("top");
     const filteredLastCards = filterCards("last");
     const finalTopCardList = filteredTopCards.length ? (
         filteredTopCards.map((element) => {
             return (
-                <div key={element.id + 9000} id={`finalCard_${element.id + 9000}`} className="final-card-div" onClick={(e) => (true) ? (selectTopCard(e)) : ({})} color={element.color}>
+                <div key={element.id + 9000} id={`finalCard_${element.id + 9000}`} className="final-card-div" onClick={(e) => selectTopCard(e)} color={element.color}>
                     <img src={`./imgs/final_top_${element.color}.png`} className="final-card-img"></img>
                 </div>)
         })
@@ -76,7 +77,7 @@ const FinalBet = () => {
     const finalLastCardList = filteredLastCards.length ? (
         filteredLastCards.map((element) => {
             return (
-                <div key={element.id + 9500} id={`finalCard_${element.id + 9500}`} className="final-card-div" onClick={(e) => (true) ? (selectLastCard(e)) : ({})} color={element.color}>
+                <div key={element.id + 9500} id={`finalCard_${element.id + 9500}`} className="final-card-div" onClick={(e) => selectLastCard(e)} color={element.color}>
                     <img src={`./imgs/final_last_${element.color}.png`} className="final-card-img"></img>
                 </div>)
         })
@@ -88,12 +89,12 @@ const FinalBet = () => {
             <div className="flex-row">{(finalCards.isShowTopWinner)? (finalTopCardList): (finalLastCardList) }</div>
             <div className="flex-toggle">
                 <span className="toggle-span-left">Camel Winner</span>
-                <input className="toggle" type="checkbox" name="check" onChange={switchShow}/>
+                <input className="toggle" type="checkbox" name="check" onChange={(e)=>{switchShow(e.currentTarget.checked);}}/>
                 <span className="toggle-span-right">Camel Loser</span>
             </div>
             <div className="flex-row btn-div">
                 <button className="btn" onClick={ () => (Object.keys(finalCards.selectedCard).length !== 0 )? 
-                        (sendSelectedToPool(finalCards.selectedCard.rank)):( alert("Please select card first.")) }>Confirm</button>
+                        (confirmFinal()):( alert("Please select card first.")) }>Confirm</button>
                 <button className="btn" onClick={triggerPop}>Cancel</button>
             </div>
         </div>;
