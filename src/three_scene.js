@@ -126,7 +126,8 @@ class ThreeScene extends Component {
         dices: [],
         rigidBody: {},
         targetDiceObj: {},
-        historyDices: []
+        historyDices: [],
+        isClickingRun: false
     }
     componentDidMount() {
         this.props.setAppState(this.gameBegin);
@@ -740,7 +741,7 @@ class ThreeScene extends Component {
         // After making changes to aspect
         this.camera.updateProjectionMatrix();
         // Reset size
-        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 1);
+        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 0.97);
     }
     animate = () => {
         this.renderScene();
@@ -1109,7 +1110,7 @@ class ThreeScene extends Component {
         return sortedArray;
     }
     camelRun = () => {
-        if (this.state.rigidBody.triggerRolling === false && this.state.pyramid.triggerMoving === false && this.state.camels.filter(e => (e.run === true)).length === 0) {
+        if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
                 this.setState({ historyDices: [] });
@@ -1183,7 +1184,8 @@ class ThreeScene extends Component {
             // triggerRolling: 將會 1. 使指定函式開始運作，讓骰子與剛體位置重合
             this.setState(prevState => ({
                 rigidBody: { ...prevState.rigidBody, ...{ triggerRolling: true } },
-                targetDiceObj: prevState.dices[selectedDiceIndex].diceObj
+                targetDiceObj: prevState.dices[selectedDiceIndex].diceObj,
+                isClickingRun: true
             }));
             // 1 秒後，開始呼叫轉動函數，讓骰子開始轉
             let enableCheck = false;
@@ -1220,6 +1222,9 @@ class ThreeScene extends Component {
                     }));
                     enableCheck = false;
                     window.setTimeout(() => {
+                        this.setState(prevState => ({
+                            isClickingRun: false
+                        }));
                         this.assignPyramid();
                         selectedDiceObj.visible = false;
                         this.state.rigidBody.obj.position.x = 0;
@@ -1276,7 +1281,7 @@ class ThreeScene extends Component {
 
         return (
             <div>
-                <div className="pos-relative" style={{ width: '100%', height: '100vh' }} ref={(mount) => { this.mount = mount }}>
+                <div className="scene-canvas" ref={(mount) => { this.mount = mount }}>
                     <div className="camera-area">
                         <button className="camera-btn" onClick={this.handleViewPlus}><img className="arrow-img arrow-right" src="./imgs/camera_right.png"></img></button>
                         <div><img className="camera-img" src="./imgs/view-switch.png"></img></div>
@@ -1286,7 +1291,7 @@ class ThreeScene extends Component {
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         {diceImgs}
                     </div>
-                    <GameBtn camelRun={this.camelRun} isDicing={!(this.state.rigidBody.triggerRolling === false && this.state.pyramid.triggerMoving === false && this.state.camels.filter(e => (e.run === true)).length === 0)}/>
+                    <GameBtn camelRun={this.camelRun} isDicing={!(this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false)}/>
                 </div>
                 {/* <PopupContext.Consumer>{(popupContext) => {
                     const { hideGameStart } = popupContext;

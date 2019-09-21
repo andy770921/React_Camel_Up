@@ -2,10 +2,11 @@
     Base Layout Styles
 ==================================== */
 
-.pos-relative {
-    position: relative;
-}
+.scene-canvas {
+    width: 100%;
+    height: 97vh;
 
+}
 /* 旋轉視角按鈕 */
 
 .camera-area {
