@@ -6,7 +6,7 @@ import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import RoundBet from './round_bet';
 import FinalBet from './final_bet';
-
+import ReceiveRoundBet from './receive_round_bet';
 
 const PopUp = (props) => {
 
@@ -26,11 +26,13 @@ const PopUp = (props) => {
             <div className={
                     ((showCtrl.isShow)? (showCtrl.showClassNames.popup):(showCtrl.hideClassNames.popup)) + " " + 
                     ((showCtrl.isRoundBet)? (showCtrl.roundBetClassNames.popup):("")) + " " + 
-                    ((showCtrl.isFinalBet)? (showCtrl.finalBetClassNames.popup):(""))
+                    ((showCtrl.isFinalBet)? (showCtrl.finalBetClassNames.popup):("")) + " " + 
+                    ((showCtrl.isShowReceiveRoundBet)? (showCtrl.receiveRoundBetClassNames.popup):(""))
                 }>
                 <button onClick={triggerPop} className="icon-cross-popup"><img src="./imgs/cross-3.png" className="icon-cross-img"></img></button>
                 {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}
                 {(showCtrl.isFinalBet) ? (<FinalBet />) : ("")}
+                {(showCtrl.isShowReceiveRoundBet) ? (<ReceiveRoundBet />) : ("")}
             </div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.cover) : (showCtrl.hideGameStartClassNames.cover)}></div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.popup) : (showCtrl.hideGameStartClassNames.popup)}>

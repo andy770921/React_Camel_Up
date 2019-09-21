@@ -10,7 +10,7 @@ import { TweenLite, TimelineMax } from "gsap/all";
 
 const RoundBet = () => {
 
-    const { triggerPop } = useContext(PopupContext);
+    const { triggerPop, showReceiveRoundBet } = useContext(PopupContext);
     const { roundCards, sendSelectedCard, sendConfirmedCard } = useContext(RoundContext);
     const { playerData, dispatch } = useContext(PlayerContext);
 
@@ -37,8 +37,9 @@ const RoundBet = () => {
     const confirmCard = () => {
         sendConfirmedCard(roundCards.selectedCard);
         dispatch({ type: 'ADD_ROUND_CARD_END_TURN', cardObj: roundCards.selectedCard, playerId: playerData.playerIdNow });
-        alert("Receive your bet in this round!");
-        triggerPop();
+        showReceiveRoundBet();
+        //alert("Receive your bet in this round!");
+        //triggerPop();
     }
     const roundCardList = roundCards.cards.length ? (
         roundCards.cards.map((element, i) => {
