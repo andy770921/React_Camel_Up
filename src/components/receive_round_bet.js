@@ -10,10 +10,11 @@ const ReveiveRoundBet = () => {
 
     const { triggerPop } = useContext(PopupContext);
     const { playerData } = useContext(PlayerContext);
-    const playerNameNow = playerData.players.find(e=> (e.id === ((playerData.playerIdNow !== 0 )?
-                            (playerData.playerIdNow -1 ):(playerData.players.length)))).name;
+    const playerNameNow = playerData.players.find(e=> { 
+        return e.id === ((playerData.playerIdNow -1 !== 0 )?
+                            (playerData.playerIdNow -1 ):(playerData.players.length))}).name;
 
-    const roundCardPage = 
+    const confirmMsg = 
         <div className="flex-column"> 
             <span className="banner receive-text"> Receive {playerNameNow}'s Round Bet</span>
             <div className="flex-row btn-div">
@@ -22,7 +23,7 @@ const ReveiveRoundBet = () => {
         </div>;
 
     return (
-        roundCardPage
+        confirmMsg
     );
 }
 

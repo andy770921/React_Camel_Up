@@ -51,7 +51,14 @@ export const playerReducer = (state, action) => {
                 ${state.players[3].name}'s Money: ${state.players[3].money} ->  ${newPlayerArray[3].money} \r\n 
             `);
             return {...state, 
-                players: newPlayerArray
+                players: newPlayerArray,
+                isShowRoundInfo: true,
+                roundInfo: {camelsRanking: action.camelsRanking, playersMoney: [
+                    {id :state.players[0].id, name: state.players[0].name, moneyFrom: state.players[0].money, moneyTo: newPlayerArray[0].money},
+                    {id :state.players[1].id, name: state.players[1].name, moneyFrom: state.players[1].money, moneyTo: newPlayerArray[1].money},
+                    {id :state.players[2].id, name: state.players[2].name, moneyFrom: state.players[2].money, moneyTo: newPlayerArray[2].money},
+                    {id :state.players[3].id, name: state.players[3].name, moneyFrom: state.players[3].money, moneyTo: newPlayerArray[3].money}
+                ]}
             };
         case 'ADD_ROUND_CARD_END_TURN':
             selectedPlayer = state.players.find(element => (element.id === action.playerId));
@@ -64,6 +71,11 @@ export const playerReducer = (state, action) => {
         case 'LOAD_SUCCEED':
             return {...state, 
                 isLoadSucceed: true
+            };
+        case 'CLOSE_ROUND_INFO':
+            return {...state, 
+                isShowRoundInfo: false,
+                roundInfo: {}
             };
         case 'TEST':
             console.log("hi");

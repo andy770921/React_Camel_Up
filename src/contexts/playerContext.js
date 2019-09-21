@@ -14,7 +14,9 @@ const PlayerContextProvider = (props) => {
             {name: 'Teresa', money: 35, id: 4, cardStock: []}
         ],
         playerIdNow: 1,
-        isLoadSucceed: false
+        isLoadSucceed: false,
+        isShowRoundInfo: false,
+        roundInfo: {}
     });
 
   return (

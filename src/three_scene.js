@@ -11,7 +11,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
-import { PopupContext } from './contexts/popupContext';
 import GameBtn from './components/game_btn';
 
 /*

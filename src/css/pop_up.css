@@ -144,6 +144,13 @@
     left: calc(50% - 500px/2);
     top: calc(50% - 200px/2 - 5%);
 }
+.round-info-popup {
+    width: 70%;
+    height: 500px;
+    left: calc(50% - 70%/2);
+    top: calc(50% - 500px/2 - 5%);
+}
+
 /* =================================== */
 /*     Game Start Popup Setting        */
 /* =================================== */

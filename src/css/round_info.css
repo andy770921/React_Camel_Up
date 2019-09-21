@@ -1,0 +1,28 @@
+.info-title {
+    font-size: 3em;
+}
+
+.info-content {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.8em;
+    display: inline-block;
+    text-align: center;
+    margin: 0 0 10px 0;
+    line-height: normal;
+}
+.content-title {
+    font-size: 2.2rem;
+    margin: 10px 0 10px 0;
+}
+.content-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.content-text-left {
+    flex: 1 50%;
+    justify-content: center;
+}
+.content-text-right {
+    flex: 1 50%;
+    justify-content: center;
+}

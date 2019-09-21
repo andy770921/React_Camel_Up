@@ -42,7 +42,7 @@ const RoundBet = () => {
         //triggerPop();
     }
     const roundCardList = roundCards.cards.length ? (
-        roundCards.cards.map((element, i) => {
+        roundCards.cards.map((element) => {
             return (
                 <div key={element.id + 9000} className={`bet-card-div`}>
                     <div className="card" id={`card_${element.id + 9000}`} onClick={(e) => (parseInt(element.rewards) !== 0)? (selectCard(e)):({})} color={element.color} rewards={element.rewards}>
