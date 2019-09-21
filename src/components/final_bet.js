@@ -61,6 +61,7 @@ const FinalBet = () => {
     }
     const confirmFinal = () => {
         sendSelectedToPool(finalCards.selectedCard.rank);
+        dispatch({ type: 'PLAYER_ROUND_ADD' });
         triggerPop();
     }
 

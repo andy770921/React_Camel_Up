@@ -10,8 +10,6 @@ const RoundInfo = () => {
 
     const { triggerPop } = useContext(PopupContext);
     const { playerData, dispatch } = useContext(PlayerContext);
-    // const playerNameNow = playerData.players.find(e=> (e.id === ((playerData.playerIdNow !== 0 )?
-    //                         (playerData.playerIdNow -1 ):(playerData.players.length)))).name;
     const camelsRankingList = Object.keys(playerData.roundInfo).length ? (
         playerData.roundInfo.camelsRanking.map((element, i) => {
             // let rankingWords = "";
@@ -40,7 +38,9 @@ const RoundInfo = () => {
         sortedPlayersArray.map((element, i) => {
             return (
                 <div key={i + 26000} className={(i % 2 === 0)? ("content-text-left"):("content-text-right")}> 
-                    {element.name}'s : {element.moneyFrom} -> {element.moneyTo}
+                    {element.name}'s : {element.moneyFrom} 
+                    {(element.moneyTo - element.moneyFrom >= 0)? (" + "):(" - ")}
+                    {Math.abs(element.moneyTo - element.moneyFrom)} => {element.moneyTo}
                 </div>)
         })
     ) : ("");

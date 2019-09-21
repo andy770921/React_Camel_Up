@@ -16,7 +16,8 @@ const PopupContextProvider = (props) => {
         hideGameStartClassNames: { popup: 'avgrund-popup', cover: '' },
         isShowReceiveRoundBet: false,
         receiveRoundBetClassNames: { popup: 'receive-round-bet-popup' },
-        roundInfoClassNames: { popup: 'round-info-popup' }
+        roundInfoClassNames: { popup: 'round-info-popup' },
+        gameEndClassNames:  { popup: 'game-end-popup' },
     });
     const triggerPop = () => {
         setShowCtrl({ ...showCtrl, isShow: false, isRoundBet: false, isFinalBet: false, isShowReceiveRoundBet: false });

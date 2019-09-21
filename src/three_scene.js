@@ -1108,6 +1108,17 @@ class ThreeScene extends Component {
         }
         return sortedArray;
     }
+    checkGameEnd = () => {
+        if (this.state.camels.find(element => element.boxNum >= 16) !== undefined ){
+            // 若遊戲結束，四個骰子仍未骰完，也強迫結算
+            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking()});
+            this.context.dispatch({ type: 'CLEAR_USER_CARD_STOCK' });
+            this.context.dispatch({ type: 'SHOW_GAME_END_INFO' });
+            return;
+        } else {
+            return;
+        }
+    }
     camelRun = () => {
         if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
             // 如果歷史骰子有四顆顯示，先歸零
@@ -1236,10 +1247,14 @@ class ThreeScene extends Component {
                             });
                         }
                         // 當下回合若為四的倍數，統計賭注與清空玩家卡片庫。加一為本回合之意，因目前 camelRound 還是前一局的
-                        if ((this.context.playerData.camelRound + 1) > 0 && (this.context.playerData.camelRound + 1) % 4 === 0) {
+                        if ((this.context.playerData.camelRound + 1) > 0 && (this.context.playerData.camelRound + 1) % 4 === 0
+                        && this.state.camels.find(element => element.boxNum >= 16) === undefined) {
                             this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking()});
+                            this.context.dispatch({ type: 'SHOW_ROUND_INFO' });
                             this.context.dispatch({ type: 'CLEAR_USER_CARD_STOCK' });
                         }
+                        // 檢查遊戲是否結束
+                        this.checkGameEnd();
                         // 駱駝回合加一，以及玩家回合加一，切換玩家回合
                         this.context.dispatch({ type: 'PLAYER_AND_CAMEL_ROUND_ADD' });
                     }, 2000);

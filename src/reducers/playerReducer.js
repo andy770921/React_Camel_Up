@@ -15,6 +15,11 @@ export const playerReducer = (state, action) => {
                 camelRound: state.camelRound + 1,
                 playerIdNow: ((state.playerRound + 1) % state.players.length ) + 1
             };
+        case 'PLAYER_ROUND_ADD':
+            return {...state, 
+                playerRound: state.playerRound + 1,
+                playerIdNow: ((state.playerRound + 1) % state.players.length ) + 1
+            };
         case 'CLEAR_USER_CARD_STOCK':
             newPlayerArray = [ Object.assign({}, state.players[0]), Object.assign({}, state.players[1]),
                                Object.assign({}, state.players[2]), Object.assign({}, state.players[3])];
@@ -42,23 +47,18 @@ export const playerReducer = (state, action) => {
                     }
                 }
             }
-
-            alert(` Round Finished! \r\n 
-                Camels Ranking: ${action.camelsRanking[0]} > ${action.camelsRanking[1]} > ${action.camelsRanking[2]} > ${action.camelsRanking[3]} \r\n  
-                ${state.players[0].name}'s Money: ${state.players[0].money} ->  ${newPlayerArray[0].money} \r\n 
-                ${state.players[1].name}'s Money: ${state.players[1].money} ->  ${newPlayerArray[1].money} \r\n 
-                ${state.players[2].name}'s Money: ${state.players[2].money} ->  ${newPlayerArray[2].money} \r\n 
-                ${state.players[3].name}'s Money: ${state.players[3].money} ->  ${newPlayerArray[3].money} \r\n 
-            `);
             return {...state, 
                 players: newPlayerArray,
-                isShowRoundInfo: true,
                 roundInfo: {camelsRanking: action.camelsRanking, playersMoney: [
                     {id :state.players[0].id, name: state.players[0].name, moneyFrom: state.players[0].money, moneyTo: newPlayerArray[0].money},
                     {id :state.players[1].id, name: state.players[1].name, moneyFrom: state.players[1].money, moneyTo: newPlayerArray[1].money},
                     {id :state.players[2].id, name: state.players[2].name, moneyFrom: state.players[2].money, moneyTo: newPlayerArray[2].money},
                     {id :state.players[3].id, name: state.players[3].name, moneyFrom: state.players[3].money, moneyTo: newPlayerArray[3].money}
                 ]}
+            };
+        case 'SHOW_ROUND_INFO':
+            return {...state, 
+                isShowRoundInfo: true,
             };
         case 'ADD_ROUND_CARD_END_TURN':
             selectedPlayer = state.players.find(element => (element.id === action.playerId));
@@ -76,6 +76,10 @@ export const playerReducer = (state, action) => {
             return {...state, 
                 isShowRoundInfo: false,
                 roundInfo: {}
+            };
+        case 'SHOW_GAME_END_INFO':
+            return {...state, 
+                isGameEnd: true
             };
         case 'TEST':
             console.log("hi");
