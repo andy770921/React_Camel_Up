@@ -93,3 +93,34 @@
 /* ================================= 
   Media Queries
 ==================================== */
+
+
+@media (min-width: 901px) and (max-width: 1200px) {
+    .dice-his-img {
+        width: 380px;
+    }
+    .dice-color-img1 {
+        top: 25px;
+        left: 37px;
+        width: 53px;
+        height: 51px;
+    }
+    .dice-color-img2 {
+        top: 25px;
+        left: calc(84px + 37px);
+        width: 51px;
+        height: 49px;
+    }
+    .dice-color-img3 {
+        top: 25px;
+        left: calc(84px*2 + 37px);
+        width: 50px;
+        height: 49px;
+    }
+    .dice-color-img4 {
+        top: 25px;
+        left: calc(84px*3 + 37px);
+        width: 50px;
+        height: 47px;
+    }
+ }

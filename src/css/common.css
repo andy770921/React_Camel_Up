@@ -96,11 +96,17 @@
 
 .banner {
   font-family: 'Permanent Marker', cursive;
-  font-size: 3em;
+  font-size: 3rem;
   display: inline-block;
   text-align: center;
   margin: 0 0 10px 0;
   line-height: normal;
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .banner {
+    font-size: 2.5rem;
+  }
 }
 /* ========================== */
 /*     Flex Box Settings      */

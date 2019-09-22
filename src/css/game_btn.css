@@ -57,3 +57,29 @@
     padding-left: 4vw;
  }
 
+ @media (min-width: 901px) and (max-width: 1200px) {
+    .btn-bg {
+        width: 400px;
+    }
+    .head-now {
+        width: 9vw;
+        top: -5.2vw;
+     }
+     .name-now {
+        left: 1vw;
+        top: -4.2vw;
+        height: 4.2vw;
+        width: 17vw;
+        border-radius: 0% 40px 0% 0%;
+        font-size: 2.0em;
+     }
+     .game-btn {
+        width: 93px;
+    }
+    .btn-pos2 {
+        left: calc(23px + 130px);
+    }
+    .btn-pos3 {
+        left: calc(23px + 130px*2);
+    }
+ }

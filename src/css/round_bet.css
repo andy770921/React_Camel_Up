@@ -64,4 +64,27 @@
     margin-right: 10%;
 }
 
+/* ================================= 
+  Media Queries
+==================================== */
+
+
+@media (min-width: 901px) and (max-width: 1200px) {
+    .round-bet-popup {
+        width: 800px;
+        height: 72%;
+        left: calc(50% - 800px/2);
+        top: calc(50% - 70%/2 - 5%);
+    }
+    .bet-card-div {
+        max-width: 120px;
+        padding: 10px 0 10px 0;
+    }
+    .selected-card-span {
+        font-size: 2.5rem;
+    }
+    .selected-card-div {
+        padding: 20px 0 10px 0;
+    }
+}
 

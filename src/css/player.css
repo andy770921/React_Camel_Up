@@ -85,3 +85,29 @@
 .card-img-pos5 {
    left: calc(60% + 20px*4);
 }
+
+@media (min-width: 901px) and (max-width: 1200px) {
+   .num-id {
+      font-size: 1.0em;
+   }
+   
+   .num-money {
+      font-size: 1.3em;
+   }
+   .card-img {
+      width: 25px;
+      bottom: 1.6vw;
+   }
+   .card-img-pos2 {
+      left: calc(65% + 15px);
+   }
+   .card-img-pos3 {
+      left: calc(65% + 15px*2);
+   }
+   .card-img-pos4 {
+      left: calc(65% + 15px*3);
+   }
+   .card-img-pos5 {
+      left: calc(65% + 15px*4);
+   }
+}

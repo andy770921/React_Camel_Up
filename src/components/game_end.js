@@ -102,18 +102,35 @@ const GameEnd = () => {
                 </div>)
         })
     ) : ("");
+    let winnerPlayer = "";
+    const sortedWinnerArray = finalMoneyArray.sort(function(a,b) { return b.moneyTo - a.moneyTo});
 
+    if (sortedWinnerArray[0].moneyTo > sortedWinnerArray[1].moneyTo ){
+        winnerPlayer = sortedWinnerArray[0].name;
+    } else if ( (sortedWinnerArray[0].moneyTo === sortedWinnerArray[1].moneyTo) &&
+        (sortedWinnerArray[1].moneyTo > sortedWinnerArray[2].moneyTo)){
+        winnerPlayer = 
+            `${sortedWinnerArray[0].name}, ${sortedWinnerArray[1].name}`;
+    } else if ((sortedWinnerArray[0].moneyTo === sortedWinnerArray[1].moneyTo) &&
+        (sortedWinnerArray[1].moneyTo === sortedWinnerArray[2].moneyTo) && 
+        (sortedWinnerArray[2].moneyTo > sortedWinnerArray[3].moneyTo)){
+        winnerPlayer = 
+            `${sortedWinnerArray[0].name}, ${sortedWinnerArray[1].name}, ${sortedWinnerArray[2].name}`;
+    } else {
+        winnerPlayer = "Everyone!";
+    }
     const gameEndMsg = 
         <div className="flex-column"> 
             <div className="banner end-info-title"> Game Finished! </div>
             <div className="end-info-content">
-                <div className="end-content-title"> Camels Ranking: <br/> </div>
+                <div className="end-content-title"> Camels Final Ranking: <br/> </div>
                 <div>{camelsRankingList} </div>
-                <div className="end-content-title"> Player's Money: <br/> </div>
+                <div className="end-content-title"> Player's Final Money: <br/> </div>
                 <div className="end-content-flex">{playersRankingList}</div>
+                <div className="end-content-title">The Winner is ... </div>
+                <div className="banner end-info-title"> {winnerPlayer} </div>
             </div>
-            <div className="banner end-info-title"> The Winner is ... {
-                finalMoneyArray.sort(function(a,b) { return b.moneyTo - a.moneyTo})[0].name} </div>
+            
             <div className="flex-row btn-div">
                 <button className="btn" onClick={()=>{ triggerPop(); 
                     }}>

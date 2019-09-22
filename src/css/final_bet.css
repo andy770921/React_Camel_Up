@@ -34,3 +34,18 @@
 .toggle-span-right {
     margin-left: 30px;
 }
+
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+
+@media (min-width: 901px) and (max-width: 1200px) {
+    .final-bet-popup {
+        width: 800px;
+        height: 60%;
+        left: calc(50% - 800px/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+}
