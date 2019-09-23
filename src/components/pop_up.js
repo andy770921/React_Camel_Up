@@ -35,8 +35,8 @@ const PopUp = (props) => {
                     ((playerData.isGameEnd)? (showCtrl.gameEndClassNames.popup):(""))
                 }>
                 <button className="icon-cross-popup" onClick={ () => { triggerPop(); 
-                    (playerData.isShowRoundInfo)? (dispatch({ type: 'CLOSE_ROUND_INFO' })):({})
-                    (playerData.isGameEnd)? ({}):({}) }}>
+                    (playerData.isShowRoundInfo)? (dispatch({ type: 'CLOSE_ROUND_INFO' })):(function(){})
+                    (playerData.isGameEnd)? (function(){}):(function(){}) }}>
                     <img src="./imgs/cross-3.png" className="icon-cross-img"></img>
                 </button>
                 {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}

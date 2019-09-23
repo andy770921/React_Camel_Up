@@ -208,6 +208,8 @@
     text-shadow: 0 0 0.2em gray;
     font-weight: bold;
     transform: none;
+    line-height: 1.6em;
+    text-align: center;
 }
 .btn-start-style {
     margin-top: 50px;

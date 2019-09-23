@@ -91,7 +91,7 @@
 }
 
 /* ========================== */
-/*     Banner Text Settings      */
+/*     Banner Text Settings   */
 /* ========================== */
 
 .banner {
@@ -103,9 +103,19 @@
   line-height: normal;
 }
 
-@media (min-width: 901px) and (max-width: 1200px) {
+@media (min-width: 1001px) and (max-width: 1200px) {
   .banner {
-    font-size: 2.5rem;
+    font-size: 2.7rem;
+  }
+}
+@media (min-width: 801px) and (max-width: 1000px) {
+  .banner {
+    font-size: 2.7rem;
+  }
+}
+@media (min-width: 401px) and (max-width: 800px) {
+  .banner {
+    font-size: 2.4rem;
   }
 }
 /* ========================== */

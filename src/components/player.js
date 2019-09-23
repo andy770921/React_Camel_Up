@@ -6,7 +6,10 @@ import { PlayerContext } from '../contexts/playerContext';
 
 const PlayerInfo = () => {
     const { playerData } = useContext(PlayerContext);
-    let playerList = playerData.players.map((element, i) => {
+    let sortedPlayerArray = [ Object.assign({}, playerData.players[0]), Object.assign({},  playerData.players[1]),
+    Object.assign({}, playerData.players[2]), Object.assign({}, playerData.players[3])].sort( function(a,b) { return a.id - b.id });
+    
+    let playerList = sortedPlayerArray.map((element, i) => {
         let cardList = [];
             for (let j = 0; j < element.cardStock.length; j++){
                 const color = element.cardStock[j].color;

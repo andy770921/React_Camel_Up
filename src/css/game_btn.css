@@ -35,7 +35,7 @@
     height: auto;
     border-radius: 50%;
     position: absolute;
-    top: -3vw;
+    top: -3.5vw;
     left: -5vw;
     -webkit-box-shadow: 0 0 25px rgba(180, 123, 15, 0.66), 0 0px 10px rgba(11, 6, 61, 0.75), inset 0 0px 10px rgba(0, 0, 0, .75);
     box-shadow: 0 0 25px rgba(180, 123, 15, 0.66), 0 0px 10px rgba(11, 6, 61, 0.75), inset 0 0px 10px rgba(0, 0, 0, .75);
@@ -45,10 +45,10 @@
  .name-now {
     font-family: 'Permanent Marker', cursive;
     position: absolute;
-    top: -3vw;
+    top: -3.5vw;
     left: -1vw;
     width: 15vw;
-    height: 3vw;
+    height: 3.5vw;
     background-color: lightgray;
     font-size: 2.2em;
     line-height: 1.4em;
@@ -57,7 +57,15 @@
     padding-left: 4vw;
  }
 
- @media (min-width: 901px) and (max-width: 1200px) {
+ @media (min-width: 1501px) {
+     .name-now {
+        width: 14vw;
+        font-size: 2.4em;
+        border-radius: 0% 40px 0% 0%;
+     }
+ }
+
+ @media (min-width: 1001px) and (max-width: 1200px) {
     .btn-bg {
         width: 400px;
     }
@@ -81,5 +89,75 @@
     }
     .btn-pos3 {
         left: calc(23px + 130px*2);
+    }
+ }
+ @media (min-width: 801px) and (max-width: 1000px) {
+    .btn-area {
+        bottom: 18.9vw;
+        left: calc(50% - 40vw/2);
+        right: auto;
+    }
+    .btn-bg {
+        width: 372px;
+    }
+    .game-btn {
+        width: 87px;
+        top: 24px;
+    }
+    .btn-pos2 {
+        left: calc(23px + 120px);
+    }
+    .btn-pos3 {
+        left: calc(23px + 120px*2);
+    }
+    .head-now {
+        width: 11vw;
+        top: -7vw;
+        left: -7vw;
+    }
+    .name-now {
+        top: -5.5vw;
+        left: -1vw;
+        width: 25vw;
+        height: 5.5vw;
+        background-color: lightgray;
+        border-radius: 0% 40px 0% 0%;
+        padding-left: 7vw;
+        font-size: 1.9em;
+        padding-top: 1.2%;
+    }
+ }
+
+ @media (min-width: 401px) and (max-width: 800px) {
+    .btn-area {
+        bottom: 28.3vw;
+    }
+    .game-btn {
+        width: 15vw;
+        top: 3.5vw;
+    }
+    .btn-pos1 {
+        left: 2.9vw;
+    }
+    .btn-pos2 {
+        left: 22.6vw;
+    }
+    .btn-pos3 {
+        left: 41.9vw;
+    }
+    .head-now {
+        width: 90px;
+        top: -65px;
+        left: -60px;
+    }
+    .name-now {
+        top: -50px;
+        left: 20px;
+        width: 170px;
+        height: 50px;
+        padding-left: 25px;
+    }
+    .btn-bg {
+        width: 60vw;
     }
  }

@@ -86,7 +86,7 @@
    left: calc(60% + 20px*4);
 }
 
-@media (min-width: 901px) and (max-width: 1200px) {
+@media (min-width: 1001px) and (max-width: 1200px) {
    .num-id {
       font-size: 1.0em;
    }
@@ -97,17 +97,119 @@
    .card-img {
       width: 25px;
       bottom: 1.6vw;
+      left: 65%;
    }
    .card-img-pos2 {
-      left: calc(65% + 15px);
+      left: calc(65% + 12px);
    }
    .card-img-pos3 {
-      left: calc(65% + 15px*2);
+      left: calc(65% + 12px*2);
    }
    .card-img-pos4 {
-      left: calc(65% + 15px*3);
+      left: calc(65% + 12px*3);
    }
    .card-img-pos5 {
-      left: calc(65% + 15px*4);
+      left: calc(65% + 12px*4);
+   }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+   .player-bg {
+      width: 50%;
+      height: 9.45vw;
+   }
+   .player-area {
+      flex-direction: row;
+      right: 0;
+      flex-wrap: wrap;
+      width: 60%;
+      left: auto;
+   }
+   .head-img {
+      width: 5.5vw;
+      top: 1.9vw;
+      left: 1.6vw;
+   }
+   .coin-img {
+      width: 3.5vw;
+      top: 3.1vw;
+      left: 9.4vw;
+   }
+   .num-id {
+      width: 2vw;
+      height: 2vw;
+      top: 1.4vw;
+      left: 1.0vw;
+      font-size: 1.1em;
+   }
+   .num-money {
+      top: 4.7vw;
+      left: 14.0vw;
+      font-size: 1.3em;
+   }
+   .card-img {
+      left: 70%;
+   }
+   .card-img-pos2 {
+      left: calc(70% + 10px);
+   }
+   .card-img-pos3 {
+      left: calc(70% + 10px*2);
+   }
+   .card-img-pos4 {
+      left: calc(70% + 10px*3);
+   }
+   .card-img-pos5 {
+      left: calc(70% + 10px*4);
+   }
+   .card-img:hover {
+      transform: scale(3.5) translateY(-20px);
+   }
+}
+@media (min-width: 401px) and (max-width: 800px) {
+   .player-bg {
+      width: 40vw;
+   }
+   .player-area {
+      flex-direction: column;
+  }
+  .head-img {
+      width: 7.7vw;
+      top: 1.9vw;
+      left: 1.9vw;
+  }
+  .coin-img {
+      width: 5.5vw;
+      top: 3.0vw;
+      left: 12.5vw;
+  }
+  .num-money {
+      top: 5.9vw;
+      left: 19.0vw;
+      font-size: 1.5em;
+  }
+  .num-id {
+      top: 1.9vw;
+      left: 1.5vw;
+      font-size: 1.1em;
+  }
+  .card-img {
+      left: 66%;
+      bottom: 2.5vw;
+  }
+  .card-img-pos2 {
+      left: calc(66% + 10px);
+   }
+   .card-img-pos3 {
+      left: calc(66% + 10px*2);
+   }
+   .card-img-pos4 {
+      left: calc(66% + 10px*3);
+   }
+   .card-img-pos5 {
+      left: calc(66% + 10px*4);
+   }
+   .card-img:hover {
+   transform: scale(3.5) translateY(-20px);
    }
 }

@@ -69,7 +69,7 @@
 ==================================== */
 
 
-@media (min-width: 901px) and (max-width: 1200px) {
+@media (min-width: 1001px) and (max-width: 1200px) {
     .round-bet-popup {
         width: 800px;
         height: 72%;
@@ -87,4 +87,40 @@
         padding: 20px 0 10px 0;
     }
 }
+@media (min-width: 801px) and (max-width: 1000px) {
+    .round-bet-popup {
+        width: 600px;
+        height: 50%;
+        left: calc(50% - 600px/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+    .bet-card-div {
+        max-width: 120px;
+        padding: 10px 0 10px 0;
+    }
+    .selected-card-span {
+        font-size: 2.5rem;
+    }
+    .selected-card-div {
+        padding: 20px 0 10px 0;
+    }
+}
 
+@media (min-width: 401px) and (max-width: 800px) {
+    .round-bet-popup {
+        width: 80%;
+        height: 50%;
+        left: calc(50% - 80%/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+    .bet-card-div {
+        max-width: 120px;
+        padding: 10px 0 10px 0;
+    }
+    .selected-card-span {
+        font-size: 2.5rem;
+    }
+    .selected-card-div {
+        padding: 20px 0 10px 0;
+    }
+}
