@@ -5,8 +5,8 @@ import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
-import { TimelineMax } from "gsap/all";
-
+import { TimelineMax, CSSPlugin, AttrPlugin } from "gsap/all";
+const plugins = [ CSSPlugin, AttrPlugin ]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
 
 const FinalBet = () => {
 

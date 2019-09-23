@@ -5,7 +5,8 @@ import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { RoundContext } from '../contexts/roundContext';
-import { TweenLite, TimelineMax } from "gsap/all";
+import { TweenLite, TimelineMax, CSSPlugin, AttrPlugin } from "gsap/all";
+const plugins = [ CSSPlugin, AttrPlugin ]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
 
 
 const RoundBet = () => {
