@@ -137,13 +137,39 @@ class ThreeScene extends Component {
         this.scene = new THREE.Scene();
         const color = new THREE.Color(0xd5f3fe);
         this.scene.background = color;
-        // ADD CAMERA
-        this.camera = new THREE.PerspectiveCamera(
-            75,
-            width / height,
-            0.1,
-            1000
-        );
+
+
+        // ADD CAMERA with RWD function
+        
+        if (this.mount.clientWidth > 1200 ){
+            this.camera = new THREE.PerspectiveCamera(
+                80,
+                width / height,
+                0.1,
+                1000
+            );
+        } else if (this.mount.clientWidth <= 1200 && this.mount.clientWidth > 800){
+            this.camera = new THREE.PerspectiveCamera(
+                100,
+                width / height,
+                0.1,
+                1000
+            );
+        } else if (this.mount.clientWidth <= 800 && this.mount.clientWidth > 600){
+            this.camera = new THREE.PerspectiveCamera(
+                110,
+                width / height,
+                0.1,
+                1000
+            );
+        } else {
+            this.camera = new THREE.PerspectiveCamera(
+                130,
+                width / height,
+                0.1,
+                1000
+            );
+        }
 
         // SET PERSPECTIVE
         this.camera.position.set(12.224269097110634, 28.06120661987065, 20.449256738974572);
@@ -1131,7 +1157,8 @@ class ThreeScene extends Component {
         }
     }
     camelRun = () => {
-
+                console.log(this.camera.position.x, this.camera.position.y, this.camera.position.z);
+        console.log(this.camera.rotation.x, this.camera.rotation.y, this.camera.rotation.z);
         if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
