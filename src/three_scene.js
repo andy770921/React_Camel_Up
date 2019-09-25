@@ -7,7 +7,6 @@ import { DiceManager, DiceD6 } from './three-usage/dice.js';
 import React, { Component } from 'react';
 import * as THREE from 'three';
 import * as CANNON from "cannon";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
@@ -103,7 +102,8 @@ class ThreeScene extends Component {
         rigidBody: {},
         targetDiceObj: {},
         historyDices: [],
-        isClickingRun: false
+        isClickingRun: false,
+        isDuringAutoDicing: false
     }
     componentDidMount() {
         this.props.setParentGameBegin(this.gameBegin);
@@ -1023,7 +1023,8 @@ class ThreeScene extends Component {
             this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y + 0.1;
             if (this.state.pyramid.pyramidObj.position.y > 15) {
                 this.setState(prevState => ({
-                    pyramid: { ...prevState.pyramid, ...{ aboveGround: true, triggerMoving: false } }
+                    pyramid: { ...prevState.pyramid, ...{ aboveGround: true, triggerMoving: false } },
+                    isClickingRun: false
                 }));
             }
         }
@@ -1116,7 +1117,7 @@ class ThreeScene extends Component {
         }
     }
     camelRun = () => {
-        if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
+        if (this.state.isClickingRun === false) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
                 this.setState({ historyDices: [] });
@@ -1228,9 +1229,6 @@ class ThreeScene extends Component {
                     }));
                     enableCheck = false;
                     window.setTimeout(() => {
-                        this.setState(prevState => ({
-                            isClickingRun: false
-                        }));
                         this.assignPyramid();
                         selectedDiceObj.visible = false;
                         this.state.rigidBody.obj.position.x = 0;
@@ -1271,9 +1269,15 @@ class ThreeScene extends Component {
             }
             if (i >= beginRunTimes) {
                 window.clearInterval(keepPlaying);
+                this.setState(prevState => ({
+                    isDuringAutoDicing: false
+                }));
                 return;
             }
         }, 2000);
+        this.setState(prevState => ({
+            isDuringAutoDicing: true
+        }));
     }
     gameRestart = () => {
         jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
@@ -1317,7 +1321,7 @@ class ThreeScene extends Component {
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         {diceImgs}
                     </div>
-                    <GameBtn camelRun={this.camelRun} isDicing={!(this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false)}/>
+                    <GameBtn camelRun={this.camelRun} isDicing={(this.state.isClickingRun === true || this.state.isDuringAutoDicing === true)}/>
                 </div>
             </div>
 
