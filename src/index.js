@@ -16,9 +16,13 @@ import FinalContextProvider from './contexts/finalContext';
 class App extends React.Component {
     state = {
         passGameBegin: {},
+        passGameRestart: {}
     }
     setPassGameBegin = (func) => { 
         this.setState({passGameBegin: func});
+    }
+    setPassGameRestart = (func) => { 
+        this.setState({passGameRestart: func});
     }
 
     render() {
@@ -29,9 +33,9 @@ class App extends React.Component {
                         <RoundContextProvider>
                             <FinalContextProvider>
                                 <PlayerInfo />
-                                <PopUp gameBegin={this.state.passGameBegin}/>
+                                <PopUp gameBegin={this.state.passGameBegin} boardGameRestart={this.state.passGameRestart}/>
                                 <FinalArea />
-                                <ThreeScene setAppState={this.setPassGameBegin} />
+                                <ThreeScene setParentGameBegin={this.setPassGameBegin} setParentGameRestart={this.setPassGameRestart}/>
                             </FinalContextProvider>
                         </RoundContextProvider>
                     </PopupContextProvider>

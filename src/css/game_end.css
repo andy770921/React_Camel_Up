@@ -4,15 +4,23 @@
 
 .end-info-content {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     display: inline-block;
     text-align: center;
     margin: 0 0 10px 0;
     line-height: normal;
 }
 .end-content-title {
-    font-size: 2.2rem;
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 2.9rem;
     margin: 10px 0 10px 0;
+    background: linear-gradient(transparent 40%,rgba(255,255,255,0) 40%, rgba(80, 64, 80, 0.2) 90%,transparent 95%);
+    line-height: 1em;
+    display: inline-block;
+}
+
+.end-content-title:not(:first-child) {
+    margin-top: 30px;
 }
 .end-content-flex {
     display: flex;
@@ -26,3 +34,93 @@
     flex: 1 50%;
     justify-content: center;
 }
+.winner-name {
+    display: block;
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 5rem;
+}
+
+.game-finish-text {
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 4rem;
+    /* text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 55px #fff, 0 0 75px #fff; */
+}
+.pos-relative {
+    position: relative;
+}
+.icon-award-img {
+    width: 200px;
+    height: auto;
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    transform: rotate(-10deg);
+    -moz-transform:rotate(-10deg);
+    -webkit-transform:rotate(-10deg);
+    -o-transform:rotate(-10deg);
+    -ms-transform:rotate(-10deg);
+}
+
+
+@media (min-width: 801px) and (max-width: 1000px) {
+    .icon-award-img {
+        width: 120px;
+        bottom: 17%;
+        left: 5%;
+    }
+    .end-info-content {
+        font-size: 1.4rem;
+    }
+ }
+
+ @media (min-width: 601px) and (max-width: 800px) {
+    .icon-award-img {
+        width: 100px;
+        bottom: 18%;
+        left: 5%;
+    }
+    .end-info-content {
+        font-size: 1.4rem;
+    }
+    .end-content-flex {
+        flex-direction: column;
+    }
+    .game-finish-text {
+        font-size: 3.5rem;
+    }
+    .end-content-title:not(:first-child) {
+        margin-top: 20px;
+    }
+    .end-content-title {
+        font-size: 2.5rem;
+    }
+    .winner-name {
+        font-size: 4.2rem;
+    }
+
+ }
+
+ @media (min-width: 201px) and (max-width: 600px) {
+    .icon-award-img {
+        display: none;
+    }
+    .end-info-content {
+        font-size: 4.3vw;
+    }
+    .end-content-flex {
+        flex-direction: column;
+    }
+    .game-finish-text {
+        font-size: 10vw;
+    }
+    .end-content-title:not(:first-child) {
+        margin-top: 20px;
+    }
+    .end-content-title {
+        font-size: 7vw;
+    }    
+    .winner-name {
+        font-size: 13vw;
+    }
+
+ }

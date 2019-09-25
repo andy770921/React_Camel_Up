@@ -6,7 +6,7 @@ import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
 
-const GameEnd = () => {
+const GameEnd = (props) => {
 
     const { triggerPop } = useContext(PopupContext);
     const { finalCards } = useContext(FinalContext);
@@ -121,18 +121,19 @@ const GameEnd = () => {
     }
     const gameEndMsg = 
         <div className="flex-column"> 
-            <div className="banner end-info-title"> Game Finished! </div>
+            <div className="banner end-info-title game-finish-text"> Game Finished! </div>
             <div className="end-info-content">
                 <div className="end-content-title"> Camels Final Ranking: <br/> </div>
                 <div>{camelsRankingList} </div>
                 <div className="end-content-title"> Player's Final Money: <br/> </div>
                 <div className="end-content-flex">{playersRankingList}</div>
-                <div className="end-content-title">The Winner is ... </div>
-                <div className="banner end-info-title"> {winnerPlayer} </div>
+                <div className="end-content-title pos-relative"> The Winner is ... </div>
+                <div className="banner end-info-title winner-name"> {winnerPlayer} </div>
+                <img src="./imgs/stamp.png" className="icon-award-img"></img>
             </div>
             
             <div className="flex-row btn-div">
-                <button className="btn" onClick={()=>{ triggerPop(); 
+                <button className="btn" onClick={()=>{ triggerPop(); props.gameRestart();
                     }}>
                     Play Again!</button>
             </div>

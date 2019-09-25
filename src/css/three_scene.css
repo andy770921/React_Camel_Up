@@ -126,7 +126,7 @@
  }
 
  
-@media (min-width: 401px) and (max-width: 800px) {
+@media (min-width: 201px) and (max-width: 800px) {
     .dice-his-img {
         width: 300px;
     }
@@ -153,5 +153,12 @@
         left: calc(58px*3 + 54px);
         width: 41px;
         height: 39px;
+    }
+ }
+ @media (min-width: 201px) and (max-width: 600px) {
+    .camera-area {
+        right: auto;
+        top: 80px;
+        left: 15px;
     }
  }

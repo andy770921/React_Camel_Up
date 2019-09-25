@@ -63,8 +63,8 @@
    width: 30px;
    height: auto;
    position: absolute;
-   left: 60%;
-   bottom: 2.0vw;
+   left: 65%;
+   bottom: 1.8vw;
    transition: transform 0.3s ease;
    cursor: pointer;
    z-index: 14;
@@ -84,6 +84,12 @@
 }
 .card-img-pos5 {
    left: calc(60% + 20px*4);
+}
+
+@media (min-width: 1400px) {
+   .card-img {
+      width: 37px;
+   }
 }
 
 @media (min-width: 1001px) and (max-width: 1200px) {
@@ -166,7 +172,7 @@
       transform: scale(3.5) translateY(-20px);
    }
 }
-@media (min-width: 401px) and (max-width: 800px) {
+@media (min-width: 201px) and (max-width: 800px) {
    .player-bg {
       width: 40vw;
    }
@@ -186,16 +192,17 @@
   .num-money {
       top: 5.9vw;
       left: 19.0vw;
-      font-size: 1.5em;
+      font-size: 3vw;
   }
   .num-id {
       top: 1.9vw;
       left: 1.5vw;
-      font-size: 1.1em;
+      font-size: 2.5vw;
   }
   .card-img {
       left: 66%;
       bottom: 2.5vw;
+      width: 4vw;
   }
   .card-img-pos2 {
       left: calc(66% + 10px);
@@ -210,6 +217,6 @@
       left: calc(66% + 10px*4);
    }
    .card-img:hover {
-   transform: scale(3.5) translateY(-20px);
+      transform: scale(3.0) translateY(-20px);
    }
 }

@@ -129,7 +129,8 @@ class ThreeScene extends Component {
         isClickingRun: false
     }
     componentDidMount() {
-        this.props.setAppState(this.gameBegin);
+        this.props.setParentGameBegin(this.gameBegin);
+        this.props.setParentGameRestart(this.gameRestart);
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
         // ADD SCENE
@@ -881,7 +882,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.threeStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.threeStepSpeed + 0.07; }
                     else if (levelBeforeJump - level === -2) { return this.state.jumpPara.threeStepSpeed + 0.15; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.21; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.threeStepSpeed + 0.24; }
                     else { return this.state.jumpPara.threeStepSpeed; }
                 default:
                     return;
@@ -1080,12 +1081,12 @@ class ThreeScene extends Component {
         if (Math.abs(Math.abs(x) - Math.abs(w)) < 0.01 && Math.abs(Math.abs(y) - Math.abs(z)) < 0.01 && Math.abs(Math.abs(x) - Math.abs(w)) < Math.abs(Math.abs(x) - Math.abs(y))) {
             console.log("dice number is 1");
             return 1;
-        } else if ((Math.abs(x) < 0.01 && Math.abs(z) < 0.01) || Math.abs(w) < 0.01) {
-            console.log("dice number is 2");
-            return 2;
         } else if (Math.abs(Math.abs(x) - Math.abs(y)) < 0.01 && Math.abs(Math.abs(z) - Math.abs(w)) < 0.01) {
             console.log("dice number is 3");
             return 3;
+        } else if ((Math.abs(x) < 0.01 && Math.abs(z) < 0.01) || Math.abs(w) < 0.01) {
+            console.log("dice number is 2");
+            return 2;
         } else {
             console.log("I don't know this dice number");
             alert("I don't know this dice number, I guess dice number is 2");
@@ -1278,6 +1279,28 @@ class ThreeScene extends Component {
                 return;
             }
         }, 2000);
+    }
+    gameRestart = () => {
+        jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
+        let resetedCamels = [];
+        this.state.camels.forEach( element => {
+            element.camel.visible = false;
+            element.camel.position.set(12, 17.2, 12);
+            element.camel.rotation.y = 0;
+            resetedCamels.push({
+                camel: element.camel, id: element.id, color: element.color, position: { x: 12, y: 17.2, z: 12 },
+                boxNum: 0, level: 1, rotation: 0, run: false, nextBoxNum: 0, nextLevel: 0
+            });
+        });
+
+
+        this.setState(prevState => ({
+            camels: resetedCamels,
+            step: 0,
+            targetJumpCamelId: 0,
+            upperCamels: [],
+            historyDices: []
+        }));
     }
     render() {
         let diceImgs = this.state.historyDices.length ? (

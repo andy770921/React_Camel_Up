@@ -40,29 +40,3 @@
   Media Queries
 ==================================== */
 
-
-@media (min-width: 1001px) and (max-width: 1200px) {
-    .final-bet-popup {
-        width: 800px;
-        height: 60%;
-        left: calc(50% - 800px/2);
-        top: calc(50% - 60%/2 - 5%);
-    }
-}
-
-@media (min-width: 801px) and (max-width: 1000px) {
-    .final-bet-popup {
-        width: 600px;
-        height: 42%;
-        left: calc(50% - 600px/2);
-        top: calc(50% - 50%/2 - 5%);
-    }
-}
-@media (min-width: 401px) and (max-width: 800px) {
-    .final-bet-popup {
-        width: 80%;
-        height: 42%;
-        left: calc(50% - 80%/2);
-        top: calc(50% - 50%/2 - 5%);
-    }
-}

@@ -124,17 +124,17 @@
 
 .round-bet-popup {
     width: 1000px;
-    height: 65%;
+    height: 69%;
     left: calc(50% - 1000px/2);
-    top: calc(50% - 60%/2 - 5%);
+    top: calc(50% - 69%/2 - 5%);
     padding: 3%;
 }
 
 .final-bet-popup {
     width: 1000px;
-    height: 50%;
+    height: 55%;
     left: calc(50% - 1000px/2);
-    top: calc(50% - 50%/2 - 5%);
+    top: calc(50% - 55%/2 - 5%);
     padding: 3%;
 }
 
@@ -146,18 +146,113 @@
 }
 .round-info-popup {
     width: 70%;
-    height: 500px;
+    height: 520px;
     left: calc(50% - 70%/2);
-    top: calc(50% - 500px/2 - 5%);
+    top: calc(50% - 520px/2 - 5%);
+    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.4);
+
+    background-image: url('../../dist/imgs/popup-bg.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
 }
 
 .game-end-popup {
     width: 80%;
-    height: 600px;
+    height: 680px;
     left: calc(50% - 80%/2);
-    top: calc(50% - 600px/2 - 5%);
+    top: calc(50% - 680px/2 - 5%);
+    box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.4);
+
+    /* box-shadow: 0 0px 50px 5px rgba(0,0,0,.1), inset 0 0px 30px 10px rgba(255, 255, 255, 0.7); */
+    background-image: url('../../dist/imgs/popup-bg.png'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+}
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .round-bet-popup {
+        width: 800px;
+        height: 55%;
+        top: calc(50% - 55%/2 - 5%);
+        left: calc(50% - 800px/2);
+    }
+    .final-bet-popup {
+        width: 800px;
+        height: 50%;
+        left: calc(50% - 800px/2);
+        top: calc(50% - 50%/2 - 5%);
+    }
+}
+@media (min-width: 801px) and (max-width: 1000px) {
+    .round-info-popup {
+        width: 80%;
+        left: calc(50% - 80%/2);
+    }
+    .round-bet-popup {
+        width: 600px;
+        height: 50%;
+        left: calc(50% - 600px/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+    .final-bet-popup {
+        width: 600px;
+        height: 45%;
+        left: calc(50% - 600px/2);
+        top: calc(50% - 50%/2 - 5%);
+    }
+}
+@media (min-width: 601px) and (max-width: 800px) {
+    .round-info-popup {
+        width: 80%;
+        left: calc(50% - 80%/2);
+        height: 65vw;
+    }
+    .round-bet-popup {
+        width: 80%;
+        height: calc(100vw*0.6 + 80px);
+        left: calc(50% - 80%/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+    .final-bet-popup {
+        width: 80%;
+        height: 42%;
+        left: calc(50% - 80%/2);
+        top: calc(50% - 50%/2 - 5%);
+    }
 }
 
+@media (min-width: 201px) and (max-width: 600px) {
+    .round-info-popup {
+        width: 80%;
+        height: calc(90vw*0.5 + 210px);
+        left: calc(50% - 80%/2);
+        height: calc(90vw*0.5 + 200px);
+    }
+    .round-bet-popup {
+        width: 80%;
+        height: calc(100vw*0.6 + 160px);
+        left: calc(50% - 80%/2);
+        top: calc(50% - 60%/2 - 5%);
+    }
+    .final-bet-popup {
+        width: 80%;
+        height: 42%;
+        left: calc(50% - 80%/2);
+        top: calc(50% - 50%/2 - 5%);
+    }
+    .game-end-popup {
+        height: calc(100vw*0.8 + 250px);
+    }
+}
+@media (min-width: 201px) and (max-width: 580px) {
+    .receive-round-bet-popup {
+        width: 80%;
+        height: 250px;
+        left: calc(50% - 80%/2);
+        top: calc(50% - 200px/2 - 5%);
+    }
+}
 /* =================================== */
 /*     Game Start Popup Setting        */
 /* =================================== */

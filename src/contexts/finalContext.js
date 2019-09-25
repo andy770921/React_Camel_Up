@@ -46,9 +46,17 @@ const FinalContextProvider = (props) => {
     const initializeIsShow = () => {
         setFinalCards({ ...finalCards, isShowTopWinner: true });
     }
+    const initializeFinalCards = () => {
+        setFinalCards({ ...finalCards, 
+            cardsInTopArea: 0,
+            cardsInLastArea: 0,
+            cards: [],
+            selectedCard: {}
+         });
+    }
 
     return (
-        <FinalContext.Provider value={{ finalCards, sendSelectedTopCard, switchShow, sendSelectedToPool, initializeIsShow }}>
+        <FinalContext.Provider value={{ finalCards, sendSelectedTopCard, switchShow, sendSelectedToPool, initializeIsShow, initializeFinalCards }}>
             {props.children}
         </FinalContext.Provider>
     );

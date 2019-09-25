@@ -86,13 +86,13 @@ const FinalBet = () => {
 
     const finalCardPage =
         <div className="flex-column">
-            <span className="banner">Bet Final Winner</span>
-            <div className="flex-row">{(finalCards.isShowTopWinner)? (finalTopCardList): (finalLastCardList) }</div>
+            <span className="banner">Bet Final Ranking</span>
             <div className="flex-toggle">
-                <span className="toggle-span-left">Camel Winner</span>
+                <span className="toggle-span-left">Champion Camel</span>
                 <input className="toggle" type="checkbox" name="check" onChange={(e)=>{switchShow(e.currentTarget.checked);}}/>
-                <span className="toggle-span-right">Camel Loser</span>
+                <span className="toggle-span-right">Last Camel</span>
             </div>
+            <div className="flex-row">{(finalCards.isShowTopWinner)? (finalTopCardList): (finalLastCardList) }</div>
             <div className="flex-row btn-div">
                 <button className="btn" onClick={ () => (Object.keys(finalCards.selectedCard).length !== 0 )? 
                         (confirmFinal()):( alert("Please select card first.")) }>Confirm</button>

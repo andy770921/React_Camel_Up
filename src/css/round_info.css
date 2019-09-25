@@ -1,18 +1,22 @@
 .info-title {
-    font-size: 3em;
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 4rem;
 }
 
 .info-content {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.8em;
+    font-size: 1.6em;
     display: inline-block;
     text-align: center;
     margin: 0 0 10px 0;
     line-height: normal;
 }
 .content-title {
-    font-size: 2.2rem;
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 3rem;
     margin: 10px 0 10px 0;
+    background: linear-gradient(transparent 40%,rgba(255,255,255,0) 40%, rgba(80, 64, 80, 0.2) 90%,transparent 95%);
+    display: inline-block;
 }
 .content-flex {
     display: flex;
@@ -25,4 +29,35 @@
 .content-text-right {
     flex: 1 50%;
     justify-content: center;
+}
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .info-content {
+        font-size: 1.5em;
+        margin: 0 0 10px 0;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+    .info-content {
+        font-size: 1.5em;
+        margin: 0 0 10px 0;
+    }
+}
+@media (min-width: 201px) and (max-width: 800px) {
+    .info-title {
+        font-size: 6vw;
+    }
+    .info-content {
+        font-size: 3vw;
+        margin: 0 0 10px 0;
+    }
+    .content-title {
+        font-size: 5vw;
+    }
+}
+@media (min-width: 201px) and (max-width: 600px) {
+    .content-flex {
+        flex-direction: column;
+    }
 }

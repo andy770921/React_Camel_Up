@@ -128,7 +128,7 @@
     }
  }
 
- @media (min-width: 401px) and (max-width: 800px) {
+ @media (min-width: 201px) and (max-width: 800px) {
     .btn-area {
         bottom: 28.3vw;
     }

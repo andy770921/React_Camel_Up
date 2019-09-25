@@ -4,20 +4,33 @@ import '../css/pop_up.css';
 import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
+import { RoundContext } from '../contexts/roundContext';
+import { FinalContext } from '../contexts/finalContext';
 import RoundBet from './round_bet';
 import FinalBet from './final_bet';
 import ReceiveRoundBet from './receive_round_bet';
 import RoundInfo from './round_info';
 import GameEnd from './game_end';
 
+
 const PopUp = (props) => {
 
     const { showCtrl, triggerPop, hideGameStart } = useContext(PopupContext);
     const { playerData, dispatch } = useContext(PlayerContext);
+    const { initializeCards } = useContext(RoundContext);
+    const { initializeFinalCards } = useContext(FinalContext);
 
     const gameStart = () => {
         hideGameStart();
         props.gameBegin();
+    }
+    const gameRestart = () => {
+        triggerPop();
+        initializeCards();
+        dispatch({ type: 'START_NEW_GAME' });
+        props.boardGameRestart();
+        initializeFinalCards();
+        window.setTimeout(() => { props.gameBegin(); }, 500);
     }
     return (
         <div className="avgrund-ready">
@@ -36,14 +49,15 @@ const PopUp = (props) => {
                 }>
                 <button className="icon-cross-popup" onClick={ () => { triggerPop(); 
                     (playerData.isShowRoundInfo)? (dispatch({ type: 'CLOSE_ROUND_INFO' })):(function(){})
-                    (playerData.isGameEnd)? (function(){}):(function(){}) }}>
+                    (playerData.isGameEnd)? (gameRestart()):(function(){}) }}
+                    style={(playerData.isGameEnd || playerData.isShowRoundInfo)? { display: 'none'} : {}}>
                     <img src="./imgs/cross-3.png" className="icon-cross-img"></img>
                 </button>
                 {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}
                 {(showCtrl.isFinalBet) ? (<FinalBet />) : ("")}
                 {(showCtrl.isShowReceiveRoundBet) ? (<ReceiveRoundBet />) : ("")}
                 {(playerData.isShowRoundInfo) ? (<RoundInfo />) : ("")}
-                {(playerData.isGameEnd) ? (<GameEnd />) : ("")}
+                {(playerData.isGameEnd) ? (<GameEnd gameRestart={gameRestart}/>) : ("")}
             </div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.cover) : (showCtrl.hideGameStartClassNames.cover)}></div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.popup) : (showCtrl.hideGameStartClassNames.popup)}>

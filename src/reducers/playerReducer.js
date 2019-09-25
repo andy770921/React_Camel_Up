@@ -81,6 +81,22 @@ export const playerReducer = (state, action) => {
             return {...state, 
                 isGameEnd: true
             };
+        case 'START_NEW_GAME':
+            return {...state, 
+                playerRound: -4,
+                camelRound: -4,
+                players: [
+                    {name: 'Rita', money: 10, id: 1, cardStock: []},
+                    {name: 'Josh', money: 10, id: 2, cardStock: []},
+                    {name: 'Nick', money: 10, id: 3, cardStock: []},
+                    {name: 'Teresa', money: 10, id: 4, cardStock: []}
+                ],
+                playerIdNow: 1,
+                isLoadSucceed: true,
+                isShowRoundInfo: false,
+                roundInfo: {},
+                isGameEnd: false,
+            };
         case 'TEST':
             console.log("hi");
             return state;
