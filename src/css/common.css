@@ -5,10 +5,7 @@
     font-family: "PingFangTC-Regular";
     src: url(PingFang-TC-Regular.otf) format("opentype");
   }
-@font-face {
-    font-family: "Taibaijan";
-    src: url(Taibaijan.otf) format("opentype");
-}
+
 @font-face {
   font-family: "Taibaijan_Bold";
   src: url(Taibaijan_Bold.otf) format("opentype");

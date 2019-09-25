@@ -1049,6 +1049,16 @@ class ThreeScene extends Component {
         let { x, y, z } = this.camera.position;
         let { x: rx, y: ry, z: rz } = this.camera.rotation;
         let { x: targetX, y: targetY, z: targetZ, rx: targetRx, ry: targetRy, rz: targetRz } = targetAxisObj;
+        if (Math.abs(targetRz) > 60 * Math.PI / 180 && Math.abs(targetRz) < 180 * Math.PI / 180 && Math.abs(rz) > 60 * Math.PI / 180 && Math.abs(rz) < 180 * Math.PI / 180) {
+            if (rz < 0 && targetX > 0){
+                rz = rz + 360 * Math.PI / 180;
+                this.camera.rotation.set(rx, ry, rz);
+            } 
+            else if (rz > 0 && targetX < 0){
+                rz = rz - 360 * Math.PI / 180;
+                this.camera.rotation.set(rx, ry, rz);
+            }
+        }
         let totalStepSegments = 100;
         let cameraMove = window.setInterval(() => {
             if (Math.abs(this.camera.position.x - targetX) < 1 / totalStepSegments * Math.abs(x - targetX)) { window.clearInterval(cameraMove); return; }
@@ -1121,6 +1131,7 @@ class ThreeScene extends Component {
         }
     }
     camelRun = () => {
+
         if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
@@ -1309,12 +1320,6 @@ class ThreeScene extends Component {
                     <div key={5000 + i}><img className={`dice-all dice-color-img${i + 1}`} src={`./imgs/${element.color}_${element.number}.png`} key={6000 + i}></img></div>
                 )
             })) : (<div></div>);
-        // let diceImgs = [];
-        //     for (let i = 0; i < this.state.historyDices.length; i++){
-        //         const color = this.state.historyDices[i].color;
-        //         const number = this.state.historyDices[i].number;
-        //         diceImgs.push(<div><img className={`dice-color-img${i+1}`} src={`./imgs/${color}_${number}.png`}></img></div>);
-        //     }
 
         return (
             <div>
@@ -1330,21 +1335,6 @@ class ThreeScene extends Component {
                     </div>
                     <GameBtn camelRun={this.camelRun} isDicing={!(this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false)}/>
                 </div>
-                {/* <PopupContext.Consumer>{(popupContext) => {
-                    const { hideGameStart } = popupContext;
-                    if (this.state.test){ console.log("AAA"); hideGameStart(); }
-                    }}</PopupContext.Consumer> */}
-                {/* <PopupContext.Consumer>{(popupContext) => { console.log("hi", popupContext);}}</PopupContext.Consumer> */}
-                {/* <button onClick={this.assignPyramid}> movePyramid </button>
-                <button onClick={() => this.rollDice(this.state.dices[0].diceObj)}> roll </button>
-                <button onClick={() => this.judgeDiceNumber(this.state.targetDiceObj)}> judge </button>
-                <button onClick={this.camelRun}> Run </button>
-                <button onClick={this.gameBegin}> Begin </button>
-                <button onClick={()=> this.context.dispatch({ type: 'ADD_MONEY', amount: 1, playerId: 1})}> disp </button>
-                <button onClick={()=> this.context.dispatch({ type: 'PLAYER_ROUND_ADD'})}> RoundAdd </button> */}
-                {/* <button onClick={() => this.moveView({ x: -20.23749537647295, y: 30.20828012656372, z: 5.739317536121531, rx: -1.3830425495507412, ry: -0.5820892932676605, rz: -1.2380614788427116 }) }> Second View </button>
-                <button onClick={() => this.moveView({ x: -5.45846236450601, y: 28.170375973657137, z: -23.057998161510366, rx: -2.256727996179766, ry: -0.14883306465160234, rz: -2.962374890792215 }) }> Third View  </button>
-                <button onClick={() => this.moveView({ x: 21.37291700845059, y: 29.970348143855148, z: -0.11324214827492107, rx: -1.574574781713805, ry: 0.6194840200316319, rz: 1.5773039414145469 }) }> Forth View  </button> */}
             </div>
 
         )
