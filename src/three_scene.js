@@ -13,29 +13,6 @@ import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
 import GameBtn from './components/game_btn';
 
-/*
-let jumpInfo = {
-    x: 12,
-    y: 17.2,
-    z: 12,
-    r: 0,
-    dx: 0, // delta x and y
-    dy: 0,
-    dz: 0,
-    onGround: true,
-    triggerJump: false,
-    jumpPower: -1,  // power of jump smaller jumps higher eg -10 smaller than -5
-    moveSpeed: 0.72, // moveSpeed: 0.252, 0.501, 0.72 
-    moveSpeedZ: 0,
-    rotationSpeed: -0.063,
-    world: {
-        gravity: 0.08, // strength per frame of gravity
-        drag: 1, // 0.999 play with this value to change drag
-        // groundDrag: 0.9, // play with this value to change ground movement
-        ground: 17.2 //17.2, 18.6
-    }
-};
-*/
 class physicalWorld {
     // constructor 括號內，先寫者意義為，用 let jumpInfo = new physicalWorld({ x = 50 }); ，指定其中一個物件內容後，其他內容的預設值
     // constructor 括號內，後寫者意義為，用 let jumpInfo = new physicalWorld();，直接產生的預設值
@@ -554,21 +531,7 @@ class ThreeScene extends Component {
         this.world.gravity.set(0, -10, 0);
         this.world.broadphase = new CANNON.NaiveBroadphase();
 
-        // ADD CANNON RIGID BODY
-
-        // let box_cm = new CANNON.Material();
-
-        // const boxShape = new CANNON.Box(new CANNON.Vec3(1, 1, 1));
-        // const boxBody = new CANNON.Body({
-        //     mass: 5,
-        //     position: new CANNON.Vec3(12, 19, 12),
-        //     shape: boxShape,
-        //     material: box_cm
-        // });
-
-        // boxBody.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 1), -2 * Math.PI / 360 * 45 );
-
-        // this.world.add(boxBody);
+        // ADD CANNON RIGID PLANE AS GROUND
 
         let groundShape = new CANNON.Plane();
         let ground_cm = new CANNON.Material();
@@ -616,7 +579,7 @@ class ThreeScene extends Component {
 
         window.addEventListener('resize', this.onWindowResize, false);
         document.body.addEventListener("keydown", e => {
-            // 在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
+            // TEST 時，在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
             switch (e.keyCode) {
                 case 73: // press i
                     {
@@ -812,7 +775,6 @@ class ThreeScene extends Component {
                 jumpInfo[camelId].dz = -jumpInfo[camelId].moveSpeedZ;
                 jumpInfo[camelId].onGround = false;
                 jumpInfo[camelId].triggerJump = false;
-                // console.log("A", camelId);
             }
             // apply gravity drag and move player
             jumpInfo[camelId].dy += jumpInfo[camelId].world.gravity;
@@ -859,10 +821,8 @@ class ThreeScene extends Component {
                     camels: [...prevState.camels.filter(element => (camelId !== element.id)), refreshedObj],
                     //step: 0 不能設定 0 ，因為還沒跳完的駱駝，要依照此數據算出的座標繼續跳
                 }));
-                // console.log("C", camelId, this.state.camels[camelId].rotation);
             } else {
                 jumpInfo[camelId].onGround = false;
-                //console.log("DD", camelId, jumpInfo[camelId].y, jumpInfo[camelId].world.ground, jumpInfo[camelId].dy);
             }
             return { afterX: jumpInfo[camelId].x, afterY: jumpInfo[camelId].y, afterZ: jumpInfo[camelId].z };
         }
@@ -876,7 +836,6 @@ class ThreeScene extends Component {
             jumpInfo[camelId].dr = jumpInfo[camelId].rotationSpeed;
             jumpInfo[camelId].r += jumpInfo[camelId].dr;
             camelObj.rotation.y = jumpInfo[camelId].r;
-            //console.log("E", camelId, jumpInfo[camelId].r);
         }
     }
     judgeSpeedAndRotate = (levelBeforeJump, level, finalBoxNum) => {
@@ -1157,8 +1116,6 @@ class ThreeScene extends Component {
         }
     }
     camelRun = () => {
-                console.log(this.camera.position.x, this.camera.position.y, this.camera.position.z);
-        console.log(this.camera.rotation.x, this.camera.rotation.y, this.camera.rotation.z);
         if (this.state.isClickingRun === false && this.state.pyramid.triggerMoving === false) {
             // 如果歷史骰子有四顆顯示，先歸零
             if (this.state.historyDices.length === 4) {
