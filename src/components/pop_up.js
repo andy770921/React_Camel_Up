@@ -64,9 +64,11 @@ const PopUp = (props) => {
                 <div className="start-text" style={(playerData.isLoadSucceed)? {} : { display: 'none'}}>Press to start the game...</div>
                 <button className="btn btn-start-style" disabled={!playerData.isLoadSucceed} onClick={gameStart} 
                         style={(playerData.isLoadSucceed)? {} : { display: 'none'}}> Game Start </button>
-                <div className="load-div" style={(playerData.isLoadSucceed)? { display: 'none'} : {}}>
-                    <img src="./imgs/camel_red_noback.png" className="small-camel"></img>
-                    <img src="./imgs/camel_green_noback.png" className="small-camel"></img>
+                <div className="load-div" style={(playerData.isLoadSucceed)? { display: 'none' } : {}}>
+                    <div class="camel-holder">
+                        <img src="./imgs/camel_red_noback.png" className="small-camel"></img>
+                        <img src="./imgs/camel_green_noback.png" className="small-camel"></img>
+                    </div>
                     <div class="letter-holder">
                         <div class="l-1 loading-letter start-text">L</div>
                         <div class="l-2 loading-letter start-text">o</div>
@@ -79,8 +81,10 @@ const PopUp = (props) => {
                         <div class="l-9 loading-letter start-text">.</div>
                         <div class="l-10 loading-letter start-text">.</div>
                     </div>
-                    <img src="./imgs/camel_orange_noback.png" className="small-camel"></img>
-                    <img src="./imgs/camel_blue_noback.png" className="small-camel"></img>
+                    <div class="camel-holder">
+                        <img src="./imgs/camel_orange_noback.png" className="small-camel"></img>
+                        <img src="./imgs/camel_blue_noback.png" className="small-camel"></img>
+                    </div>
                 </div>
             </div>
         </div>
