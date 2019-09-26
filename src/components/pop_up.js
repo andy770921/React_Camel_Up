@@ -61,8 +61,27 @@ const PopUp = (props) => {
             </div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.cover) : (showCtrl.hideGameStartClassNames.cover)}></div>
             <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.popup) : (showCtrl.hideGameStartClassNames.popup)}>
-                <div className="start-text">Press to start the game...</div>
-                <button className="btn btn-start-style" disabled={!playerData.isLoadSucceed} onClick={gameStart}> Game Start </button>
+                <div className="start-text" style={(playerData.isLoadSucceed)? {} : { display: 'none'}}>Press to start the game...</div>
+                <button className="btn btn-start-style" disabled={!playerData.isLoadSucceed} onClick={gameStart} 
+                        style={(playerData.isLoadSucceed)? {} : { display: 'none'}}> Game Start </button>
+                <div className="load-div" style={(playerData.isLoadSucceed)? { display: 'none'} : {}}>
+                    <img src="./imgs/camel_red_noback.png" className="small-camel"></img>
+                    <img src="./imgs/camel_green_noback.png" className="small-camel"></img>
+                    <div class="letter-holder">
+                        <div class="l-1 loading-letter start-text">L</div>
+                        <div class="l-2 loading-letter start-text">o</div>
+                        <div class="l-3 loading-letter start-text">a</div>
+                        <div class="l-4 loading-letter start-text">d</div>
+                        <div class="l-5 loading-letter start-text">i</div>
+                        <div class="l-6 loading-letter start-text">n</div>
+                        <div class="l-7 loading-letter start-text">g</div>
+                        <div class="l-8 loading-letter start-text">.</div>
+                        <div class="l-9 loading-letter start-text">.</div>
+                        <div class="l-10 loading-letter start-text">.</div>
+                    </div>
+                    <img src="./imgs/camel_orange_noback.png" className="small-camel"></img>
+                    <img src="./imgs/camel_blue_noback.png" className="small-camel"></img>
+                </div>
             </div>
         </div>
     );
