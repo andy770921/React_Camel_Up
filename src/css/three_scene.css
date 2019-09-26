@@ -158,7 +158,51 @@
  @media (min-width: 201px) and (max-width: 600px) {
     .camera-area {
         right: auto;
-        top: 80px;
+        top: calc(100vw*0.15 - 5px);
         left: 15px;
+        width: 30vw;
+        display: flex;
+        justify-content: center;
     }
+    .dice-his-img {
+        width: 50vw;
+    }
+    .dice-color-img1 {
+        top: 2.6vw;
+        left: 5vw;
+        width: 7.5vw;
+        height: 7vw;
+    }
+    .dice-color-img2 {
+        top: 2.8vw;
+        left: 16vw;
+        width: 7.3vw;
+        height: 7vw;
+    }
+    .dice-color-img3 {
+        top: 2.8vw;
+        left: 26.7vw;
+        width: 7.2vw;
+        height: 7vw;
+    }
+    .dice-color-img4 {
+        top: 2.8vw;
+        left: 38vw;
+        width: 7.2vw;
+        height: 7vw;
+    }
+
  }
+ @media (min-width: 201px) and (max-width: 450px) {
+    .arrow-img {
+        width: 30px;
+        margin-top: 0px;
+    }
+    .camera-area {
+        height: 42px;
+    }
+    .camera-img {
+        width: 30px;
+        margin-top: 6px;
+    }
+}

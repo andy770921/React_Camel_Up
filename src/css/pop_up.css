@@ -174,7 +174,6 @@
     .round-bet-popup {
         width: 800px;
         height: 55%;
-        top: calc(50% - 55%/2 - 5%);
         left: calc(50% - 800px/2);
     }
     .final-bet-popup {
@@ -223,6 +222,14 @@
 }
 
 @media (min-width: 201px) and (max-width: 600px) {
+    .start-text {
+        font-size: 1.8em !important;
+        margin: 0px 20px;
+    }
+    .avgrund-popup {
+        width: 80%;
+        left: calc(50% - 80%/2);
+    }
     .round-info-popup {
         width: 80%;
         height: calc(90vw*0.5 + 210px);
@@ -244,6 +251,7 @@
     .game-end-popup {
         height: calc(100vw*0.8 + 250px);
     }
+
 }
 @media (min-width: 201px) and (max-width: 580px) {
     .receive-round-bet-popup {
@@ -253,6 +261,27 @@
         top: calc(50% - 200px/2 - 5%);
     }
 }
+@media (min-height: 601px) and (max-height: 1000px) {
+    .round-bet-popup {
+        height: 520px;
+        padding: 1%;
+    }
+    .final-bet-popup {
+        height: 500px;
+        padding: 1%;
+    }
+}
+@media (min-height: 201px) and (max-height: 600px) {
+    .round-bet-popup {
+        height: 410px;
+        padding: 1%;
+    }
+    .final-bet-popup {
+        height: 410px;
+        padding: 1%;
+    }
+}
+
 /* =================================== */
 /*     Game Start Popup Setting        */
 /* =================================== */
