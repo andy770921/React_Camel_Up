@@ -62,12 +62,43 @@
     font-family: 'Permanent Marker', cursive;
     font-size: 3.5em;
     margin-right: 10%;
+    line-height: 1.6rem;
 }
 
 /* ================================= 
   Media Queries
 ==================================== */
+@media (min-height: 601px) and (max-height: 1000px) {
+    .bet-card-div {
+        max-width: 100px;
+    }
+    .selected-card-div {
+        padding: 15px 0 0px 0;
+    }
+    .selected-card-span {
+        font-size: 2.5em;
+    }
+    .selected-card-img {
+        max-width: 70px;
+    }
+}
 
+@media (min-height: 201px) and (max-height: 600px) {
+    .bet-card-div {
+        width: 20%;
+        max-width: 70px;
+        padding: 5px 0 5px 0;
+    }
+    .selected-card-div {
+        padding: 15px 0 0px 0;
+    }
+    .selected-card-span {
+        font-size: 2.5em;
+    }
+    .selected-card-img {
+        max-width: 50px;
+    }
+}
 
 @media (min-width: 1001px) and (max-width: 1200px) {
     .bet-card-div {
@@ -106,34 +137,11 @@
         padding: 20px 0 10px 0;
     }
 }
-@media (min-height: 601px) and (max-height: 1000px) {
-    .bet-card-div {
-        max-width: 100px;
-    }
-    .selected-card-div {
-        padding: 15px 0 0px 0;
-    }
-    .selected-card-span {
-        font-size: 2.5em;
-    }
-    .selected-card-img {
-        max-width: 70px;
-    }
-}
 
-@media (min-height: 201px) and (max-height: 600px) {
-    .bet-card-div {
-        width: 20%;
-        max-width: 70px;
-        padding: 5px 0 5px 0;
-    }
-    .selected-card-div {
-        padding: 15px 0 0px 0;
-    }
-    .selected-card-span {
-        font-size: 2.5em;
-    }
-    .selected-card-img {
-        max-width: 50px;
+
+@media (min-width: 201px) and (max-width: 600px) {
+    .btn-div {
+        flex-direction: column;
+        align-items: center;
     }
 }

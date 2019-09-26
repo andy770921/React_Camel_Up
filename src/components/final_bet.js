@@ -89,7 +89,7 @@ const FinalBet = () => {
             <span className="banner">Bet Final Ranking</span>
             <div className="flex-toggle">
                 <span className="toggle-span-left">Champion Camel</span>
-                <input className="toggle" type="checkbox" name="check" onChange={(e)=>{switchShow(e.currentTarget.checked);}}/>
+                <label className="switch"><input className="switch_toggle" type="checkbox" name="check" onChange={(e)=>{switchShow(e.currentTarget.checked);}}/><span className="slider round"></span></label>
                 <span className="toggle-span-right">Last Camel</span>
             </div>
             <div className="flex-row">{(finalCards.isShowTopWinner)? (finalTopCardList): (finalLastCardList) }</div>

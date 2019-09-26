@@ -222,7 +222,19 @@
 }
 
 @media (min-width: 201px) and (max-width: 500px) {
-   .name-now {
-      width: 50vw;
+   .head-now {
+      width: 19vw;
+      top: calc(-14.5vw);
+      left: calc(-11vw);
   }
+
+  .name-now {
+      top: calc(-10vw - 10px);
+      left: 1vw;
+      width: 45w;
+      height: calc(10vw + 10px);
+      padding-left: 10vw;
+      font-size: 7vw;
+      padding-top: 2vw;
+   }
 }

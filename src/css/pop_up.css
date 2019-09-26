@@ -106,7 +106,7 @@
     top: -23px; 
     right:-23px;
     box-shadow: 0 0px 11px -2px white; 
-    background-color: rgba( 150, 0, 0 );
+    background-color: rgb( 150, 0, 0 );
     border-radius: 50%;
     transition: transform 0.3s ease;
 }
@@ -215,7 +215,7 @@
     }
     .final-bet-popup {
         width: 80%;
-        height: 42%;
+        height: calc(100vw*0.5 + 100px);
         left: calc(50% - 80%/2);
         top: calc(50% - 50%/2 - 5%);
     }
@@ -238,13 +238,13 @@
     }
     .round-bet-popup {
         width: 80%;
-        height: calc(100vw*0.6 + 160px);
+        height: calc(100vw*0.5 + 180px);
         left: calc(50% - 80%/2);
         top: calc(50% - 60%/2 - 5%);
     }
     .final-bet-popup {
         width: 80%;
-        height: 42%;
+        height: calc(100vw*0.4 + 220px);
         left: calc(50% - 80%/2);
         top: calc(50% - 50%/2 - 5%);
     }
@@ -339,6 +339,8 @@
     margin-top: 50px;
     font-size: 1.5rem;
     border-radius: 50px;
+    width: 200px;
+    height: 50px;
 }
 
 

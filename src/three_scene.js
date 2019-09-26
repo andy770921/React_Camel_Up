@@ -996,7 +996,10 @@ class ThreeScene extends Component {
         if (diceObj) { this.dice.updateBodyFromInsertDiceObj(diceObj); }
         let rand = Math.random() * 2;
         let yRand = Math.random() * 6;
-        this.dice.getObject().body.velocity.set(rand, 4 + yRand, rand);
+        
+        // 0 + yRand 可調整骰子上拋速度
+
+        this.dice.getObject().body.velocity.set(rand, 0 + yRand, rand);
         this.dice.getObject().body.angularVelocity.set(10 * Math.random() + 5, 10 * Math.random() + 5, 10 * Math.random() + 5);
         //diceValues.push({ dice: this.dice, value: 2 });
         //DiceManager.prepareValues(diceValues, this.state.dices[0].diceObj);
@@ -1085,7 +1088,7 @@ class ThreeScene extends Component {
             return 2;
         } else {
             console.log("I don't know this dice number");
-            alert("I don't know this dice number, I guess dice number is 2");
+            // alert("I don't know this dice number, I guess dice number is 2");
             return 2;
         }
     }
