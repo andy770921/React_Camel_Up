@@ -1016,14 +1016,14 @@ class ThreeScene extends Component {
     }
     movePyramid = () => {
         if (this.state.pyramid.aboveGround === true) {
-            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y - 0.1;
+            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y - 0.12;
             if (this.state.pyramid.pyramidObj.position.y < 9) {
                 this.setState(prevState => ({
                     pyramid: { ...prevState.pyramid, ...{ aboveGround: false, triggerMoving: false } }
                 }));
             }
         } else if (this.state.pyramid.aboveGround === false) {
-            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y + 0.1;
+            this.state.pyramid.pyramidObj.position.y = this.state.pyramid.pyramidObj.position.y + 0.16;
             if (this.state.pyramid.pyramidObj.position.y > 15) {
                 this.setState(prevState => ({
                     pyramid: { ...prevState.pyramid, ...{ aboveGround: true, triggerMoving: false } },

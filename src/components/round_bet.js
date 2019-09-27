@@ -8,7 +8,6 @@ import { RoundContext } from '../contexts/roundContext';
 import { TweenLite, TimelineMax, CSSPlugin, AttrPlugin } from "gsap/all";
 const plugins = [ CSSPlugin, AttrPlugin ]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
 
-
 const RoundBet = () => {
 
     const { triggerPop, showReceiveRoundBet } = useContext(PopupContext);
@@ -26,10 +25,15 @@ const RoundBet = () => {
         for (let i = 1; i <= 4; i++ ){
             tl.set(`#card_${i + 9000}`, { rotationY: -0,  boxShadow: "none" });
         }
-        // 加入旋轉動畫
-        tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd"});
-        //.to(`#${e.currentTarget.id}`, 1, {scale:.6, bottom: -200, left:0})
-
+        // 加入旋轉動畫，及外框顏色 RWD
+        if (window.innerWidth >= 401 && window.innerWidth < 600 ) {
+            tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 6px #a1dffd"});
+        } else if (window.innerWidth >= 201 && window.innerWidth < 400 ) {
+            tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 4.5px #a1dffd"});
+        } else {
+            tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd"});
+            //.to(`#${e.currentTarget.id}`, 1, {scale:.6, bottom: -200, left:0})
+        }
         sendSelectedCard({color: e.currentTarget.getAttribute("color"), 
                         rewards: e.currentTarget.getAttribute("rewards"), 
                         id: parseInt(e.currentTarget.id.substr(5))-9000 });

@@ -1,3 +1,17 @@
 .receive-text {
     font-size: 2em;
 }
+
+
+@media (min-width: 601px) and (max-width: 800px) {
+    .receive-text {
+        font-size: 1.8em;
+    }
+}
+
+@media (min-width: 201px) and (max-width: 600px) {
+    .receive-text {
+        font-size: 5vw;
+    }
+}
+
