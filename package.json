@@ -35,6 +35,7 @@
     "react": "^16.9.0",
     "react-babylonjs": "^1.0.3",
     "react-dom": "^16.9.0",
+    "react-router-dom": "^5.1.0",
     "react-three": "^0.9.7",
     "three": "^0.107.0",
     "three-gltf-loader": "^1.107.0",

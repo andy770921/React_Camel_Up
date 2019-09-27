@@ -1,22 +1,2 @@
 
-/* sticky footer */
-
-.body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* =================== */
-
-.background  { 
-    height: 100%; 
-    width: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    /* 背景圖左右置中、上下置上，若四方置中可寫成 background-position: center; 
-       也可設定位置百分比如 background-position: 20% 50%; */
-    background-image: url('../../dist/imgs/bg4.jpg'); 
-}
 

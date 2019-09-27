@@ -1,0 +1,43 @@
+#logo-no1:after {
+    content:"CAMEL";
+    position: absolute;
+    left: 8px;
+    top: 15px;
+}
+#logo-no2:after {
+    content:"UP";
+    position: absolute;
+    left: 8px;
+    top: 15px;
+}
+
+
+.home-div {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3.5em;
+    line-height: 1.6rem;
+}
+
+.logo {
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: 'Taibaijan_Bold', cursive;
+    color: #555;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 300px;
+    font-weight: 800;
+    letter-spacing: 15px;
+    line-height: 1;
+    text-shadow: #EDEDED 3px 2px 0;
+    position: relative;
+}
+.logo:after {
+    background-image: -webkit-linear-gradient(left top, transparent 0%, transparent 25%, #555 25%, #555 50%, transparent 50%, transparent 75%, #555 75%);
+    background-size: 4px 4px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    z-index: -5;
+    display: block;
+    text-shadow: none;
+}

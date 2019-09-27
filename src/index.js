@@ -3,46 +3,25 @@ import './css/common.css';
 import './css/index.css';
 import React from "react";
 import ReactDOM from "react-dom";
-import ThreeScene from "./three_scene";
-import PlayerInfo from './components/player';
-import PopUp from './components/pop_up';
-import FinalArea from './components/final_area';
-import PlayerContextProvider from './contexts/playerContext';
-import PopupContextProvider from './contexts/popupContext';
-import RoundContextProvider from './contexts/roundContext';
-import FinalContextProvider from './contexts/finalContext';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Navbar from './components/nav_bar';
+import Home from './components/home';
+import GameEntry from './components/game_entry';
+import Tutorials from './components/tutorials';
 
 
-class App extends React.Component {
-    state = {
-        passGameBegin: {},
-        passGameRestart: {}
-    }
-    setPassGameBegin = (func) => { 
-        this.setState({passGameBegin: func});
-    }
-    setPassGameRestart = (func) => { 
-        this.setState({passGameRestart: func});
-    }
-
-    render() {
-        return (
-            <div className="background body">
-                <PlayerContextProvider>
-                    <PopupContextProvider>
-                        <RoundContextProvider>
-                            <FinalContextProvider>
-                                <PlayerInfo />
-                                <PopUp gameBegin={this.state.passGameBegin} boardGameRestart={this.state.passGameRestart}/>
-                                <FinalArea />
-                                <ThreeScene setParentGameBegin={this.setPassGameBegin} setParentGameRestart={this.setPassGameRestart}/>
-                            </FinalContextProvider>
-                        </RoundContextProvider>
-                    </PopupContextProvider>
-                </PlayerContextProvider>
-            </div>
-        )
-    }
+function App() {
+    return (
+        <BrowserRouter>
+            <React.Fragment>
+                <Navbar />
+                <Route exact path="/" component={Home}/>
+                <Route path="/tutorials" component={Tutorials} />
+                <Route path="/game" component={GameEntry} /> 
+                {/* <GameEntry /> */}
+            </React.Fragment>
+        </BrowserRouter>
+    );
 }
 
 ReactDOM.render(<App />, document.querySelector("#root"));
