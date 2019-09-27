@@ -127,7 +127,7 @@ const GameEnd = (props) => {
             <div className="banner end-info-title game-finish-text"> Game Finished! </div>
             <div className="end-info-content">
                 <div className="end-content-title"> Camels Final Ranking: <br/> </div>
-                <div>{camelsRankingList} </div>
+                <div className="end-camel-color">{camelsRankingList} </div>
                 <div className="end-content-title"> Player's Final Money: <br/> </div>
                 <div className="end-content-flex">{playersRankingList}</div>
                 <div className="end-content-title pos-relative"> The Winner is ... </div>

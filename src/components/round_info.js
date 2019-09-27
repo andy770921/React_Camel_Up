@@ -67,7 +67,7 @@ const RoundInfo = () => {
             <div className="banner info-title"> Round Finished! </div>
             <div className="info-content">
                 <div className="content-title"> Camels Ranking: <br /> </div>
-                <div>{camelsRankingList} <br /> </div>
+                <div className="content-camel-color">{camelsRankingList} <br /> </div>
                 <div className="content-title"> Player's Money: <br /> </div>
                 <div className="content-flex">{playersRankingList}</div>
             </div>

@@ -1,5 +1,6 @@
 .info-title {
     font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
     font-size: 4rem;
 }
 
@@ -13,6 +14,7 @@
 }
 .content-title {
     font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
     font-size: 3rem;
     margin: 10px 0 10px 0;
     background: linear-gradient(transparent 40%,rgba(255,255,255,0) 40%, rgba(80, 64, 80, 0.2) 90%,transparent 95%);
@@ -25,10 +27,14 @@
 .content-text-left {
     flex: 1 50%;
     justify-content: center;
+    padding: 5px 0 5px 0;
 }
 .content-text-right {
     flex: 1 50%;
     justify-content: center;
+}
+.content-camel-color {
+    padding: 5px 0px 10px 0px;
 }
 
 @media (min-width: 1001px) and (max-width: 1200px) {

@@ -103,7 +103,8 @@ class ThreeScene extends Component {
         targetDiceObj: {},
         historyDices: [],
         isClickingRun: false,
-        isDuringAutoDicing: false
+        isDuringAutoDicing: false,
+        isCameraMoving: false 
     }
     componentDidMount() {
         this.props.setParentGameBegin(this.gameBegin);
@@ -117,22 +118,22 @@ class ThreeScene extends Component {
 
 
         // ADD CAMERA with RWD function
-        
-        if (this.mount.clientWidth > 1200 ){
+
+        if (this.mount.clientWidth > 1200) {
             this.camera = new THREE.PerspectiveCamera(
                 80,
                 width / height,
                 0.1,
                 1000
             );
-        } else if (this.mount.clientWidth <= 1200 && this.mount.clientWidth > 800){
+        } else if (this.mount.clientWidth <= 1200 && this.mount.clientWidth > 800) {
             this.camera = new THREE.PerspectiveCamera(
                 100,
                 width / height,
                 0.1,
                 1000
             );
-        } else if (this.mount.clientWidth <= 800 && this.mount.clientWidth > 600){
+        } else if (this.mount.clientWidth <= 800 && this.mount.clientWidth > 600) {
             this.camera = new THREE.PerspectiveCamera(
                 110,
                 width / height,
@@ -518,11 +519,11 @@ class ThreeScene extends Component {
         this.scene.add(this.rod2);
 
         // ADD MOUSE CTRL
-        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        // this.controls.enableDamping = true;
-        // this.controls.dampingFactor = 0.25;
-        // this.controls.enableZoom = true;
-        // this.controls.update();
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.25;
+        this.controls.enableZoom = true;
+        this.controls.update();
 
         this.start();
 
@@ -858,7 +859,7 @@ class ThreeScene extends Component {
                     else if (levelBeforeJump - level === 1) { return this.state.jumpPara.twoStepSpeed - 0.01; }
                     else if (levelBeforeJump - level === -1) { return this.state.jumpPara.twoStepSpeed + 0.05; }
                     else if (levelBeforeJump - level === -2) { return this.state.jumpPara.twoStepSpeed + 0.11; }
-                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.18; }
+                    else if (levelBeforeJump - level === -3) { return this.state.jumpPara.twoStepSpeed + 0.175; }
                     else { return this.state.jumpPara.twoStepSpeed; }
                 case 3:
                     if (levelBeforeJump - level === 0) { return this.state.jumpPara.threeStepSpeed; }
@@ -996,7 +997,7 @@ class ThreeScene extends Component {
         if (diceObj) { this.dice.updateBodyFromInsertDiceObj(diceObj); }
         let rand = Math.random() * 2;
         let yRand = Math.random() * 6;
-        
+
         // 0 + yRand 可調整骰子上拋速度
 
         this.dice.getObject().body.velocity.set(rand, 0 + yRand, rand);
@@ -1039,18 +1040,22 @@ class ThreeScene extends Component {
         let { x: rx, y: ry, z: rz } = this.camera.rotation;
         let { x: targetX, y: targetY, z: targetZ, rx: targetRx, ry: targetRy, rz: targetRz } = targetAxisObj;
         if (Math.abs(targetRz) > 60 * Math.PI / 180 && Math.abs(targetRz) < 180 * Math.PI / 180 && Math.abs(rz) > 60 * Math.PI / 180 && Math.abs(rz) < 180 * Math.PI / 180) {
-            if (rz < 0 && targetX > 0){
+            if (rz < 0 && targetX > 0) {
                 rz = rz + 360 * Math.PI / 180;
                 this.camera.rotation.set(rx, ry, rz);
-            } 
-            else if (rz > 0 && targetX < 0){
+            }
+            else if (rz > 0 && targetX < 0) {
                 rz = rz - 360 * Math.PI / 180;
                 this.camera.rotation.set(rx, ry, rz);
             }
         }
         let totalStepSegments = 100;
         let cameraMove = window.setInterval(() => {
-            if (Math.abs(this.camera.position.x - targetX) < 1 / totalStepSegments * Math.abs(x - targetX)) { window.clearInterval(cameraMove); return; }
+            if (Math.abs(this.camera.position.x - targetX) < 1 / totalStepSegments * Math.abs(x - targetX)) { 
+                window.clearInterval(cameraMove); 
+                this.setState(prevState => ({ isCameraMoving: false }));
+                return; 
+            }
             this.camera.position.x = this.camera.position.x + (targetX - x) / totalStepSegments;
             this.camera.position.y = this.camera.position.y + (targetY - y) / totalStepSegments;
             this.camera.position.z = this.camera.position.z + (targetZ - z) / totalStepSegments;
@@ -1061,16 +1066,21 @@ class ThreeScene extends Component {
         );
     }
     handleViewPlus = () => {
-        this.moveView(this.state.perspective[(this.state.presentPerspective + 1) % 4]);
-        this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective + 1) % 4 }));
+        if (this.state.isCameraMoving === false) {
+            this.moveView(this.state.perspective[(this.state.presentPerspective + 1) % 4]);
+            this.setState(prevState => ({ presentPerspective: (prevState.presentPerspective + 1) % 4, isCameraMoving: true }));
+        }
     }
     handleViewMinus = () => {
-        this.moveView(this.state.perspective[(this.state.presentPerspective - 1) % 4 >= 0 ? ((this.state.presentPerspective - 1) % 4) :
-            ((this.state.presentPerspective - 1) % 4 + 4)]);
-        this.setState(prevState => ({
-            presentPerspective: (prevState.presentPerspective - 1) % 4 >= 0 ? ((prevState.presentPerspective - 1) % 4) :
-                ((prevState.presentPerspective - 1) % 4 + 4)
-        }));
+        if (this.state.isCameraMoving === false) {
+            this.moveView(this.state.perspective[(this.state.presentPerspective - 1) % 4 >= 0 ? ((this.state.presentPerspective - 1) % 4) :
+                ((this.state.presentPerspective - 1) % 4 + 4)]);
+            this.setState(prevState => ({
+                presentPerspective: (prevState.presentPerspective - 1) % 4 >= 0 ? ((prevState.presentPerspective - 1) % 4) :
+                    ((prevState.presentPerspective - 1) % 4 + 4),
+                isCameraMoving: true
+            }));
+        }
     }
     judgeDiceNumber = (diceObj) => {
         // console.log(this.state.dices[0].diceObj.quaternion.x, this.state.dices[0].diceObj.quaternion.y, this.state.dices[0].diceObj.quaternion.z, this.state.dices[0].diceObj.quaternion.w);
@@ -1094,7 +1104,7 @@ class ThreeScene extends Component {
     }
 
     judgeCamelRanking = () => {
-        let copiedCamels =this.state.camels.slice();
+        let copiedCamels = this.state.camels.slice();
         copiedCamels.sort(function (a, b) {
             if (a.boxNum !== b.boxNum) {
                 return b.boxNum - a.boxNum;
@@ -1103,15 +1113,15 @@ class ThreeScene extends Component {
             }
         });
         let sortedArray = [];
-        for (let i = 0; i < copiedCamels.length; i++ ) {
-            sortedArray.push( copiedCamels[i].color );
+        for (let i = 0; i < copiedCamels.length; i++) {
+            sortedArray.push(copiedCamels[i].color);
         }
         return sortedArray;
     }
     checkGameEnd = () => {
-        if (this.state.camels.find(element => element.boxNum >= 16) !== undefined ){
+        if (this.state.camels.find(element => element.boxNum >= 16) !== undefined) {
             // 若遊戲結束，四個骰子仍未骰完，也強迫結算
-            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking()});
+            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking() });
             this.context.dispatch({ type: 'CLEAR_USER_CARD_STOCK' });
             this.context.dispatch({ type: 'SHOW_GAME_END_INFO' });
             return;
@@ -1245,8 +1255,8 @@ class ThreeScene extends Component {
                         }
                         // 當下回合若為四的倍數，統計賭注與清空玩家卡片庫。加一為本回合之意，因目前 camelRound 還是前一局的
                         if ((this.context.playerData.camelRound + 1) > 0 && (this.context.playerData.camelRound + 1) % 4 === 0
-                        && this.state.camels.find(element => element.boxNum >= 16) === undefined) {
-                            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking()});
+                            && this.state.camels.find(element => element.boxNum >= 16) === undefined) {
+                            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking() });
                             this.context.dispatch({ type: 'SHOW_ROUND_INFO' });
                             this.context.dispatch({ type: 'CLEAR_USER_CARD_STOCK' });
                         }
@@ -1285,7 +1295,7 @@ class ThreeScene extends Component {
     gameRestart = () => {
         jumpInfo = [new physicalWorld(), new physicalWorld(), new physicalWorld(), new physicalWorld()];
         let resetedCamels = [];
-        this.state.camels.forEach( element => {
+        this.state.camels.forEach(element => {
             element.camel.visible = false;
             element.camel.position.set(12, 17.2, 12);
             element.camel.rotation.y = 0;
@@ -1324,7 +1334,7 @@ class ThreeScene extends Component {
                         <div><img className="dice-his-img" src="./imgs/dice-history-no-back.png"></img></div>
                         {diceImgs}
                     </div>
-                    <GameBtn camelRun={this.camelRun} isDicing={(this.state.isClickingRun === true || this.state.isDuringAutoDicing === true)}/>
+                    <GameBtn camelRun={this.camelRun} isDicing={(this.state.isClickingRun === true || this.state.isDuringAutoDicing === true)} />
                 </div>
             </div>
 

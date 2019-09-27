@@ -12,6 +12,7 @@
 }
 .end-content-title {
     font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
     font-size: 2.9rem;
     margin: 10px 0 10px 0;
     background: linear-gradient(transparent 40%,rgba(255,255,255,0) 40%, rgba(80, 64, 80, 0.2) 90%,transparent 95%);
@@ -37,11 +38,13 @@
 .winner-name {
     display: block;
     font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
     font-size: 5rem;
 }
 
 .game-finish-text {
     font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
     font-size: 4rem;
     /* text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 55px #fff, 0 0 75px #fff; */
 }
@@ -61,6 +64,9 @@
     -ms-transform:rotate(-10deg);
 }
 
+.end-camel-color {
+    padding: 5px 0px 10px 0px;
+}
 
 @media (min-width: 801px) and (max-width: 1000px) {
     .icon-award-img {
