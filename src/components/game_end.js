@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
+import { withRouter } from "react-router-dom";
 
 const GameEnd = (props) => {
 
@@ -139,6 +140,8 @@ const GameEnd = (props) => {
                 <button className="btn" onClick={()=>{ triggerPop(); props.gameRestart();
                     }}>
                     Play Again!</button>
+                <button className="btn" onClick={()=>{ props.history.push("/"); }}>
+                    Exit</button>
             </div>
         </div>;
 
@@ -147,4 +150,4 @@ const GameEnd = (props) => {
     );
 }
 
-export default GameEnd;
+export default withRouter(GameEnd);

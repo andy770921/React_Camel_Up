@@ -4,21 +4,22 @@ import './css/index.css';
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from 'react-router-dom';
-import Navbar from './components/nav_bar';
 import Home from './components/home';
 import GameEntry from './components/game_entry';
 import Tutorials from './components/tutorials';
-
+import About from './components/about';
+import HomeContextProvider from './contexts/homeContext';
 
 function App() {
     return (
         <BrowserRouter>
             <React.Fragment>
-                <Navbar />
-                <Route exact path="/" component={Home}/>
-                <Route path="/tutorials" component={Tutorials} />
-                <Route path="/game" component={GameEntry} /> 
-                {/* <GameEntry /> */}
+                <HomeContextProvider>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/tutorials" component={Tutorials} />
+                    <Route path="/game" component={GameEntry} /> 
+                    <Route path="/about" component={About} />
+                </HomeContextProvider> 
             </React.Fragment>
         </BrowserRouter>
     );

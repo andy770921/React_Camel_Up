@@ -1,6 +1,13 @@
 /* ================================= 
   Base Element Styles
 ==================================== */
+
+a {
+  color: #4C3B0B;
+  text-decoration: none;
+}
+
+
 @font-face {
     font-family: "PingFangTC-Regular";
     src: url(PingFang-TC-Regular.otf) format("opentype");
@@ -22,9 +29,6 @@
       line-height: 0;
   }
   
-  a { 
-      text-decoration: none;
-  }
   
   p{
     margin-block-start: 0em;

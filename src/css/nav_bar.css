@@ -7,15 +7,11 @@
 }
 
 #menu {
-    width: 90%;
     list-style: none;
-    margin: 10px 0 0 0; padding: 25px 10px;
-    border-top: 4px double #AAA;
-    border-bottom: 4px double #AAA;
     position: relative;
     text-align: center;
-  }
-  #menu li {
+}
+#menu li {
     display: inline-block;
     width: 173px;
     margin: 0 10px;
@@ -26,47 +22,42 @@
     transform: skewy(-3deg);
     backface-visibility: hidden;
     transition: 200ms all;
-  }
-  #menu li span {
+    box-shadow: 2px 0px 4px black,
+                0px 2px 4px black;
+    
+}
+ #menu li span {
     text-transform: uppercase;
     font-family: 'Permanent Marker', cursive;
-    font-weight: 800;
+    font-weight: 600;
     display: block;
-    background: #FFF;
     padding: 15px 20px;
     color: #333;
-    font-size: 35px;
+    font-size: 30px;
     text-align: center;
     text-decoration: none;
     position: relative;
     z-index: 1;
     text-shadow: 
           1px 1px 0px #FFF, 
-          2px 2px 0px #999,
+          2px 2px 0px #CFA327,
           3px 3px 0px #FFF;
-    background-image: -webkit-linear-gradient(top, transparent 0%, rgba(0,0,0,.05) 100%);
     -webkit-transition: 1s all;
     transition: 1s all;
-    background-image: -webkit-linear-gradient(left top, 
-          transparent 0%, transparent 25%, 
-          rgba(0,0,0,.15) 25%, rgba(0,0,0,.15) 50%, 
-          transparent 50%, transparent 75%, 
-          rgba(0,0,0,.15) 75%);
-    background-size: 4px 4px;
-    box-shadow: 
-          0 0 0 1px rgba(0,0,0,.4) inset, 
-          0 0 20px -5px rgba(0,0,0,.4),
-          0 0 0px 3px #FFF inset;
-  }
-  #menu li:hover {
-    width: 203px;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/btn-bg-2.jpg'); 
+}
+#menu li:hover {
+    width: 185px;
     margin: 0 -5px;
-  }
-  #menu li span:hover {
+}
+#menu li span:hover {
     color: #d90075;
-  }
-  #menu li:after,
-  #menu li:before {
+}
+#menu li:after,
+#menu li:before {
     content: '';
     position: absolute;
     width: 50px;
@@ -76,14 +67,65 @@
     transform: skewY(8deg);
     border-radius: 4px;
     z-index: -3;
-  }
-  #menu li:after {
-    background-image: -webkit-linear-gradient(left, transparent 0%, rgba(0,0,0,.4) 100%);
+
+}
+#menu li:after {
+    /* background-image: -webkit-linear-gradient(left, transparent 0%, rgba(0,0,0,.4) 100%); */
     right: 0;
     top: -4px; 
-  }
-  #menu li:before {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/btn-bg-1.jpg'); 
+    transform: skewY(8deg) rotate(180deg);
+}
+#menu li:before {
     left: 0;
     bottom: -4px;
-    background-image: -webkit-linear-gradient(right, transparent 0%, rgba(0,0,0,.4) 100%);
-  }
+    /* background-image: -webkit-linear-gradient(right, transparent 0%, rgba(0,0,0,.4) 100%); */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/btn-bg-1.jpg'); 
+}
+
+ /* ---- Board CSS Grid ---- */
+
+ :root {
+  --rank-item-margin: 30px;
+}
+
+
+.grid-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: 
+    ". . . . . . . . . . . ." 
+    ". . . . . . . . . . . ." 
+    ". . . . . . . . . . . ." 
+    ". . . . . . . . . . . ." 
+    ". . . . pos1 . . . . . . ." 
+    ". . . pos2 pos2 . . . . . . ." 
+    ". . . . pos3 . . . . . . ." 
+    ". . . . . . . . . . . .";
+    z-index: 2;
+}
+.entry-btn-pos1 {
+  grid-area: pos1;
+}
+.entry-btn-pos2 {
+  grid-area: pos2;
+}
+.entry-btn-pos3 {
+  grid-area: pos3;
+}
+
+.nav {
+  position: absolute;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.5em;
+  line-height: 1.6rem;
+}

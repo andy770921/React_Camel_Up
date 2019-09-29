@@ -1,3 +1,30 @@
+:root {
+    --logo-color: rgba(106, 68, 42, 0.95);
+    --logo-shadow-color: #D3A988;
+  }
+
+.home-div {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/home-bg.png'); 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.logo-div {
+    margin-top: 5vh;
+    margin-left: 5vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-family: 'Taibaijan_Bold', cursive;
+    font-size: 30px;
+    line-height: 1.6em;
+    margin-left: 7vw;
+}
 #logo-no1:after {
     content:"CAMEL";
     position: absolute;
@@ -11,24 +38,16 @@
     top: 15px;
 }
 
-
-.home-div {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 3.5em;
-    line-height: 1.6rem;
-}
-
 .logo {
-    /* font-family: 'Open Sans', sans-serif; */
     font-family: 'Taibaijan_Bold', cursive;
-    color: #555;
+    color: var(--logo-color);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 300px;
+    font-size: 200px;
     font-weight: 800;
     letter-spacing: 15px;
     line-height: 1;
-    text-shadow: #EDEDED 3px 2px 0;
+    text-shadow: var(--logo-shadow-color) 6px 4px 0;
     position: relative;
 }
 .logo:after {
@@ -40,4 +59,118 @@
     z-index: -5;
     display: block;
     text-shadow: none;
+}
+
+.box-shadow-effect
+{
+  	position:relative;
+    -webkit-box-shadow:0 1px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 15px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.box-shadow-effect:before, .box-shadow-effect:after
+{
+	content:"";
+    position:absolute;
+    z-index:-1;
+    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+    box-shadow:0 0 20px rgba(0,0,0,0.8);
+    top:50%;
+    bottom:0;
+    left:10px;
+    right:10px;
+    -moz-border-radius:100px / 10px;
+    border-radius:100px / 10px;
+}
+.box-shadow-effect:after
+{
+	right:10px;
+    left:auto;
+    -webkit-transform:skew(8deg) rotate(3deg);
+       -moz-transform:skew(8deg) rotate(3deg);
+        -ms-transform:skew(8deg) rotate(3deg);
+         -o-transform:skew(8deg) rotate(3deg);
+            transform:skew(8deg) rotate(3deg);
+}
+
+/* ================================= 
+            Img Carousel
+==================================== */
+
+.bullet-div {
+    position: absolute;
+    width: 45vw;
+    height: 45vw;
+    max-width: 750px;
+    max-height: 750px;
+    bottom: calc(50% - 45vw/2);
+    left: calc(70% - 45vw/2);
+    z-index: 3;
+    cursor: pointer;
+}
+
+.bullet-img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+.introduction-div {
+    height: 45vw;
+    max-height: 750px;
+    background-color: rgb(215, 218, 218);
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.introduction-img {
+    width: 100%; 
+    height: 100%;
+    position:absolute; 
+    background-size: cover;
+    background-position: center center;
+    
+    top: 0px; left: 100%;
+    transition:left 1s;
+}
+
+.introduction-img:first-child
+{
+    left:0px;
+} 
+
+.introduction-div > .in{
+    animation: img-in 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.introduction-div > .out{
+    animation: img-out 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes img-in
+{
+  0%
+  {
+    left: 100%;
+  }
+  100%
+  {
+    left: 0%;
+  }
+}
+
+@keyframes img-out
+{
+  0%
+  {
+    left: 0%;
+  }
+  100%
+  {
+    left: -100%;
+  }
 }
