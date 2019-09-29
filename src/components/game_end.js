@@ -11,7 +11,7 @@ const GameEnd = (props) => {
 
     const { triggerPop } = useContext(PopupContext);
     const { finalCards } = useContext(FinalContext);
-    const { playerData, dispatch } = useContext(PlayerContext);
+    const { playerData } = useContext(PlayerContext);
 
     const camelsRankingList = Object.keys(playerData.roundInfo).length ? (
         playerData.roundInfo.camelsRanking.map((element, i) => {
@@ -44,17 +44,21 @@ const GameEnd = (props) => {
         for (let i = 0; i < playerCards.length; i++ ){
             if ( playerCards[i].rank === "top") {
                 if ( playerCards[i].color === playerData.roundInfo.camelsRanking[0] ){
-                    switch (parseInt(playerCards[i].order)) {
-                        case 1:
+                    const cardsWithSameColor = finalCards.cards.filter( element => 
+                        (element.color === playerData.roundInfo.camelsRanking[0]) && element.rank === "top" );
+                    const sortedCardsArray = cardsWithSameColor.sort(function(a,b) { return a.order - b.order });
+                    const playerBetIndex = sortedCardsArray.indexOf( playerCards[i] );
+                    switch (parseInt(playerBetIndex)) {
+                        case 0:
                             finalMoney += 8;
                             break;
-                        case 2:
+                        case 1:
                             finalMoney += 5;
                             break;
-                        case 3:
+                        case 2:
                             finalMoney += 3;
                             break;
-                        case 4:
+                        case 3:
                             finalMoney += 2;
                             break;
                         default:
@@ -66,17 +70,21 @@ const GameEnd = (props) => {
             }
             else if ( playerCards[i].rank === "last") {
                 if ( playerCards[i].color === playerData.roundInfo.camelsRanking[playerData.roundInfo.camelsRanking.length - 1] ){
-                    switch (parseInt(playerCards[i].order)) {
-                        case 1:
+                    const cardsWithSameColor = finalCards.cards.filter( element => 
+                        (element.color === playerData.roundInfo.camelsRanking[playerData.roundInfo.camelsRanking.length - 1]) && element.rank === "last" );
+                    const sortedCardsArray = cardsWithSameColor.sort(function(a,b) { return a.order - b.order });
+                    const playerBetIndex = sortedCardsArray.indexOf( playerCards[i] );
+                    switch (parseInt(playerBetIndex)) {
+                        case 0:
                             finalMoney += 8;
                             break;
-                        case 2:
+                        case 1:
                             finalMoney += 5;
                             break;
-                        case 3:
+                        case 2:
                             finalMoney += 3;
                             break;
-                        case 4:
+                        case 3:
                             finalMoney += 2;
                             break;
                         default:

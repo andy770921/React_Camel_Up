@@ -251,7 +251,7 @@ class ThreeScene extends Component {
                 this.objLoader.setMaterials(materials);
                 this.objLoader.load('B.obj', (object) => {
                     this.scene.add(object);
-                    // 加入載入完成後，關閉 Loading 畫面
+                    // 最大的背景 3D 檔案載入完成後，關閉 Loading 畫面
                     this.context.dispatch({
                         type: 'LOAD_SUCCEED'
                     });
@@ -579,8 +579,10 @@ class ThreeScene extends Component {
 
 
         window.addEventListener('resize', this.onWindowResize, false);
+
+        // TESTING KEY
         document.body.addEventListener("keydown", e => {
-            // TEST 時，在此指定: a. 按哪個鈕要跳幾步 b. 哪一隻駱駝跳 
+            // TEST 時，在此指定: a. 要跳幾步 ( step, nextBoxNum, nextLevel ) b. 哪一隻駱駝跳 ( jumpCamelId )
             switch (e.keyCode) {
                 case 73: // press i
                     {
@@ -987,7 +989,6 @@ class ThreeScene extends Component {
     }
 
     rollDice = (diceObj) => {
-        //var diceValues = [];
         this.dice.getObject().position.x = 0;
         this.dice.getObject().position.y = 20;
         this.dice.getObject().position.z = 0;
@@ -999,12 +1000,8 @@ class ThreeScene extends Component {
         let yRand = Math.random() * 6;
 
         // 0 + yRand 可調整骰子上拋速度
-
         this.dice.getObject().body.velocity.set(rand, 0 + yRand, rand);
         this.dice.getObject().body.angularVelocity.set(10 * Math.random() + 5, 10 * Math.random() + 5, 10 * Math.random() + 5);
-        //diceValues.push({ dice: this.dice, value: 2 });
-        //DiceManager.prepareValues(diceValues, this.state.dices[0].diceObj);
-
     }
     assignPosition = (diceObj) => {
         diceObj.position.copy(this.state.rigidBody.obj.position);
@@ -1097,8 +1094,7 @@ class ThreeScene extends Component {
             console.log("dice number is 2");
             return 2;
         } else {
-            console.log("I don't know this dice number");
-            // alert("I don't know this dice number, I guess dice number is 2");
+            console.log("Extreme condition");
             return 2;
         }
     }

@@ -34,9 +34,6 @@ const PopUp = (props) => {
     }
     return (
         <div className="avgrund-ready">
-            {/* <article className={(showCtrl.isShow)? (showCtrl.showClassNames.container):(showCtrl.hideClassNames.container)}>
-                    <button onClick={triggerPop}>Grow it</button>
-                </article> */}
             <div className={(showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd ) ? (showCtrl.showClassNames.cover) : (showCtrl.hideClassNames.cover)}></div>
             <div className={
                     ((showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd ) ? 

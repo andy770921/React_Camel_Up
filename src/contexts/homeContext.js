@@ -30,8 +30,11 @@ const HomeContextProvider = (props) => {
             }, 50);
         }
     }
+    const resetCarousel = () => {
+        setHomeData({ ...homeData, imgIndexNow: 0, imgIndexBefore: 0, imgInClassName: "", imgOutClassName: "" });
+    }
     return (
-        <HomeContext.Provider value={{ homeData, nextImg }}>
+        <HomeContext.Provider value={{ homeData, nextImg, resetCarousel }}>
             {props.children}
         </HomeContext.Provider>
     );

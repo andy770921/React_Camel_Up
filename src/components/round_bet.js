@@ -32,7 +32,6 @@ const RoundBet = () => {
             tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 4.5px #a1dffd"});
         } else {
             tl.to(`#${e.currentTarget.id}`, 1.3, { rotationY: -360 }).to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd"});
-            //.to(`#${e.currentTarget.id}`, 1, {scale:.6, bottom: -200, left:0})
         }
         sendSelectedCard({color: e.currentTarget.getAttribute("color"), 
                         rewards: e.currentTarget.getAttribute("rewards"), 
