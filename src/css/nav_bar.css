@@ -23,8 +23,7 @@
     backface-visibility: hidden;
     transition: 200ms all;
     box-shadow: 2px 0px 4px black,
-                0px 2px 4px black;
-    
+                0px 2px 4px black; 
 }
  #menu li span {
     text-transform: uppercase;
@@ -128,4 +127,59 @@
   font-family: 'Permanent Marker', cursive;
   font-size: 3.5em;
   line-height: 1.6rem;
+}
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+  .grid-container {
+    grid-template-areas: 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . pos1 . . . . . . . . ." 
+      ". . pos2 pos2 . . . . . . . ." 
+      ". . . pos3 . . . . . . . ." 
+      ". . . . . . . . . . . .";
+  }
+}
+
+
+@media (min-width: 801px) and (max-width: 1000px) {
+  .grid-container {
+    grid-template-areas: 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". pos1 . . . . . . . . . ." 
+      ". pos2 pos2 . . . . . . . . ." 
+      ". . pos3 . . . . . . . . ." 
+      ". . . . . . . . . . . .";
+  }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+  .grid-container {
+    grid-template-areas: 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      "pos1 pos1 pos1 pos1 pos2 pos2 pos2 pos2 pos3 pos3 pos3 pos3"
+      ". . . . . . . . . . . ." ;
+  }
+  #menu li {
+    width: 22vw;
+  }
+  #menu li:hover {
+    width: 24vw;
+    /* margin: 0 -2vw; */
+  }
 }

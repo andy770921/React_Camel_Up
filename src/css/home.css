@@ -174,3 +174,106 @@
     left: -100%;
   }
 }
+
+/* ================================= 
+  Media Queries
+==================================== */
+
+
+@media (min-width: 1001px) and (max-width: 1200px) {
+    .logo {
+        font-size: 150px;
+    }
+    .bullet-div {
+        width: 500px;
+        height: 500px;
+        bottom: calc(50% - 500px/2);
+        left: calc(65% - 500px/2);
+    }
+    .introduction-div {
+        height: 500px;
+    }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+    .logo {
+        font-size: 150px;
+    }
+    .subtitle {
+        margin-left: 0;
+        position: absolute;
+        right: 8vw;
+        top: 65px;
+    }
+    .bullet-div {
+        width: 500px;
+        height: 500px;
+        bottom: calc(50% - 500px/2);
+        left: calc(65% - 500px/2);
+    }
+    .introduction-div {
+        height: 500px;
+    }
+}
+
+@media (min-width: 501px) and (max-width: 800px) {
+    .logo {
+        font-size: 22vw;
+    }
+    .subtitle {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: center;
+    }
+    .logo-div {
+        flex-direction: row;
+        margin-left: 0;
+        justify-content: center;
+    }
+    #logo-no1 {
+        margin-right: 7vw;
+    }
+    .bullet-div {
+        width: 450px;
+        height: 450px;
+        bottom: auto;
+        left: calc(50% - 450px/2);
+        top: calc(40vw*0.9 + 50px);
+    }
+    .introduction-div {
+        height: 450px;
+    }
+
+}
+
+@media (min-width: 201px) and (max-width: 500px) {
+    .logo {
+        font-size: 18vw;
+        letter-spacing: 10px;
+    }
+    .subtitle {
+        margin-left: 0;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 5vw;
+    }
+    .logo-div {
+        flex-direction: row;
+        margin-left: 0;
+        justify-content: center;
+    }
+    #logo-no1 {
+        margin-right: 4vw;
+    }
+    .bullet-div {
+        width: 80vw;
+        height: 80vw;
+        bottom: auto;
+        left: calc(50% - 80vw/2);
+        top: calc(40vw*0.9 + 50px);
+    }
+    .introduction-div {
+        height: 80vw;
+    }
+
+}

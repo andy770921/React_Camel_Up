@@ -18,8 +18,8 @@ const Home = () => {
             <div className="logo-div">
                 <div className="logo" id="logo-no1">CAMEL</div>
                 <div className="logo" id="logo-no2">UP</div>
-                <div className="subtitle"> Multi-player Board Game</div>
             </div>
+            <div className="subtitle"> Multi-player Board Game</div>
             <div className="bullet-div">
                 <div className="introduction-div box-shadow-effect" onClick={()=> { window.clearTimeout(nextImgSetting); nextImg();} }>
                     <div className={`introduction-img ${homeData.imgInClassName}`} style={{ backgroundImage: homeData.imgUrls[homeData.imgIndexNow] }}></div>
