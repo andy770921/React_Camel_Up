@@ -3,7 +3,7 @@ import './css/common.css';
 import './css/index.css';
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import Home from './components/home';
 import GameEntry from './components/game_entry';
 import Tutorials from './components/tutorials';
@@ -12,7 +12,7 @@ import HomeContextProvider from './contexts/homeContext';
 
 function App() {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <React.Fragment>
                 <HomeContextProvider>
                     <Route exact path="/" component={Home}/>
@@ -21,7 +21,7 @@ function App() {
                     <Route path="/about" component={About} />
                 </HomeContextProvider> 
             </React.Fragment>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
