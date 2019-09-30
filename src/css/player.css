@@ -11,7 +11,6 @@
     flex-direction: row;
     bottom: 0;
     left: 0;
-    z-index: 13;
  }
  .player-bg {
     width: 25vw;
@@ -155,6 +154,7 @@
    }
    .card-img {
       left: 70%;
+      bottom: 2.3vw;
    }
    .card-img-pos2 {
       left: calc(70% + 10px);
