@@ -423,11 +423,13 @@
 .start-text{
     color: white;
     font-size: 3em;
-    text-shadow: 0 0 0.2em gray;
+    text-shadow: 0 0 0.6em darkgray;
     font-weight: bold;
     transform: none;
     line-height: 1.6em;
     text-align: center;
+    font-family: 'Taibaijan_Bold', cursive;
+    letter-spacing: 0.06em;
 }
 .btn-start-style {
     margin-top: 50px;
