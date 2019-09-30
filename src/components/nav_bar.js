@@ -1,19 +1,21 @@
 import '../css/normalize.css';
 import '../css/common.css';
 import '../css/nav_bar.css';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { HomeContext } from '../contexts/homeContext';
 
 const Navbar = () => {
-  return (
+    const { resetCarousel } = useContext(HomeContext);
+    return (
         <nav className="nav">
             <ul className="nav-ul grid-container" id="menu">
-                <div className="entry-btn-pos1"><li className="nav-li"><span><Link to= "/game">Play</Link></span></li></div>
-                <div className="entry-btn-pos2"><li className="nav-li"><span><Link to= "/tutorials" onClick={e => e.preventDefault()}>Guide</Link></span></li></div>
-                <div className="entry-btn-pos3"><li className="nav-li"><span><Link to= "/about" onClick={e => e.preventDefault()}>About</Link></span></li></div>
+                <div className="entry-btn-pos1"><Link to="/game"><li className="nav-li" onClick={resetCarousel}><span>Play</span></li></Link></div>
+                <div className="entry-btn-pos2"><Link to="/tutorials" onClick={e => e.preventDefault()}><li className="nav-li"><span>Guide</span></li></Link></div>
+                <div className="entry-btn-pos3"><Link to="/about" onClick={e => e.preventDefault()}><li className="nav-li"><span>About</span></li></Link></div>
             </ul>
         </nav>
-  );
+    );
 }
- 
+
 export default Navbar;

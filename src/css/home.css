@@ -136,8 +136,7 @@
     transition:left 1s;
 }
 
-.introduction-img:first-child
-{
+.introduction-img:first-child {
     left:0px;
 } 
 
@@ -151,6 +150,9 @@
     animation-fill-mode: forwards;
 }
 
+.pre-load-img {
+    z-index: -2;
+}
 @keyframes img-in
 {
   0%
@@ -193,6 +195,14 @@
     .introduction-div {
         height: 500px;
     }
+    @media (min-height: 501px) and (max-height: 800px) {
+        .subtitle {
+            margin-left: 0;
+            position: absolute;
+            right: 8vw;
+            top: 65px;
+        }
+    }
 }
 
 @media (min-width: 801px) and (max-width: 1000px) {
@@ -206,14 +216,15 @@
         top: 65px;
     }
     .bullet-div {
-        width: 500px;
-        height: 500px;
-        bottom: calc(50% - 500px/2);
-        left: calc(65% - 500px/2);
+        width: 470px;
+        height: 470px;
+        bottom: calc(50% - 470px/2);
+        left: calc(68% - 470px/2);
     }
     .introduction-div {
-        height: 500px;
+        height: 470px;
     }
+
 }
 
 @media (min-width: 501px) and (max-width: 800px) {
@@ -243,6 +254,25 @@
     .introduction-div {
         height: 450px;
     }
+    @media (min-height: 701px) and (max-height: 1000px) {
+        .logo {
+            font-size: 18vw;
+        }
+        .bullet-div {
+            width: 400px;
+            height: 270px;
+            bottom: auto;
+            left: calc(50% - 400px/2);
+            top: calc(30vw*0.8 + 70px);
+        }
+        .introduction-div {
+            height: 270px;
+            border-radius: 40px;
+        }
+        .bullet-img {
+            border-radius: 40px;
+        }
+    }
 
 }
 
@@ -252,10 +282,11 @@
         letter-spacing: 10px;
     }
     .subtitle {
-        margin-left: 0;
-        margin-top: 10px;
+        display: block;
         text-align: center;
-        font-size: 5vw;
+        font-size: 6vw;
+        margin-left: 0;
+        margin-top: 20px;
     }
     .logo-div {
         flex-direction: row;
@@ -274,6 +305,26 @@
     }
     .introduction-div {
         height: 80vw;
+    }
+
+    @media (min-height: 701px) and (max-height: 1000px) {
+        .logo {
+            font-size: 18vw;
+        }
+        .bullet-div {
+            width: 80vw;
+            height: 270px;
+            bottom: auto;
+            left: calc(50% - 80vw/2);
+            top: calc(30vw*0.8 + 100px);
+        }
+        .introduction-div {
+            height: 270px;
+            border-radius: 40px;
+        }
+        .bullet-img {
+            border-radius: 40px;
+        }
     }
 
 }

@@ -7,10 +7,22 @@ import Navbar from './nav_bar';
 
 const Home = () => {
     const { homeData, nextImg } = useContext(HomeContext);
-    let nextImgSetting = [];
+    // let nextImgSetting = [];
+
     useEffect(() => {
-        nextImgSetting = window.setTimeout( nextImg, 3000);
+        const nextImgSetting = window.setTimeout( nextImg, 3000);
+        return () => {
+            window.clearTimeout(nextImgSetting);
+            // console.log("cleaned up");
+        };
     }, [homeData.imgIndexNow]);
+
+    // useEffect(() => {
+    //     return () => {
+    //         window.clearTimeout(nextImgSetting);
+    //         console.log("cleaned up");
+    //     };
+    //   }, []);
 
     return (
         <div className="home-div">
@@ -21,9 +33,11 @@ const Home = () => {
             </div>
             <div className="subtitle"> Multi-player Board Game</div>
             <div className="bullet-div">
-                <div className="introduction-div box-shadow-effect" onClick={()=> { window.clearTimeout(nextImgSetting); nextImg();} }>
+                <div className="introduction-div box-shadow-effect" onClick={()=> { nextImg();} }>
                     <div className={`introduction-img ${homeData.imgInClassName}`} style={{ backgroundImage: homeData.imgUrls[homeData.imgIndexNow] }}></div>
                     <div className={`introduction-img ${homeData.imgOutClassName}`} style={{ backgroundImage: homeData.imgUrls[homeData.imgIndexBefore] }}></div>
+                    <div className="introduction-img pre-load-img" 
+                         style={{ backgroundImage: (homeData.imgIndexNow !== homeData.imgUrls.length - 1)? homeData.imgUrls[homeData.imgIndexNow + 1 ] : homeData.imgUrls[0] }}></div>
                 </div>
             </div>
         </div>

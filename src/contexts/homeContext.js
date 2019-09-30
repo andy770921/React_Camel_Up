@@ -5,11 +5,11 @@ export const HomeContext = createContext();
 const HomeContextProvider = (props) => {
     const [homeData, setHomeData] = useState({
         imgUrls: [
-            "url('./imgs/bullet-scene-1.png')",
-            "url('./imgs/bullet-scene-2.png')",
-            "url('./imgs/bullet-scene-3.png')",
-            "url('./imgs/bullet-scene-4.png')",
-            "url('./imgs/bullet-scene-5.png')"],
+            "url('./imgs/bullet-scene-1.jpg')",
+            "url('./imgs/bullet-scene-2.jpg')",
+            "url('./imgs/bullet-scene-3.jpg')",
+            "url('./imgs/bullet-scene-4.jpg')",
+            "url('./imgs/bullet-scene-5.jpg')"],
         imgIndexNow: 0,
         imgIndexBefore: 0,
         imgInClassName: "",

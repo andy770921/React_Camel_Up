@@ -41,8 +41,8 @@
           1px 1px 0px #FFF, 
           2px 2px 0px #CFA327,
           3px 3px 0px #FFF;
-    -webkit-transition: 1s all;
-    transition: 1s all;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -53,7 +53,7 @@
     margin: 0 -5px;
 }
 #menu li span:hover {
-    color: #d90075;
+    color: #0924D5;
 }
 #menu li:after,
 #menu li:before {
@@ -141,9 +141,9 @@
       ". . . . . . . . . . . ." 
       ". . . . . . . . . . . ." 
       ". . . . . . . . . . . ." 
-      ". . pos1 . . . . . . . . ." 
-      ". . pos2 pos2 . . . . . . . ." 
-      ". . . pos3 . . . . . . . ." 
+      ". pos1 pos1 pos1 . . . . . . . ." 
+      ". . pos2 pos2 pos2 . . . . . . ." 
+      ". . . pos3 pos3 pos3 . . . . . ." 
       ". . . . . . . . . . . .";
   }
 }
@@ -156,9 +156,9 @@
       ". . . . . . . . . . . ." 
       ". . . . . . . . . . . ." 
       ". . . . . . . . . . . ." 
-      ". pos1 . . . . . . . . . ." 
-      ". pos2 pos2 . . . . . . . . ." 
-      ". . pos3 . . . . . . . . ." 
+      ". pos1 pos1 pos1 . . . . . . . ." 
+      ". . pos2 pos2 pos2 . . . . . . ." 
+      ". . . pos3 pos3 pos3 . . . . . ." 
       ". . . . . . . . . . . .";
   }
 }
@@ -180,6 +180,43 @@
   }
   #menu li:hover {
     width: 24vw;
-    /* margin: 0 -2vw; */
+    margin: 0 -2vw;
+  }
+  #menu li span {
+    font-weight: 600;
+    padding: 2vw 2.5vw;
+    font-size: 4vw;
+  }
+  #menu li:after, #menu li:before {
+    width: 7vw;
+  }
+}
+
+@media (min-width: 201px) and (max-width: 500px) {
+  .grid-container {
+    grid-template-areas: 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      ". . . . . . . . . . . ." 
+      "pos1 pos1 pos1 pos1 pos2 pos2 pos2 pos2 pos3 pos3 pos3 pos3"
+      ". . . . . . . . . . . ." ;
+  }
+  #menu li {
+    width: 22vw;
+  }
+  #menu li:hover {
+    width: 24vw;
+    margin: 0 -2vw;
+  }
+  #menu li span {
+    font-weight: 600;
+    padding: 2vw 2.5vw;
+    font-size: 4vw;
+  }
+  #menu li:after, #menu li:before {
+    width: 7vw;
   }
 }
