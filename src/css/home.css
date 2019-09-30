@@ -24,6 +24,7 @@
     font-size: 30px;
     line-height: 1.6em;
     margin-left: 7vw;
+    text-shadow: 0 0 4px white;
 }
 #logo-no1:after {
     content:"CAMEL";
@@ -180,6 +181,18 @@
 /* ================================= 
   Media Queries
 ==================================== */
+@media (min-height: 501px) and (max-height: 800px) {
+
+    .bullet-div {
+        width: 500px;
+        height: 500px;
+        bottom: calc(50% - 500px/2);
+        left: calc(70% - 500px/2);
+    }
+    .introduction-div {
+        height: 500px;
+    }
+}
 
 
 @media (min-width: 1001px) and (max-width: 1200px) {
