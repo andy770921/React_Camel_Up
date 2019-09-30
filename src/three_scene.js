@@ -519,11 +519,11 @@ class ThreeScene extends Component {
         this.scene.add(this.rod2);
 
         // ADD MOUSE CTRL
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.enableDamping = true;
-        this.controls.dampingFactor = 0.25;
-        this.controls.enableZoom = true;
-        this.controls.update();
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        // this.controls.enableDamping = true;
+        // this.controls.dampingFactor = 0.25;
+        // this.controls.enableZoom = true;
+        // this.controls.update();
 
         this.start();
 
