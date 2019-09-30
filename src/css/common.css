@@ -123,8 +123,9 @@ a {
 @media (min-width: 201px) and (max-width: 600px) {
   .btn {
 	  font-size: 1.1em;
-    width: 150px;
+    width: 130px;
     height: 40px;
+    margin: 7px 0px;
   }
 }
 /* ========================== */

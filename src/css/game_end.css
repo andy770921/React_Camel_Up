@@ -68,6 +68,15 @@
     padding: 5px 0px 10px 0px;
 }
 
+@media (min-height: 601px) and (max-height: 1000px) {
+    .end-content-title {
+        font-size: 2.4rem;
+    }
+    .end-info-content {
+        font-size: 1.4rem;
+    }
+ }
+
 @media (min-width: 801px) and (max-width: 1000px) {
     .icon-award-img {
         width: 120px;
@@ -129,5 +138,11 @@
     .winner-name {
         font-size: 11vw;
     }
-
+    .game-end-btn {
+        width: 40%
+    }
+    .game-end-btn-div.game-end-btn-div {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
  }

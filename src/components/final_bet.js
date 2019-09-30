@@ -6,7 +6,7 @@ import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
 import { TimelineMax, CSSPlugin, AttrPlugin } from "gsap/all";
-const plugins = [ CSSPlugin, AttrPlugin ]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
+const plugins = [CSSPlugin, AttrPlugin]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
 
 const FinalBet = () => {
 
@@ -23,41 +23,55 @@ const FinalBet = () => {
         for (let i = 0; i < playerOwnerCards.length; i++) {
             filteredCards = filteredCards.filter((element) => !(element.color === playerOwnerCards[i].color && element.rank === playerOwnerCards[i].rank));
         }
-        filteredCards = filteredCards.filter((element) => ( element.rank === type ));
+        filteredCards = filteredCards.filter((element) => (element.rank === type));
         return filteredCards;
     }
-
-    const selectTopCard = (e) => {
+    const selectAnimate = (event, type) => {
         let tl = new TimelineMax();
         // 重設所有卡片，使外框顏色歸零
-        for (let i = 1; i <= 4; i++) {
-            tl.set(`#finalCard_${i + 9000}`, { boxShadow: "none" });
+        if (type === "top") {
+            for (let i = 1; i <= 4; i++) {
+                tl.set(`#finalCard_${i + 9000}`, { boxShadow: "none" });
+            }
+        } else if (type === "last") {
+            for (let i = 1; i <= 4; i++) {
+                tl.set(`#finalCard_${i + 9500}`, { boxShadow: "none" });
+            }
         }
-        // 外框出現顏色動畫
-        tl.to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd" });
-
-        sendSelectedTopCard({
-            color: e.currentTarget.getAttribute("color"),
-            rank: "top",
-            playerOwner: playerData.playerIdNow,
-            order: finalCards.cardsInTopArea + 1
-        })
+        // 外框出現顏色動畫，及 RWD
+        if (window.innerWidth >= 401 && window.innerWidth < 600) {
+            tl.to(`#${event.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 6px #a1dffd" });
+        } else if (window.innerWidth >= 201 && window.innerWidth < 400) {
+            tl.to(`#${event.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 4.5px #a1dffd" });
+        } else {
+            tl.to(`#${event.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd" });
+        }
+    }
+    
+    const sendInfoToContext = (event, type) => {
+        if (type === "top") {
+            sendSelectedTopCard({
+                color: event.currentTarget.getAttribute("color"),
+                rank: "top",
+                playerOwner: playerData.playerIdNow,
+                order: finalCards.cardsInTopArea + 1
+            });
+        } else if (type === "last") {
+            sendSelectedTopCard({
+                color: event.currentTarget.getAttribute("color"),
+                rank: "last",
+                playerOwner: playerData.playerIdNow,
+                order: finalCards.cardsInLastArea + 1
+            })
+        }
+    }
+    const selectTopCard = (e) => {
+        selectAnimate(e, "top");
+        sendInfoToContext(e, "top");
     }
     const selectLastCard = (e) => {
-        let tl = new TimelineMax();
-        // 重設所有卡片，使外框顏色歸零
-        for (let i = 1; i <= 4; i++) {
-            tl.set(`#finalCard_${i + 9500}`, { boxShadow: "none" });
-        }
-        // 外框出現顏色動畫
-        tl.to(`#${e.currentTarget.id}`, 0.2, { boxShadow: "0 0 1px 11px #a1dffd" });
-
-        sendSelectedTopCard({
-            color: e.currentTarget.getAttribute("color"),
-            rank: "last",
-            playerOwner: playerData.playerIdNow,
-            order: finalCards.cardsInLastArea + 1
-        })
+        selectAnimate(e, "last");
+        sendInfoToContext(e, "last");
     }
     const confirmFinal = () => {
         sendSelectedToPool(finalCards.selectedCard.rank);
@@ -89,13 +103,13 @@ const FinalBet = () => {
             <span className="banner">Bet Final Ranking</span>
             <div className="flex-toggle">
                 <span className="toggle-span-left">Champion Camel</span>
-                <label className="switch"><input className="switch_toggle" type="checkbox" name="check" onChange={(e)=>{switchShow(e.currentTarget.checked);}}/><span className="slider round"></span></label>
+                <label className="switch"><input className="switch_toggle" type="checkbox" name="check" onChange={(e) => { switchShow(e.currentTarget.checked); }} /><span className="slider round"></span></label>
                 <span className="toggle-span-right">Last Camel</span>
             </div>
-            <div className="flex-row">{(finalCards.isShowTopWinner)? (finalTopCardList): (finalLastCardList) }</div>
+            <div className="flex-row">{(finalCards.isShowTopWinner) ? (finalTopCardList) : (finalLastCardList)}</div>
             <div className="flex-row btn-div">
-                <button className="btn" onClick={ () => (Object.keys(finalCards.selectedCard).length !== 0 )? 
-                        (confirmFinal()):( alert("Please select card first.")) }>Confirm</button>
+                <button className="btn" onClick={() => (Object.keys(finalCards.selectedCard).length !== 0) ?
+                    (confirmFinal()) : (alert("Please select card first."))}>Confirm</button>
                 <button className="btn" onClick={triggerPop}>Cancel</button>
             </div>
         </div>;

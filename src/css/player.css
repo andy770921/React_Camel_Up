@@ -231,7 +231,7 @@
   .name-now {
       top: calc(-10vw - 10px);
       left: 1vw;
-      width: 45w;
+      width: 45vw;
       height: calc(10vw + 10px);
       padding-left: 10vw;
       font-size: 7vw;

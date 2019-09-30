@@ -144,11 +144,11 @@ const GameEnd = (props) => {
                 <img src="./imgs/stamp.png" className="icon-award-img"></img>
             </div>
             
-            <div className="flex-row btn-div">
-                <button className="btn" onClick={()=>{ triggerPop(); props.gameRestart();
+            <div className="flex-row btn-div game-end-btn-div">
+                <button className="btn game-end-btn" onClick={()=>{ triggerPop(); props.gameRestart();
                     }}>
-                    Play Again!</button>
-                <button className="btn" onClick={()=>{ props.history.push("/"); }}>
+                    Restart</button>
+                <button className="btn game-end-btn" onClick={()=>{ props.history.push("/"); }}>
                     Exit</button>
             </div>
         </div>;

@@ -733,7 +733,7 @@ class ThreeScene extends Component {
         // After making changes to aspect
         this.camera.updateProjectionMatrix();
         // Reset size
-        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 0.97);
+        this.renderer.setSize(window.innerWidth * 1, window.innerHeight * 0.94);
     }
     animate = () => {
         this.renderScene();
