@@ -14,7 +14,7 @@ const PlayerInfo = () => {
             for (let j = 0; j < element.cardStock.length; j++){
                 const color = element.cardStock[j].color;
                 const rewards = element.cardStock[j].rewards;
-                cardList.push(<img className={`card-img card-img-pos${j + 1}`} src={`./imgs/bet_${color}_${rewards}.png`} key={7100 + (j+1)*(i+100)}></img>);
+                cardList.push(<img className={`card-img card-img-pos${j + 1}`} src={`./imgs/bet_${color}_${rewards}.jpg`} key={7100 + (j+1)*(i+100)}></img>);
             }
         return (
             <div className="player-bg" key={7000 + i}>

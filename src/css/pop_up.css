@@ -214,6 +214,33 @@
         left: calc(50% - 800px/2);
         top: calc(50% - 50%/2 - 5%);
     }
+    @media (min-height: 601px) and (max-height: 1000px) {
+        .round-bet-popup {
+            height: 540px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 500px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 8%;
+            height: 85vh;
+        }
+    }
+    @media (min-height: 201px) and (max-height: 600px) {
+        .round-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 5%;
+        }
+    }
 }
 @media (min-width: 801px) and (max-width: 1000px) {
     .round-info-popup {
@@ -231,6 +258,33 @@
         height: 45%;
         left: calc(50% - 600px/2);
         top: calc(50% - 50%/2 - 5%);
+    }
+    @media (min-height: 601px) and (max-height: 1000px) {
+        .round-bet-popup {
+            height: 540px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 500px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 8%;
+            height: 85vh;
+        }
+    }
+    @media (min-height: 201px) and (max-height: 600px) {
+        .round-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 5%;
+        }
     }
 }
 @media (min-width: 601px) and (max-width: 800px) {
@@ -250,6 +304,33 @@
         height: calc(100vw*0.5 + 100px);
         left: calc(50% - 80%/2);
         top: calc(50% - 50%/2 - 5%);
+    }
+    @media (min-height: 601px) and (max-height: 1000px) {
+        .round-bet-popup {
+            height: 540px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 500px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 8%;
+            height: 85vh;
+        }
+    }
+    @media (min-height: 201px) and (max-height: 600px) {
+        .round-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .final-bet-popup {
+            height: 410px;
+            padding: 1%;
+        }
+        .game-end-popup {
+            top: 5%;
+        }
     }
 }
 

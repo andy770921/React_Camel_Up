@@ -48,8 +48,8 @@ const RoundBet = () => {
             return (
                 <div key={element.id + 9000} className={`bet-card-div`}>
                     <div className="card" id={`card_${element.id + 9000}`} onClick={(e) => (parseInt(element.rewards) !== 0)? (selectCard(e)):({})} color={element.color} rewards={element.rewards}>
-                        <img src={`./imgs/bet_${element.color}_${element.rewards}.png`} className="bet-card-img front" style={(parseInt(element.rewards) === 0)? {cursor: 'default'}: {} }></img>
-                        <img src="./imgs/bet_back.png" className="bet-card-back back"></img>
+                        <img src={`./imgs/bet_${element.color}_${element.rewards}.jpg`} className="bet-card-img front" style={(parseInt(element.rewards) === 0)? {cursor: 'default'}: {} }></img>
+                        <img src="./imgs/bet_back.jpg" className="bet-card-back back"></img>
                     </div></div>)
         })
     ) : ("");
@@ -60,7 +60,7 @@ const RoundBet = () => {
             <div className="flex-row selected-card-div">
                 <span className="flex-row selected-card-span">Card selected: </span> 
                 <img src={ (Object.keys(roundCards.selectedCard).length !== 0 )? 
-                    (`./imgs/bet_${roundCards.selectedCard.color}_${roundCards.selectedCard.rewards}.png`) : ("./imgs/bet_back.png")} 
+                    (`./imgs/bet_${roundCards.selectedCard.color}_${roundCards.selectedCard.rewards}.jpg`) : ("./imgs/bet_back.jpg")} 
                     className="selected-card-img"></img>
             </div> 
             <div className="flex-row btn-div">
