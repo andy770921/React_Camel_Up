@@ -194,8 +194,6 @@
 
 @media (min-width: 201px) and (max-width: 500px) {
   .grid-container {
-    width: 95vw;
-    height: 95vh;
     grid-template-areas: 
       ". . . . . . . . . . . ." 
       ". . . . . . . . . . . ." 
