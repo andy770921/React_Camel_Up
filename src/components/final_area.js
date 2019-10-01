@@ -11,12 +11,12 @@ const FinalArea = () => {
             if (element.rank ==="top"){
             return (
                 <div key={(element.order + 2000) * (element.order + 50)} className={`final-area-top-div final-area-top-pos${element.order}`}>
-                        <img src={`./imgs/final_head_${element.playerOwner}.png`} className={`final-area-card-img`}></img>
+                        <img src={`./imgs/final_head_${element.playerOwner}.jpg`} className={`final-area-card-img`}></img>
                     </div>)
         } else if (element.rank ==="last"){
             return (
                 <div key={(element.order + 2500) * (element.order + 50)} className={`final-area-last-div final-area-last-pos${element.order}`}>
-                        <img src={`./imgs/final_head_${element.playerOwner}.png`} className={`final-area-card-img`}></img>
+                        <img src={`./imgs/final_head_${element.playerOwner}.jpg`} className={`final-area-card-img`}></img>
                     </div>)
         }})
     ) : ("");

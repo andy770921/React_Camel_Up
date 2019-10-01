@@ -85,7 +85,7 @@ const FinalBet = () => {
         filteredTopCards.map((element) => {
             return (
                 <div key={element.id + 9000} id={`finalCard_${element.id + 9000}`} className="final-card-div" onClick={(e) => selectTopCard(e)} color={element.color}>
-                    <img src={`./imgs/final_top_${element.color}.png`} className="final-card-img"></img>
+                    <img src={`./imgs/final_top_${element.color}.jpg`} className="final-card-img"></img>
                 </div>)
         })
     ) : ("");
@@ -93,7 +93,7 @@ const FinalBet = () => {
         filteredLastCards.map((element) => {
             return (
                 <div key={element.id + 9500} id={`finalCard_${element.id + 9500}`} className="final-card-div" onClick={(e) => selectLastCard(e)} color={element.color}>
-                    <img src={`./imgs/final_last_${element.color}.png`} className="final-card-img"></img>
+                    <img src={`./imgs/final_last_${element.color}.jpg`} className="final-card-img"></img>
                 </div>)
         })
     ) : ("");
