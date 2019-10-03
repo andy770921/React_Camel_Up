@@ -1,0 +1,452 @@
+
+.tutorials {
+    line-height: 1.6em;
+    display: flex;
+    flex-direction: column;
+}
+.tutorials-bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/home-bg.png'); 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.opening {
+    width: 100%;
+    height: 500px;
+    /* background: linear-gradient(to right bottom, #be5e38, #8b3310); */
+    background: linear-gradient(to right bottom, #edad70, #9b4828);
+        /* background: linear-gradient(to top, rgba(0,0,0, 0.05), rgba(0,0,0, 0.9)); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-image: url('../../dist/imgs/guide-bg.jpg'); 
+    transform: skewY(-6deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform-origin: top left;
+  }
+.opening:before {
+    content: "";
+    background: linear-gradient(to bottom, rgba(255,245,183, 0.05), rgba(255,245,183, 0.4));
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+.tutorial-gif {
+  width: 60vw;
+  position: absolute;
+  top: 250px;
+  right: 5vw;
+  box-shadow: 0 0 40px 5px #111;
+  z-index: 5;
+  border-radius: 30px;
+}
+.opening-inner {
+    align-self: flex-start;
+    color: #333;
+    height: 50vh;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 7vh;
+    margin-left: 13vw;
+    line-height: 5.6em;
+    text-shadow: #ffffbf 1px 1px 3px;
+  }
+.opening-inner .tutorial-title {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 100px;
+    font-weight: 100;
+  }
+
+.opening-inner .tutorial-subtitle {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 32px;
+    font-weight: 100;
+    margin-top: 10px;
+    line-height: 1.6em;
+    margin-left: 7vw;
+    text-shadow: 0 0 4px white
+  }
+
+  
+.section-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.section {
+    color: #a4a09e;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 50px;
+    line-height: 1.6em;
+    width: 90%;
+  }
+
+.title-ch {
+    font-size: 50px;
+    line-height: 1.0em;
+  }
+  
+.section-inner {
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+.section-inner h1 {
+    color: rgba(255,255,220, 0.95);
+    text-shadow: 50px -40px 1px rgba(255,215,190, 0.2);
+  }
+.section-inner p {
+    width: 40%;
+  }
+  
+.section-image {
+    width: 40%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+  }
+/* .gif {
+    width: 100%;
+    height: auto;
+} */
+.shadow {
+    width: 40%;
+    height: 200px;
+    position: absolute;
+    background-color: #ff9171;
+    top: -30px;
+    right: 30px;
+    opacity: 0.3;
+    z-index: 1;
+  }
+  
+  #section-two {
+    color: #a4a09e;
+    letter-spacing: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 90%;
+  }
+  #section-two #cap-two {
+    font-family: 'Permanent Marker', cursive;
+    color: #ff9171;
+    opacity: 0.3;
+    position: absolute;
+    right: -10px;
+    top: 15px;
+  }
+  
+  #section-inner-two {
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 450px;
+  }
+  #section-inner-two h1 {
+    color: #ff9171;
+    clear: both;
+    display: block;
+    float: right;
+    width: 40%;
+  }
+  #section-inner-two p {
+    width: 40%;
+    float: right;
+    clear: both;
+    display: block;
+  }
+  
+  #section-image-two {
+    width: 40%;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 2;
+  }
+  
+  #shadow-two {
+    width: 40%;
+    height: 450px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ff9171;
+    top: -30px;
+    left: 30px;
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+
+/* ================================= 
+              Slider
+==================================== */
+     
+.csslider {
+    width: 35vw;
+    height: 30vh;
+    display: inline-block;
+    text-align: left;
+    position: relative;
+    z-index: 11;
+    margin-left: 150px;
+  }
+  .csslider > input {
+    display: none;
+  }
+  .csslider > input:nth-of-type(10):checked ~ ul li:first-of-type {
+    margin-left: -900%;
+  }
+  .csslider > input:nth-of-type(9):checked ~ ul li:first-of-type {
+    margin-left: -800%;
+  }
+  .csslider > input:nth-of-type(8):checked ~ ul li:first-of-type {
+    margin-left: -700%;
+  }
+  .csslider > input:nth-of-type(7):checked ~ ul li:first-of-type {
+    margin-left: -600%;
+  }
+  .csslider > input:nth-of-type(6):checked ~ ul li:first-of-type {
+    margin-left: -500%;
+  }
+  .csslider > input:nth-of-type(5):checked ~ ul li:first-of-type {
+    margin-left: -400%;
+  }
+  .csslider > input:nth-of-type(4):checked ~ ul li:first-of-type {
+    margin-left: -300%;
+  }
+  .csslider > input:nth-of-type(3):checked ~ ul li:first-of-type {
+    margin-left: -200%;
+  }
+  .csslider > input:nth-of-type(2):checked ~ ul li:first-of-type {
+    margin-left: -100%;
+  }
+  .csslider > input:nth-of-type(1):checked ~ ul li:first-of-type {
+    margin-left: 0%;
+  }
+  .csslider > ul {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    z-index: 1;
+    font-size: 0;
+    line-height: 0;
+    background-color: #312320;
+    box-shadow: 0 0 9px 6px #a56e3f inset, 0 0 40px 3px #fff3b6;
+    border-radius: 40px;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .csslider > ul > li {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 15px;
+    font-size: initial;
+    line-height: normal;
+    -moz-transition: all 0.5s cubic-bezier(0.4, 1.3, 0.65, 1);
+    -o-transition: all 0.5s ease-out;
+    -webkit-transition: all 0.5s cubic-bezier(0.4, 1.3, 0.65, 1);
+    transition: all 0.5s cubic-bezier(0.4, 1.3, 0.65, 1);
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    vertical-align: top;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    white-space: normal;
+  }
+  .csslider > ul > li.scrollable {
+    overflow-y: scroll;
+  }
+  .csslider > .navigation {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    z-index: 10;
+    margin-bottom: -10px;
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .csslider > .navigation > div {
+    margin-left: -100%;
+  }
+  .csslider > .navigation label {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 0 6px;
+    padding: 4px;
+    background: #3a3a3a;
+  }
+  .csslider > .navigation label:hover:after {
+    opacity: 1;
+  }
+  .csslider > .navigation label:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -6px;
+    margin-top: -6px;
+    background: #fff3b6;
+    border-radius: 50%;
+    padding: 6px;
+    opacity: 0;
+  }
+  .csslider > .arrows {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .csslider.inside .navigation {
+    bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .csslider.inside .navigation label {
+    border: 1px solid #7e7e7e;
+  }
+  .csslider > input:nth-of-type(1):checked ~ .navigation label:nth-of-type(1):after,
+  .csslider > input:nth-of-type(2):checked ~ .navigation label:nth-of-type(2):after,
+  .csslider > input:nth-of-type(3):checked ~ .navigation label:nth-of-type(3):after,
+  .csslider > input:nth-of-type(4):checked ~ .navigation label:nth-of-type(4):after,
+  .csslider > input:nth-of-type(5):checked ~ .navigation label:nth-of-type(5):after,
+  .csslider > input:nth-of-type(6):checked ~ .navigation label:nth-of-type(6):after,
+  .csslider > input:nth-of-type(7):checked ~ .navigation label:nth-of-type(7):after,
+  .csslider > input:nth-of-type(8):checked ~ .navigation label:nth-of-type(8):after,
+  .csslider > input:nth-of-type(9):checked ~ .navigation label:nth-of-type(9):after,
+  .csslider > input:nth-of-type(10):checked ~ .navigation label:nth-of-type(10):after,
+  .csslider > input:nth-of-type(11):checked ~ .navigation label:nth-of-type(11):after {
+    opacity: 1;
+  }
+  .csslider > .arrows {
+    position: absolute;
+    left: -31px;
+    top: 50%;
+    width: 100%;
+    height: 26px;
+    padding: 0 31px;
+    z-index: 10;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.9));
+  }
+  .csslider > .arrows label {
+    display: none;
+    position: absolute;
+    top: -50%;
+    padding: 13px;
+    box-shadow: inset 2px -2px 0 1px #3a3a3a;
+    cursor: pointer;
+    -moz-transition: .15s;
+    -o-transition: .15s;
+    -webkit-transition: .15s;
+    transition: .15s;
+  }
+  .csslider > .arrows label:hover {
+    box-shadow: inset 3px -3px 0 2px #7a4d27;
+    margin: 0 0px;
+  }
+  .csslider > .arrows label:before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    height: 300%;
+    width: 300%;
+  }
+  .csslider.infinity > input:first-of-type:checked ~ .arrows label:last-of-type,
+  .csslider > input:nth-of-type(1):checked ~ .arrows label:nth-of-type(0),
+  .csslider > input:nth-of-type(2):checked ~ .arrows label:nth-of-type(1),
+  .csslider > input:nth-of-type(3):checked ~ .arrows label:nth-of-type(2),
+  .csslider > input:nth-of-type(4):checked ~ .arrows label:nth-of-type(3),
+  .csslider > input:nth-of-type(5):checked ~ .arrows label:nth-of-type(4),
+  .csslider > input:nth-of-type(6):checked ~ .arrows label:nth-of-type(5),
+  .csslider > input:nth-of-type(7):checked ~ .arrows label:nth-of-type(6),
+  .csslider > input:nth-of-type(8):checked ~ .arrows label:nth-of-type(7),
+  .csslider > input:nth-of-type(9):checked ~ .arrows label:nth-of-type(8),
+  .csslider > input:nth-of-type(10):checked ~ .arrows label:nth-of-type(9),
+  .csslider > input:nth-of-type(11):checked ~ .arrows label:nth-of-type(10) {
+    display: block;
+    left: 0;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .csslider.infinity > input:last-of-type:checked ~ .arrows label:first-of-type,
+  .csslider > input:nth-of-type(1):checked ~ .arrows label:nth-of-type(2),
+  .csslider > input:nth-of-type(2):checked ~ .arrows label:nth-of-type(3),
+  .csslider > input:nth-of-type(3):checked ~ .arrows label:nth-of-type(4),
+  .csslider > input:nth-of-type(4):checked ~ .arrows label:nth-of-type(5),
+  .csslider > input:nth-of-type(5):checked ~ .arrows label:nth-of-type(6),
+  .csslider > input:nth-of-type(6):checked ~ .arrows label:nth-of-type(7),
+  .csslider > input:nth-of-type(7):checked ~ .arrows label:nth-of-type(8),
+  .csslider > input:nth-of-type(8):checked ~ .arrows label:nth-of-type(9),
+  .csslider > input:nth-of-type(9):checked ~ .arrows label:nth-of-type(10),
+  .csslider > input:nth-of-type(10):checked ~ .arrows label:nth-of-type(11),
+  .csslider > input:nth-of-type(11):checked ~ .arrows label:nth-of-type(12) {
+    display: block;
+    right: 0;
+    -moz-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+  }
+  /*#region MODULES */
+  /*#endregion */

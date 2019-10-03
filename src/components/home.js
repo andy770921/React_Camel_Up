@@ -7,22 +7,13 @@ import Navbar from './nav_bar';
 
 const Home = () => {
     const { homeData, nextImg } = useContext(HomeContext);
-    // let nextImgSetting = [];
 
     useEffect(() => {
         const nextImgSetting = window.setTimeout( nextImg, 3000);
         return () => {
             window.clearTimeout(nextImgSetting);
-            // console.log("cleaned up");
         };
     }, [homeData.imgIndexNow]);
-
-    // useEffect(() => {
-    //     return () => {
-    //         window.clearTimeout(nextImgSetting);
-    //         console.log("cleaned up");
-    //     };
-    //   }, []);
 
     return (
         <div className="home-div">
