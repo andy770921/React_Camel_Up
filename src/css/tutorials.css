@@ -18,9 +18,7 @@
 .opening {
     width: 100%;
     height: 500px;
-    /* background: linear-gradient(to right bottom, #be5e38, #8b3310); */
-    background: linear-gradient(to right bottom, #edad70, #9b4828);
-        /* background: linear-gradient(to top, rgba(0,0,0, 0.05), rgba(0,0,0, 0.9)); */
+    /* background: linear-gradient(to right bottom, #edad70, #9b4828); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -43,18 +41,20 @@
     bottom: 0;
   }
 .tutorial-gif {
-  width: 60vw;
+  width: 57vw;
+  max-width: 900px;
+  height: auto;
   position: absolute;
   top: 250px;
-  right: 5vw;
-  box-shadow: 0 0 40px 5px #111;
-  z-index: 5;
+  right: 8vw;
+  box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.6);
+  z-index: 50;
   border-radius: 30px;
 }
 .opening-inner {
     align-self: flex-start;
     color: #333;
-    height: 50vh;
+    height: 61vh;
     position: relative;
     display: flex;
     justify-content: flex-start;
@@ -113,10 +113,14 @@
   }
 .section-inner h1 {
     color: rgba(255,255,220, 0.95);
-    text-shadow: 50px -40px 1px rgba(255,215,190, 0.2);
+    text-shadow: 50px -0.6em 1px rgba(255,215,190, 0.2);
+    margin-top: 0.25em;
   }
 .section-inner p {
-    width: 40%;
+    width: 100%;
+    font-size: 1.3em;
+    line-height: 1.6em;
+    color: #ddd;
   }
   
 .section-image {
@@ -127,22 +131,19 @@
     right: 0;
     z-index: 2;
   }
-/* .gif {
-    width: 100%;
-    height: auto;
-} */
+
 .shadow {
-    width: 40%;
-    height: 200px;
+    width: 70%;
+    height: 20vh;
     position: absolute;
-    background-color: #ff9171;
-    top: -30px;
-    right: 30px;
-    opacity: 0.3;
+    background-color: rgba(255, 145, 113, 0.3);
     z-index: 1;
+    transform: skewY(20deg) skewX(-15deg);
+    top: -19.5vh;
+    right: -1%;
   }
   
-  #section-two {
+#section-two {
     color: #a4a09e;
     letter-spacing: 2px;
     display: flex;
@@ -153,7 +154,7 @@
     margin-bottom: 100px;
     width: 90%;
   }
-  #section-two #cap-two {
+#section-two #cap-two {
     font-family: 'Permanent Marker', cursive;
     color: #ff9171;
     opacity: 0.3;
@@ -162,7 +163,7 @@
     top: 15px;
   }
   
-  #section-inner-two {
+#section-inner-two {
     width: 80%;
     position: relative;
     display: flex;
@@ -170,21 +171,21 @@
     flex-direction: column;
     height: 450px;
   }
-  #section-inner-two h1 {
+#section-inner-two h1 {
     color: #ff9171;
     clear: both;
     display: block;
     float: right;
     width: 40%;
   }
-  #section-inner-two p {
+#section-inner-two p {
     width: 40%;
     float: right;
     clear: both;
     display: block;
   }
   
-  #section-image-two {
+#section-image-two {
     width: 40%;
     height: 450px;
     position: absolute;
@@ -196,7 +197,7 @@
     z-index: 2;
   }
   
-  #shadow-two {
+#shadow-two {
     width: 40%;
     height: 450px;
     position: absolute;
@@ -208,15 +209,32 @@
     opacity: 0.3;
     z-index: 1;
   }
-
+/* ================================= 
+              Nav Bar
+==================================== */
+.nav-tutorial-page {
+  bottom: 8vh;
+  right: 6vw;
+}
+.nav-flex-container {
+  width: 30vw;
+  z-index: 20;
+  display: flex;
+}
+.tutorial-btn {
+  width: 50%;
+}
+.tutorial-btn > a {
+  display: block
+}
 
 /* ================================= 
               Slider
 ==================================== */
      
 .csslider {
-    width: 35vw;
-    height: 30vh;
+    width: 50vw;
+    height: 25vh;
     display: inline-block;
     text-align: left;
     position: relative;
