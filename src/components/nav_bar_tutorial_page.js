@@ -9,8 +9,8 @@ const NavbarTutorialPage = () => {
     return (
         <nav className="nav nav-tutorial-page">
             <ul className="nav-ul nav-flex-container" id="menu">
-                <div className="tutorial-btn"><Link to="/game"><li className="nav-li"><span>Play</span></li></Link></div>
-                <div className="tutorial-btn"><Link to="/"><li className="nav-li"><span>Home</span></li></Link></div>
+                <div className="tutorial-btn"><li className="nav-li"><Link to="/game"><span>Play</span></Link></li></div>
+                <div className="tutorial-btn"><li className="nav-li"><Link to="/"><span>Home</span></Link></li></div>
             </ul>
         </nav>
     );

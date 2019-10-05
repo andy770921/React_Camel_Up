@@ -718,6 +718,7 @@ class ThreeScene extends Component {
     componentWillUnmount() {
         this.stop();
         this.mount.removeChild(this.renderer.domElement);
+        window.removeEventListener('resize', this.onWindowResize, false);
     }
     start = () => {
         if (!this.frameId) {
