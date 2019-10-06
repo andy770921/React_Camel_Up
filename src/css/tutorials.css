@@ -42,7 +42,7 @@
   }
 .tutorial-gif {
   width: 57vw;
-  max-width: 900px;
+  max-width: 850px;
   height: auto;
   position: absolute;
   top: 250px;
@@ -406,6 +406,35 @@
   Media Queries
 ==================================== */
 
+@media (min-height: 801px) and (max-height: 1000px) {
+  .opening-inner .tutorial-subtitle {
+    width: 500px;
+    margin-left: 3vw;
+    font-size: 29px;
+  }
+  .tutorial-gif {
+    max-width: 700px;
+    top: calc(80vh - 550px);
+  }
+  .csslider {
+    height: 280px;
+  }
+}
+@media (min-height: 201px) and (max-height: 800px) {
+  .opening-inner .tutorial-subtitle {
+    width: 400px;
+  }
+  .tutorial-gif {
+    max-width: 500px;
+    top: calc(80vh - 490px);
+    right: 19vw;
+
+  }
+  .csslider {
+    height: 280px;
+  }
+}
+
 @media (min-width: 1201px) and (max-width: 1500px) {
   .opening-inner .tutorial-title {
     font-size: 90px;
@@ -417,9 +446,6 @@
     width: 80vw;
     left: 10vw;
   }
-    /* .section {
-      margin-top: 40px;
-    } */
   .tutorial-gif {
     width: 780px;
     right: calc(50vw - 780px/2);
@@ -430,6 +456,10 @@
   .nav-flex-container {
     width: 35vw;
   }
+  .nav-tutorial-page {
+    bottom: 3vh;
+    right: 4vw;
+  }
   .section {
     margin-top: 60px;
   }
@@ -438,6 +468,20 @@
   }
   .title-ch {
     font-size: 45px;
+  }
+  @media (min-height: 801px) and (max-height: 1000px) {
+    .opening-inner {
+      margin-top: 4vh;
+      margin-left: 6vw;
+    }
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
+  }
+  @media (min-height: 201px) and (max-height: 800px) {
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
   }
 }
   
@@ -465,6 +509,7 @@
   }
   .nav-tutorial-page {
     right: 0;
+    bottom: 5vh;
   }
   .csslider > .navigation {
     z-index: 100;
@@ -474,6 +519,21 @@
   }
   .title-ch {
     font-size: 45px;
+  }
+  @media (min-height: 801px) and (max-height: 1000px) {
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
+    .tutorial-gif {
+      width: 530px;
+      right: calc(50vw - 530px/2);
+      top: calc(80vh - 480px);
+    }
+  }
+  @media (min-height: 201px) and (max-height: 800px) {
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
   }
   
 }
@@ -515,6 +575,36 @@
   }
   .title-ch {
     font-size: 40px;
+  }
+  @media (min-height: 801px) and (max-height: 1000px) {
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
+    .tutorial-gif {
+      width: 480px;
+      right: calc(50vw - 480px/2);
+      top: calc(90vh - 600px);
+    }
+    .csslider {
+      height: 280px;
+    }
+    .opening-inner {
+      margin-top: 3vh;
+    }
+  }
+  @media (min-height: 201px) and (max-height: 800px) {
+    .opening-inner .tutorial-subtitle {
+      display: none;
+    }
+    .tutorial-gif {
+      width: 300px;
+      right: calc(50vw - 550px/2);
+      top: calc(80vh - 430px);
+      border-radius: 10px;
+    }
+    .csslider {
+      height: 250px;
+    }
   }
   
 }
@@ -561,7 +651,7 @@
   .title-ch {
     font-size: 40px;
   }
-  @media (min-height: 501px) and (max-height: 1000px) {
+  @media (min-height: 801px) and (max-height: 1000px) {
     .opening-inner {
       margin-top: 3vh;
       margin-left: 10vw;
@@ -570,12 +660,72 @@
       display: none;
     }
     .tutorial-gif {
-      top: 25vh;
+      top: 15vh;
     }
     .csslider {
-      height: 300px;
+      height: calc(60vh - 30vw);
       bottom: 160px;
     }
   }
-  
+  @media (min-height: 601px) and (max-height: 800px) {
+    .opening-inner {
+      margin-top: 3vh;
+      margin-left: 10vw;
+    }
+    .opening-inner {
+      display: none;
+    }
+    .tutorial-gif {
+      top: auto;
+      width: 50vw;
+      bottom: 200px;
+      right: calc(50vw - 50vw/2);
+      border-radius: 10px;
+    }
+    .csslider {
+      height: calc(100vh - 200px);
+      bottom: 160px;
+    }
+    .section-inner h1 {
+      margin-top: 0;
+    }
+    .section-inner p {
+      font-size: 0.9em;
+    }
+   .title-ch {
+      font-size: 35px;
+    }
+  }
+  @media (min-height: 201px) and (max-height: 600px) {
+    .opening-inner {
+      margin-top: 3vh;
+      margin-left: 10vw;
+    }
+    .opening-inner {
+      display: none;
+    }
+    .tutorial-gif {
+      top: auto;
+      width: 50vw;
+      bottom: 35vh;
+      right: calc(50vw - 50vw/2);
+      border-radius: 10px;
+    }
+    .csslider {
+      height: calc(100vh - 170px);
+      bottom: 130px;
+    }
+    .section-inner h1 {
+      margin-top: 0;
+    }
+    .section-inner p {
+      font-size: 0.9em;
+    }
+   .title-ch {
+      display: none;
+    }
+    .section {
+      margin-top: 10vh;
+    }
+  }
 }
