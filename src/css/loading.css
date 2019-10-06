@@ -1,0 +1,88 @@
+
+/* =================================== */
+/*     Game Loading Setting            */
+/* =================================== */
+
+.camel-holder {
+    display: flex;
+    justify-content: center;
+}
+
+.small-camel {
+    display: inline-block;
+    width: calc(120px * 0.7);
+    height: calc(90px* 0.7);
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.load-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+.load-div .small-camel:nth-last-child(1) {animation: loading .8s .1s linear infinite;}
+.load-div .small-camel:nth-last-child(2) {animation: loading .8s .2s linear infinite;}
+.load-div .small-camel:nth-last-child(4) {animation: loading .8s .3s linear infinite;}
+.load-div .small-camel:nth-last-child(5) {animation: loading .8s .4s linear infinite;}
+
+@keyframes loading {
+    0% {transform: translate(0,0);}
+    50% {transform: translate(0,15px);}
+    100% {transform: translate(0,0);}
+}
+
+.letter-holder {
+    margin: 5px 20px 5px 20px;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+.loading-letter {
+    float: left;
+    margin: 0.1rem;
+    animation-name: loadingWords;
+    animation-duration: 1.6s;
+    animation-iteration-count: infinite;
+    animation-direction: linear;
+}
+
+.l-1 {animation-delay: .48s;}
+.l-2 {animation-delay: .6s;}
+.l-3 {animation-delay: .72s;}
+.l-4 {animation-delay: .84s;}
+.l-5 {animation-delay: .96s;}
+.l-6 {animation-delay: 1.08s;}
+.l-7 {animation-delay: 1.2s;}
+.l-8 {animation-delay: 1.32s;}
+.l-9 {animation-delay: 1.44s;}
+.l-10 {animation-delay: 1.56s;}
+
+@keyframes loadingWords {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@media (min-width: 601px) and (max-width: 800px) {
+    .letter-holder {
+        margin: 5px 5px 5px 5px;
+    }
+    .small-camel {
+        width: calc(120px * 0.5);
+        height: calc(90px* 0.5);
+        margin-top: 15px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+@media (min-width: 201px) and (max-width: 600px) {
+    .load-div {
+        flex-direction: column;
+    }
+    .load-div .small-camel:nth-last-child(1) {animation: loading .8s .1s linear infinite;}
+    .load-div .small-camel:nth-last-child(2) {animation: loading .8s .2s linear infinite;}
+    .load-div .small-camel:nth-last-child(4) {animation: loading .8s .1s linear infinite;}
+    .load-div .small-camel:nth-last-child(5) {animation: loading .8s .2s linear infinite;}
+}

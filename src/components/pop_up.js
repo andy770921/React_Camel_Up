@@ -11,6 +11,7 @@ import FinalBet from './final_bet';
 import ReceiveRoundBet from './receive_round_bet';
 import RoundInfo from './round_info';
 import GameEnd from './game_end';
+import Loading from './loading';
 
 
 const PopUp = (props) => {
@@ -32,57 +33,87 @@ const PopUp = (props) => {
         initializeFinalCards();
         window.setTimeout(() => { props.gameBegin(); }, 500);
     }
+
+    const coverClassName = () => {
+        const showOrNot = showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd;
+        return showOrNot ? (showCtrl.showClassNames.cover) : (showCtrl.hideClassNames.cover);
+    }
+    const popupClassName = () => {
+        let className = "";
+        const showOrNot = showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd;
+        if (showOrNot === true) {
+            className = showCtrl.showClassNames.popup;
+            if (showCtrl.isRoundBet) { 
+                className = className + " " + showCtrl.roundBetClassNames.popup; 
+            } else if (showCtrl.isFinalBet) {
+                className = className + " " + showCtrl.finalBetClassNames.popup; 
+            } else if (showCtrl.isShowReceiveRoundBet) {
+                className = className + " " + showCtrl.receiveRoundBetClassNames.popup;
+            } else if (playerData.isShowRoundInfo) {
+                className = className + " " + showCtrl.roundInfoClassNames.popup;
+            } else if (playerData.isGameEnd) {
+                className = className + " " + showCtrl.gameEndClassNames.popup;
+            }
+        } else {
+            className = showCtrl.hideClassNames.popup;
+        }
+        return className;
+    }
+    const popupContent = () => {
+        if (showCtrl.isRoundBet) { 
+            return <RoundBet />;
+        } else if (showCtrl.isFinalBet) { 
+            return <FinalBet />;
+        } else if (showCtrl.isShowReceiveRoundBet) { 
+            return <ReceiveRoundBet />;
+        } else if (playerData.isShowRoundInfo) { 
+            return <RoundInfo />;
+        } else if (playerData.isGameEnd) { 
+            return <GameEnd gameRestart={gameRestart}/>;
+        } else {
+            return;
+        }
+    }
+    const gameStartCoverClassName = () => {
+        const showGameStartOrNot = showCtrl.isShowGameStart;
+        return showGameStartOrNot ? (showCtrl.showGameStartClassNames.cover) : (showCtrl.hideGameStartClassNames.cover);
+    }
+    const gameStartDivClassName = () => {
+        const showGameStartOrNot = showCtrl.isShowGameStart;
+        return showGameStartOrNot ? (showCtrl.showGameStartClassNames.popup) : (showCtrl.hideGameStartClassNames.popup);
+    }
+    const closePopup = () => {
+        triggerPop(); 
+        if (playerData.isShowRoundInfo){ 
+            dispatch({ type: 'CLOSE_ROUND_INFO' });
+        } else if (playerData.isGameEnd) {
+            gameRestart();
+        }
+    }
+    const gameStartContent =
+        <React.Fragment>
+        <div className="start-text" style={(playerData.isLoadSucceed)? {} : { display: 'none'}}>Press to start the game...</div>
+        <button className="btn btn-start-style" 
+                disabled={!playerData.isLoadSucceed} 
+                onClick={gameStart} 
+                style={(playerData.isLoadSucceed)? {} : { display: 'none'}}> 
+                Game Start </button>
+        </React.Fragment>;
+
     return (
         <div className="avgrund-ready">
-            <div className={(showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd ) ? (showCtrl.showClassNames.cover) : (showCtrl.hideClassNames.cover)}></div>
-            <div className={
-                    ((showCtrl.isShow || playerData.isShowRoundInfo || playerData.isGameEnd ) ? 
-                    (showCtrl.showClassNames.popup):(showCtrl.hideClassNames.popup)) + " " + 
-                    ((showCtrl.isRoundBet)? (showCtrl.roundBetClassNames.popup):("")) + " " + 
-                    ((showCtrl.isFinalBet)? (showCtrl.finalBetClassNames.popup):("")) + " " + 
-                    ((showCtrl.isShowReceiveRoundBet)? (showCtrl.receiveRoundBetClassNames.popup):("")) + " " + 
-                    ((playerData.isShowRoundInfo)? (showCtrl.roundInfoClassNames.popup):("")) + " " + 
-                    ((playerData.isGameEnd)? (showCtrl.gameEndClassNames.popup):(""))
-                }>
-                <button className="icon-cross-popup" onClick={ () => { triggerPop(); 
-                    (playerData.isShowRoundInfo)? (dispatch({ type: 'CLOSE_ROUND_INFO' })):(function(){})
-                    (playerData.isGameEnd)? (gameRestart()):(function(){}) }}
+            <div className={ coverClassName() }></div>
+            <div className={ popupClassName() }>
+                <button className="icon-cross-popup" onClick={ closePopup }
                     style={(playerData.isGameEnd || playerData.isShowRoundInfo)? { display: 'none'} : {}}>
                     <img src="./imgs/cross-3.png" className="icon-cross-img"></img>
                 </button>
-                {(showCtrl.isRoundBet) ? (<RoundBet />) : ("")}
-                {(showCtrl.isFinalBet) ? (<FinalBet />) : ("")}
-                {(showCtrl.isShowReceiveRoundBet) ? (<ReceiveRoundBet />) : ("")}
-                {(playerData.isShowRoundInfo) ? (<RoundInfo />) : ("")}
-                {(playerData.isGameEnd) ? (<GameEnd gameRestart={gameRestart}/>) : ("")}
+                { popupContent() }
             </div>
-            <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.cover) : (showCtrl.hideGameStartClassNames.cover)}></div>
-            <div className={(showCtrl.isShowGameStart) ? (showCtrl.showGameStartClassNames.popup) : (showCtrl.hideGameStartClassNames.popup)}>
-                <div className="start-text" style={(playerData.isLoadSucceed)? {} : { display: 'none'}}>Press to start the game...</div>
-                <button className="btn btn-start-style" disabled={!playerData.isLoadSucceed} onClick={gameStart} 
-                        style={(playerData.isLoadSucceed)? {} : { display: 'none'}}> Game Start </button>
-                <div className="load-div" style={(playerData.isLoadSucceed)? { display: 'none' } : {}}>
-                    <div className="camel-holder">
-                        <img src="./imgs/camel_red_noback.png" className="small-camel"></img>
-                        <img src="./imgs/camel_green_noback.png" className="small-camel"></img>
-                    </div>
-                    <div className="letter-holder">
-                        <div className="l-1 loading-letter start-text">L</div>
-                        <div className="l-2 loading-letter start-text">o</div>
-                        <div className="l-3 loading-letter start-text">a</div>
-                        <div className="l-4 loading-letter start-text">d</div>
-                        <div className="l-5 loading-letter start-text">i</div>
-                        <div className="l-6 loading-letter start-text">n</div>
-                        <div className="l-7 loading-letter start-text">g</div>
-                        <div className="l-8 loading-letter start-text">.</div>
-                        <div className="l-9 loading-letter start-text">.</div>
-                        <div className="l-10 loading-letter start-text">.</div>
-                    </div>
-                    <div className="camel-holder">
-                        <img src="./imgs/camel_orange_noback.png" className="small-camel"></img>
-                        <img src="./imgs/camel_blue_noback.png" className="small-camel"></img>
-                    </div>
-                </div>
+            <div className={ gameStartCoverClassName() }></div>
+            <div className={ gameStartDivClassName() }>
+                { gameStartContent }
+                <Loading />
             </div>
         </div>
     );
