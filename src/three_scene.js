@@ -1118,7 +1118,7 @@ class ThreeScene extends Component {
     checkGameEnd = () => {
         if (this.state.camels.find(element => element.boxNum >= 16) !== undefined) {
             // 若遊戲結束，四個骰子仍未骰完，也強迫結算
-            this.context.dispatch({ type: 'COUNT_ROUND_BET', camelsRanking: this.judgeCamelRanking() });
+            this.context.dispatch({ type: 'COUNT_ROUND_BET_NOT_UPDATE_PLAYERS', camelsRanking: this.judgeCamelRanking() });
             this.context.dispatch({ type: 'CLEAR_USER_CARD_STOCK' });
             this.context.dispatch({ type: 'SHOW_GAME_END_INFO' });
             return;
@@ -1219,8 +1219,8 @@ class ThreeScene extends Component {
             let keepChecking = window.setInterval(() => {
                 if (enableCheck && this.dice.isFinished()) {
                     const step = this.judgeDiceNumber(selectedDiceObj);
-                    console.log("step:", step);
-                    console.log("jumpCamelId:", jumpCamelId);
+                    // console.log("step:", step);
+                    // console.log("jumpCamelId:", jumpCamelId);
                     jumpInfo[jumpCamelId].triggerJump = true;
                     jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({

@@ -38,6 +38,7 @@ const GameEnd = (props) => {
                 </span>)
         })
     ) : ("");
+
     const countFinalMoney = (playerId, originalMoney) => {
         let playerCards = finalCards.cards.filter( element => parseInt(element.playerOwner) === parseInt(playerId));
         let finalMoney = originalMoney;
@@ -97,14 +98,18 @@ const GameEnd = (props) => {
         }
         return finalMoney;
     }
-    const finalMoneyArray = Object.keys(playerData.roundInfo).length ? 
+
+    const finalMoneyArray = Object.keys(playerData.roundInfo).length !== 0 ? 
         playerData.roundInfo.playersMoney.map(element => {
             let newElement = Object.assign({}, element);
             newElement.moneyTo = countFinalMoney(element.id, newElement.moneyTo);
-            return newElement }) : ([]);
-    const sortedFinalArray = Object.keys(playerData.roundInfo).length ? 
-                        finalMoneyArray.sort(function(a,b) { return a.id - b.id}) : ([]);
-    const playersRankingList = sortedFinalArray.length ? (
+            return newElement; 
+        }) : ([]);
+
+    const sortedFinalArray = Object.keys(playerData.roundInfo).length !== 0 ? 
+                        finalMoneyArray.sort(function(a,b) { return a.id - b.id }) : ([]);
+
+    const playersRankingList = sortedFinalArray.length !== 0 ? (
         sortedFinalArray.map((element, i) => {
             return (
                 <div key={i + 28000} className={(i % 2 === 0)? ("end-content-text-left"):("end-content-text-right")}> 
@@ -114,6 +119,7 @@ const GameEnd = (props) => {
                 </div>)
         })
     ) : ("");
+
     let winnerPlayer = "";
     const sortedWinnerArray = finalMoneyArray.sort(function(a,b) { return b.moneyTo - a.moneyTo});
 
