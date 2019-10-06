@@ -95,7 +95,6 @@
     position: relative;
     margin-top: 50px;
     line-height: 1.6em;
-    width: 90%;
   }
 
 .title-ch {
@@ -138,8 +137,8 @@
     background-color: rgba(255, 145, 113, 0.3);
     z-index: 1;
     transform: skewY(20deg) skewX(-15deg);
-    top: -19.5vh;
-    right: -1%;
+    top: -21vh;
+    right: 5%;
   }
 
 /* ================================= 
@@ -214,8 +213,6 @@
     width: inherit;
     height: inherit;
     z-index: 1;
-    font-size: 0;
-    line-height: 0;
     background-color: #312320;
     box-shadow: 0 0 9px 6px #a56e3f inset, 0 0 40px 3px #fff3b6;
     border-radius: 40px;

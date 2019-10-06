@@ -1,0 +1,128 @@
+.section-about-page {
+    width: 80vw;
+    height: 580px;
+    z-index: 1;
+    background-color: #312320;
+    box-shadow: 0 0 9px 6px #a56e3f inset, 0 0 40px 3px #fff3b6;
+    border-radius: 40px;
+    margin: 70px auto;
+    padding: 0;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.section-margin-bottom {
+    margin: 0 0 40px 0;
+}
+
+.title-middle {
+    align-self: center;
+}
+.section-inner p:nth-child(3) {
+    margin-top: 10px;
+}
+
+
+/* ================================= 
+              Nav Bar
+==================================== */
+.nav-about-page {
+    right: 0;
+    bottom: 8vh;
+}
+.nav-about-container {
+    width: 100vw;
+    z-index: 20;
+    display: flex;
+}
+.about-btn {
+    width: 50%;
+}
+
+/* ================================= 
+  Media Queries
+==================================== */
+/* 
+@media (min-height: 801px) and (max-height: 1000px) {
+
+  }
+  @media (min-height: 201px) and (max-height: 800px) {
+
+  }
+  
+  @media (min-width: 1201px) and (max-width: 1500px) {
+
+    .nav-about-container {
+      width: 35vw;
+    }
+    .nav-about-page {
+      bottom: 3vh;
+      right: 4vw;
+    }
+
+    @media (min-height: 801px) and (max-height: 1000px) {
+
+    }
+    @media (min-height: 201px) and (max-height: 800px) {
+
+    }
+  }
+    
+  @media (min-width: 1001px) and (max-width: 1200px) {
+
+    .nav-about-container {
+      width: 100vw;
+    }
+    .nav-about-page {
+      right: 0;
+      bottom: 5vh;
+    }
+
+    @media (min-height: 801px) and (max-height: 1000px) {
+
+    }
+    @media (min-height: 201px) and (max-height: 800px) {
+
+    }
+    
+  }
+  
+    
+  @media (min-width: 601px) and (max-width: 1000px) {
+
+    .nav-about-container {
+      width: 100vw;
+    }
+    .nav-about-page {
+      right: 0;
+    }
+
+    @media (min-height: 801px) and (max-height: 1000px) {
+
+    }
+    @media (min-height: 201px) and (max-height: 800px) {
+
+    }
+    
+  }
+  
+  @media (min-width: 201px) and (max-width: 600px) {
+    .nav-about-container {
+      width: 100vw;
+    }
+    .nav-about-page {
+      right: 0;
+    }
+
+    @media (min-height: 801px) and (max-height: 1000px) {
+
+    }
+    @media (min-height: 601px) and (max-height: 800px) {
+
+    }
+    @media (min-height: 201px) and (max-height: 600px) {
+
+    }
+  } */

@@ -94,14 +94,8 @@ const Tutorials = () => {
                 <input type="radio" name="slides" id="slides_7" />
                 <input type="radio" name="slides" id="slides_8" />
                 <input type="radio" name="slides" id="slides_9" />
-                {/* <input type="radio" name="slides" id="slides_N" /> */}
                 <ul>
                     {paragraph}
-                    {/* <li>Content of slide 1</li>
-                    <li>Content of slide 2</li>
-                    <li>Content of slide 3</li>
-                    <li>Content of slide 4</li>
-                    <li>Content of slide 5</li> */}
                 </ul>
                 <div className="arrows">
                     <label htmlFor="slides_1" onClick={(e)=> {updatePageNow(e);}}></label>
@@ -113,7 +107,6 @@ const Tutorials = () => {
                     <label htmlFor="slides_7" onClick={(e)=> {updatePageNow(e);}}></label>
                     <label htmlFor="slides_8" onClick={(e)=> {updatePageNow(e);}}></label>
                     <label htmlFor="slides_9" onClick={(e)=> {updatePageNow(e);}}></label>
-                    {/* <label htmlFor="slides_N"></label> */}
                 </div>
                 <div className="navigation">
                     <div>
@@ -126,7 +119,6 @@ const Tutorials = () => {
                         <label htmlFor="slides_7" onClick={(e)=> {updatePageNow(e);}}></label>
                         <label htmlFor="slides_8" onClick={(e)=> {updatePageNow(e);}}></label>
                         <label htmlFor="slides_9" onClick={(e)=> {updatePageNow(e);}}></label>
-                        {/* <label htmlFor="slides_N"></label> */}
                     </div>
                 </div>
             </div>
