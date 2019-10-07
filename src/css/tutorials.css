@@ -621,7 +621,7 @@
   .csslider {
     width: 74vw;
     left: 13vw;
-    z-index: 2;
+    z-index: unset;
     bottom: 170px;
     height: calc(52vh - 30vw);
   }
