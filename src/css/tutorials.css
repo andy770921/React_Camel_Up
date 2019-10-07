@@ -621,14 +621,14 @@
   .csslider {
     width: 74vw;
     left: 13vw;
-    z-index: unset;
+    z-index: 2;
     bottom: 170px;
     height: calc(52vh - 30vw);
   }
   .tutorial-gif {
     width: 80vw;
     right: calc(50vw - 80vw/2);
-    top: 30vh;
+    top: 26vh;
   }
   .opening {
     height: 380px;
@@ -709,8 +709,8 @@
       border-radius: 10px;
     }
     .csslider {
-      height: calc(100vh - 170px);
-      bottom: 130px;
+      height: calc(100vh - 30vh);
+      bottom: 23vh;
     }
     .section-inner h1 {
       margin-top: 0;

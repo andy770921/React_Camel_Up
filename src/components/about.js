@@ -22,7 +22,7 @@ const About = () => {
                     </div>
                     <div className="section-inner">
                         <h1 className="title-ch title-middle">特別感謝</h1>
-                        <p>&ensp;&ensp;&ensp;&ensp;程式碼上的協助及使用者體驗的改良，感謝彭彭、Enid Tian、Rita Chang、Teresa Hsieh、Josh Yang、Danial Lin、Teddy Ku 的幫忙與協助。</p>
+                        <p>&ensp;&ensp;&ensp;&ensp;程式碼上的完善及使用者體驗的改良，感謝彭彭、Enid Tian、Rita Chang、Teresa Hsieh、Josh Yang、Ggag Liu、Danial Lin、Teddy Ku 的幫忙與協助。</p>
                         <p>&ensp;&ensp;&ensp;&ensp;3D 畫面的呈現，感謝 Abbie Wang 協助完成駱駝物件。</p>
                     </div>
                     <div className="shadow"></div>
