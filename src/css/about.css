@@ -1,7 +1,7 @@
 .section-about-page {
     width: 80vw;
     height: 580px;
-    z-index: 1;
+    z-index: 10;
     background-color: #312320;
     box-shadow: 0 0 9px 6px #a56e3f inset, 0 0 40px 3px #fff3b6;
     border-radius: 40px;
