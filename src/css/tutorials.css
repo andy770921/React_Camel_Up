@@ -687,7 +687,7 @@
       border-radius: 10px;
     }
     .csslider {
-      height: calc(100vh - 30vh);
+      height: 67vh;
       bottom: 23vh;
     }
     .section-inner h1 {

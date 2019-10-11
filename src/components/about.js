@@ -8,7 +8,7 @@ const About = () => {
     return (
         <div className="tutorials">
             <NavbarAboutPage />
-            <div className="tutorials-bg z1"></div>
+            <div className="tutorials-bg z-neg-1"></div>
             <div className="opening z1"></div>
             <div className="opening-inner about-inner z2">
                 <div className="common-title">About</div>
