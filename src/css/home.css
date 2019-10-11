@@ -182,7 +182,6 @@
   Media Queries
 ==================================== */
 @media (min-height: 501px) and (max-height: 800px) {
-
     .bullet-div {
         width: 500px;
         height: 500px;
@@ -191,6 +190,18 @@
     }
     .introduction-div {
         height: 500px;
+    }
+}
+@media (min-height: 501px) and (max-height: 800px) and (min-width: 1201px) {
+    .subtitle {
+        margin-left: 5vw;
+        position: absolute;
+        bottom: 9vh;
+    }
+}
+@media (min-height: 201px) and (max-height: 500px) {
+    .subtitle {
+        display: none;
     }
 }
 
@@ -213,7 +224,7 @@
             margin-left: 0;
             position: absolute;
             right: 8vw;
-            top: 65px;
+            top: 6vh;
         }
     }
 }
@@ -226,7 +237,7 @@
         margin-left: 0;
         position: absolute;
         right: 8vw;
-        top: 65px;
+        top: 6vh;
     }
     .bullet-div {
         width: 470px;
@@ -311,13 +322,17 @@
     }
     .bullet-div {
         width: 65vw;
-        height: 65vw;
+        height: calc(100vh - 375px);
         bottom: auto;
         left: calc(50% - 65vw/2);
-        top: calc(40vw*0.9 + 30px);
+        top: calc(40vw*0.9 + 40px);
     }
     .introduction-div {
-        height: 65vw;
+        height: calc(100vh - 375px);
+        border-radius: 20px;
+    }
+    .bullet-img {
+        border-radius: 20px;
     }
 
     @media (min-height: 701px) and (max-height: 1000px) {
@@ -326,47 +341,21 @@
         }
         .bullet-div {
             width: 80vw;
-            height: 270px;
             bottom: auto;
             left: calc(50% - 80vw/2);
             top: calc(30vw*0.8 + 100px);
         }
-        .introduction-div {
-            height: 270px;
-            border-radius: 40px;
-        }
-        .bullet-img {
-            border-radius: 40px;
-        }
     }
     @media (min-height: 201px) and (max-height: 500px) {
         .subtitle {
             display: none;
         }
         .bullet-div {
-            width: 60vw;
-            height: 60vw;
-            bottom: auto;
-            left: calc(50% - 60vw/2);
-            top: calc(45vh - 60vw/2);
+            height: calc(100vh - 240px);
+            top: calc(40vw*0.9 - 10px);
         }
         .introduction-div {
-            height: 60vw;
-        }
-    }
-    @media (min-height: 201px) and (max-height: 500px) {
-        .subtitle {
-            display: none;
-        }
-        .bullet-div {
-            width: 60vw;
-            height: 60vw;
-            bottom: auto;
-            left: calc(50% - 60vw/2);
-            top: calc(45vh - 60vw/2);
-        }
-        .introduction-div {
-            height: 60vw;
+            height: calc(100vh - 240px);
         }
     }
 

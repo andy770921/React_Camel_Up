@@ -9,7 +9,7 @@ const NavbarAboutPage = () => {
     return (
         <nav className="nav nav-about-page">
             <ul className="nav-ul nav-about-container" id="menu">
-                <div className="about-btn"><li className="nav-li"><Link to="/game"><span>Play</span></Link></li></div>
+                <div className="about-btn"><li className="nav-li"><Link to="/tutorials"><span>Guide</span></Link></li></div>
                 <div className="about-btn"><li className="nav-li"><Link to="/"><span>Home</span></Link></li></div>
             </ul>
         </nav>

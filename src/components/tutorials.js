@@ -64,7 +64,7 @@ const Tutorials = () => {
             <div className="section-wrap">
                 <div className="section">
                     <div className="section-inner">
-                        <h1 className="title-ch">{element.title}</h1>
+                        <h1 className="title-ch title-tutorials-content">{element.title}</h1>
                         <p>{element.details}</p>
                     </div>
                     <div className="shadow"></div>
@@ -80,8 +80,8 @@ const Tutorials = () => {
             <div className="tutorials-bg"></div>
             <div className="opening"></div>
             <div className="opening-inner">
-                <div className="tutorial-title">Guide</div>
-                <div className="tutorial-subtitle">All you need to know about this game</div>
+                <div className="common-title">Guide</div>
+                <div className="tutorial-subtitle common-subtitle">All you need to know about this game</div>
             </div>
             <img className="tutorial-gif" src={content[pageNow - 1].imgUrl} alt="tutorial-gif"></img>
             <div className="csslider">

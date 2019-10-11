@@ -130,7 +130,7 @@ a {
   }
 }
 /* ========================== */
-/*     Banner Text Settings   */
+/*    Banner Text Settings    */
 /* ========================== */
 
 .banner {
@@ -295,5 +295,71 @@ a {
   }
   .flex-toggle {
     margin: 10px 0 10px 0;
+  }
+}
+
+/* ========================== */
+/*      Title Settings        */
+/* ========================== */
+
+.common-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 100px;
+  font-weight: 100;
+}
+
+@media (min-width: 1001px) and (max-width: 1500px) {
+  .common-title {
+    font-size: 90px;
+  }
+  @media (min-height: 201px) and (max-height: 1000px) {
+    .common-title {
+      font-size: 80px;
+    }
+  }
+}
+@media (min-width: 601px) and (max-width: 1000px) {
+  .common-title {
+    font-size: 80px;
+  }
+  @media (min-height: 201px) and (max-height: 1000px) {
+    .common-title {
+      font-size: 70px;
+    }
+  }
+}
+@media (min-width: 201px) and (max-width: 600px) {
+  .common-title {
+    font-size: 13vw;
+  }
+}
+
+/* ========================== */
+/*     Subtitle Settings      */
+/* ========================== */
+
+.common-subtitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 32px;
+  font-weight: 100;
+  margin-top: 10px;
+  line-height: 1.6em;
+  margin-left: 7vw;
+  text-shadow: 0 0 4px white
+}
+
+@media (min-width: 1001px) and (max-width: 1500px) {
+  .common-subtitle {
+    font-size: 28px;
+  }
+}
+@media (min-width: 601px) and (max-width: 1000px) {
+  .common-subtitle {
+    font-size: 24px;
+  }
+}
+@media (min-width: 201px) and (max-width: 600px) {
+  .common-subtitle {
+    font-size: 4vw;
   }
 }
