@@ -74,6 +74,9 @@
     color: rgba(255,255,220, 0.95);
     text-shadow: 30px -0.3em 1px rgba(255,215,190, 0.1);
   }
+  .about-section-inner p {
+    font-size: 1.1em;
+  }
 }
 
     
