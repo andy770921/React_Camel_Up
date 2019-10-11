@@ -6,11 +6,11 @@ import NavbarAboutPage from './nav_bar_about_page';
 
 const About = () => {
     return (
-        <div className="tutorials">
+        <div>
             <NavbarAboutPage />
-            <div className="tutorials-bg z-neg-1"></div>
-            <div className="opening z1"></div>
-            <div className="opening-inner about-inner z2">
+            <div className="tutorials-bg z-neg-2"></div>
+            <div className="opening z-neg-1"></div>
+            <div className="opening-inner about-inner">
                 <div className="common-title">About</div>
                 <div className="about-subtitle common-subtitle">Story and Acknowledgments</div>
             </div>

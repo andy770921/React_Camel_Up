@@ -58,11 +58,8 @@ a {
 .z-neg-1 {
   z-index: -1 !important;
 }
-.z1 {
-  z-index: 1 !important;
-}
-.z2 {
-  z-index: 2 !important;
+.z-neg-2 {
+  z-index: -2 !important;
 }
 
 /* ========================== */
