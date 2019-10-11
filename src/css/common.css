@@ -52,7 +52,15 @@ a {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     box-shadow: 0 0 0 30px white inset !important;
   }
-
+/* ========================== */
+/*     z-index Settings       */
+/* ========================== */
+.z1 {
+  z-index: 1;
+}
+.z2 {
+  z-index: 2;
+}
 
 /* ========================== */
 /*     Button Settings        */

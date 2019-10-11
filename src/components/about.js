@@ -8,9 +8,9 @@ const About = () => {
     return (
         <div className="tutorials">
             <NavbarAboutPage />
-            <div className="tutorials-bg"></div>
-            <div className="opening"></div>
-            <div className="opening-inner about-inner">
+            <div className="tutorials-bg z1"></div>
+            <div className="opening z1"></div>
+            <div className="opening-inner about-inner z2">
                 <div className="common-title">About</div>
                 <div className="about-subtitle common-subtitle">Story and Acknowledgments</div>
             </div>
