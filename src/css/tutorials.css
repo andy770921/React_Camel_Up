@@ -31,7 +31,7 @@
     bottom: 0;
     transform-origin: top left;
   }
-/* .opening:before {
+.opening:before {
     content: "";
     background: linear-gradient(to bottom, rgba(255,245,183, 0.05), rgba(255,245,183, 0.4));
     position: absolute;
@@ -39,7 +39,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-  } */
+  }
 .tutorial-gif {
   width: 57vw;
   max-width: 850px;
