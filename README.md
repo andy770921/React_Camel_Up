@@ -6,15 +6,15 @@
   
 ![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img.PNG)  
   
-- Otherwise, we can check the game rule via by clicking "GUIDE" button or read advanced developing story by clicking "ABOUT" button.  
+- We can check the game rule via by clicking "GUIDE" button or read advanced developing story by clicking "ABOUT" button.  
   
 ![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img2.PNG)  
   
-- When we click "PLAY" button, the loading page will be shown for a while. After that, click "GAME START" button to start the game. Before players' action, each camel jumps once randomly, determined by the color and number of the dice.  
+- When we click "PLAY" button, the loading page will be shown for a while. After that, click "GAME START" button to start the game. Before players' acting, each camel jumps randomly and automatically once, determined their starting position.  
   
 ![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img3.PNG)  
   
-- After all camel jumping, 1st player can take actions. There are three actions can be taken: rolling dice, betting round winner, and betting final rank, corresponding to three yellow buttons below player's name. Each time the player can choose either one of that.  
+- After every camel finished jumping, 1st player can take actions. There are three actions can be taken: rolling dice, betting round winner, and betting final rank, corresponding to three yellow buttons below player's name. Each time the player can choose either one of that.  
   
 ![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img4.PNG)  
   
