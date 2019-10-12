@@ -2,7 +2,7 @@
 
 
 ## Introduction
-- This web-game is based on a famous board game, Camel up. Like gambling horse, four players can bet on camels in turn. The winner is who owns the most money. In the home page, we can directly play the game through clicking "PLAY" button.  
+- This web-game is based on a famous board game, Camel up. Like gambling horse, four players can bet on camels in turns. The winner is the richest player. In the home page, we can directly play the game through clicking "PLAY" button.  
   
 ![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img.PNG)  
   
