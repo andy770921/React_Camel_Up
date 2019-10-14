@@ -1,11 +1,17 @@
 import '../css/normalize.css';
 import '../css/common.css';
 import '../css/tutorials.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavbarTutorialPage from './nav_bar_tutorial_page';
 
 const Tutorials = () => {
     const [pageNow, setPageNow] = useState(1);
+    useEffect(() => {
+        gtag('config', 'UA-149007121-1', {
+            'page_title': 'guide',
+            'page_path': '/tutorials'
+        });
+    }, []);
     const content = [
         { 
             title: "遊戲說明",

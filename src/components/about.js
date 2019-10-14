@@ -1,10 +1,17 @@
 import '../css/normalize.css';
 import '../css/common.css';
 import '../css/about.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavbarAboutPage from './nav_bar_about_page';
 
 const About = () => {
+    useEffect(() => {
+        gtag('config', 'UA-149007121-1', {
+            'page_title': 'about',
+            'page_path': '/about'
+        });
+    }, []);
+
     return (
         <div>
             <NavbarAboutPage />

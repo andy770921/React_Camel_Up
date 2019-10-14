@@ -17,11 +17,17 @@ class GameEntry extends React.Component {
         passGameBegin: {},
         passGameRestart: {}
     }
-    setPassGameBegin = (func) => { 
-        this.setState({passGameBegin: func});
+    componentDidMount() {
+        gtag('config', 'UA-149007121-1', {
+            'page_title': 'play',
+            'page_path': '/game'
+        });
     }
-    setPassGameRestart = (func) => { 
-        this.setState({passGameRestart: func});
+    setPassGameBegin = (func) => {
+        this.setState({ passGameBegin: func });
+    }
+    setPassGameRestart = (func) => {
+        this.setState({ passGameRestart: func });
     }
 
     render() {
@@ -32,9 +38,9 @@ class GameEntry extends React.Component {
                         <RoundContextProvider>
                             <FinalContextProvider>
                                 <PlayerInfo />
-                                <PopUp gameBegin={this.state.passGameBegin} boardGameRestart={this.state.passGameRestart}/>
+                                <PopUp gameBegin={this.state.passGameBegin} boardGameRestart={this.state.passGameRestart} />
                                 <FinalArea />
-                                <ThreeScene setParentGameBegin={this.setPassGameBegin} setParentGameRestart={this.setPassGameRestart}/>
+                                <ThreeScene setParentGameBegin={this.setPassGameBegin} setParentGameRestart={this.setPassGameRestart} />
                             </FinalContextProvider>
                         </RoundContextProvider>
                     </PopupContextProvider>
