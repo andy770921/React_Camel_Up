@@ -297,7 +297,28 @@
             border-radius: 40px;
         }
     }
-
+    @media (min-height: 201px) and (max-height: 600px) {
+        .logo {
+            font-size: 18vw;
+        }
+        .subtitle {
+            display: none;
+        }
+        .bullet-div {
+            width: 60vw;
+            height: 40vh;
+            bottom: auto;
+            left: calc(50% - 60vw/2);
+            top: calc(30vw*0.8);
+        }
+        .introduction-div {
+            height: 40vh;
+            border-radius: 20px;
+        }
+        .bullet-img {
+            border-radius: 20px;
+        }
+    }
 }
 
 @media (min-width: 201px) and (max-width: 500px) {

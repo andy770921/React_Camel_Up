@@ -32,7 +32,7 @@
 - The reducer technique was also utilized in the situation of complicated and diversified data manipulation.
 - To extend more pages, React-Router was employed.
 - To handle the 3D world and related physical effect, three.js and cannon.js libraries were imported.
-- The 2D rotation effect was achieved via tween.js library.
+- The card rotation effect was achieved via tween.js library.
 - The Webpack bundled all above packages and delivered a SPA (single page application) for deploying.
 
 ## 3D Scene Construct

@@ -672,6 +672,9 @@
     }
   }
   @media (min-height: 201px) and (max-height: 600px) {
+    .opening {
+      height: 180px;
+    }
     .opening-inner {
       margin-top: 3vh;
       margin-left: 10vw;

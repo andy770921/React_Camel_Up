@@ -112,7 +112,8 @@
       margin-bottom: 10px;
     }
     .section-about-page {
-      height: calc(100vh - 150px);
+      height: calc(100vh - 30vh);
+      margin: 5vh auto;
     }
   }
 } 
