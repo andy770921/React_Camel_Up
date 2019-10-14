@@ -14,11 +14,15 @@ https://react-camel-up.firebaseapp.com/
   
 - When we click "PLAY" button, the loading page will be shown for a while. After that, click "GAME START" button to start the game. Before players' acting, each camel jumps randomly and automatically once, determined their starting position.  
   
-![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img3.PNG)  
+![image](https://github.com/andy770921/React_Camel_Up/blob/master/dist/imgs/guide-2-large-comp.gif)  
   
 - After every camel finished jumping, 1st player can take actions. There are three actions can be taken: rolling dice, betting round winner, and betting final rank, corresponding to three yellow buttons below player's name. Each time the player can choose either one of that.  
   
-![image](https://github.com/andy770921/React_Camel_Up/blob/master/readme_imgs/camelup_img4.PNG)  
+![image](https://github.com/andy770921/React_Camel_Up/blob/master/dist/imgs/guide-4-large-comp.gif)  
+  
+![image](https://github.com/andy770921/React_Camel_Up/blob/master/dist/imgs/guide-5-comp.gif)  
+  
+![image](https://github.com/andy770921/React_Camel_Up/blob/master/dist/imgs/guide-6-large-comp.gif)  
   
 - Once 1st player finished his/her action, the 2nd player's turn begins. The turn switches between players iteratively until the first camel crosses the finish line. The richest player is the winner.  
   
