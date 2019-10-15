@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <nav
+    className="nav nav-about-page"
+  >
+    <ul
+      className="nav-ul nav-about-container"
+      id="menu"
+    >
+      <div
+        className="about-btn"
+      >
+        <li
+          className="nav-li"
+        >
+          <a
+            href="#/tutorials"
+            onClick={[Function]}
+          >
+            <span>
+              Guide
+            </span>
+          </a>
+        </li>
+      </div>
+      <div
+        className="about-btn"
+      >
+        <li
+          className="nav-li"
+        >
+          <a
+            href="#/"
+            onClick={[Function]}
+          >
+            <span>
+              Home
+            </span>
+          </a>
+        </li>
+      </div>
+    </ul>
+  </nav>
+  <div
+    className="tutorials-bg z-neg-2"
+  />
+  <div
+    className="opening z-neg-1"
+  />
+  <div
+    className="opening-inner about-inner"
+  >
+    <div
+      className="common-title"
+    >
+      About
+    </div>
+    <div
+      className="about-subtitle common-subtitle"
+    >
+      Story and Acknowledgments
+    </div>
+  </div>
+  <div
+    className="section-about-page"
+  >
+    <div
+      className="section flex-column about-section"
+    >
+      <div
+        className="section-inner section-margin-bottom about-section-inner"
+      >
+        <h1
+          className="title-ch title-content"
+        >
+          開發故事
+        </h1>
+        <p>
+              開發者為周仰皓，為前端工程師。試圖透過網頁，還原出桌遊當下，燒腦競賽、緊張刺激的氣氛。玩法可參考桌遊駱駝大賽的規則，或參照 Guide 頁面圖文說明。
+        </p>
+      </div>
+      <div
+        className="section-inner about-section-inner"
+      >
+        <h1
+          className="title-ch title-content"
+        >
+          特別感謝
+        </h1>
+        <p>
+              程式碼的完善及使用者體驗的改良，感謝彭彭、Enid、Rita、Teresa、Josh、Gaga、Daniel、Ted 的幫忙與協助。
+        </p>
+        <p>
+              3D 的場景，感謝王靜儀協助打造駱駝棋子。
+        </p>
+      </div>
+      <div
+        className="shadow"
+      />
+    </div>
+  </div>
+</div>
+`;

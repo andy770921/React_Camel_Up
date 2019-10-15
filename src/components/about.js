@@ -29,7 +29,7 @@ const About = () => {
                     </div>
                     <div className="section-inner about-section-inner">
                         <h1 className="title-ch title-content">特別感謝</h1>
-                        <p>&ensp;&ensp;&ensp;&ensp;程式碼的完善及使用者體驗的改良，感謝彭彭、Enid、Rita、Teresa、Josh、Ggag、Danial、Ted 的幫忙與協助。</p>
+                        <p>&ensp;&ensp;&ensp;&ensp;程式碼的完善及使用者體驗的改良，感謝彭彭、Enid、Rita、Teresa、Josh、Gaga、Daniel、Ted 的幫忙與協助。</p>
                         <p>&ensp;&ensp;&ensp;&ensp;3D 的場景，感謝王靜儀協助打造駱駝棋子。</p>
                     </div>
                     <div className="shadow"></div>
