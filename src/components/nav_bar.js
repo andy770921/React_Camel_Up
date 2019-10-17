@@ -12,7 +12,7 @@ const Navbar = () => {
             <ul className="nav-ul grid-container" id="menu">
                 <div className="entry-btn-pos1"><Link to="/game"><li className="nav-li" onClick={resetCarousel}><span>Play</span></li></Link></div>
                 <div className="entry-btn-pos2"><Link to="/tutorials"><li className="nav-li" onClick={resetCarousel}><span>Guide</span></li></Link></div>
-                <div className="entry-btn-pos3"><Link to="/about"><li className="nav-li"><span>About</span></li></Link></div>
+                <div className="entry-btn-pos3"><Link to="/about"><li className="nav-li" onClick={resetCarousel}><span>About</span></li></Link></div>
             </ul>
         </nav>
     );

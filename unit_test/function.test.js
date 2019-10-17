@@ -1,14 +1,5 @@
 import ThreeScene from "../src/three_scene";
-// import PlayerContextProvider from '../contexts/playerContext';
-// import PopupContextProvider from '../contexts/popupContext';
-// import RoundContextProvider from '../contexts/roundContext';
-// import FinalContextProvider from '../contexts/finalContext';
-// import { HashRouter } from 'react-router-dom';
 
-// test('get state value', () => {
-//     let a = new ThreeScene;
-//     expect(a.state.step).toBe(0);
-//   });
 test('test judgeCamelRanking function', () => {
     let a = new ThreeScene;
     a.state.camels[0] = {level: 1, boxNum: 5, color: 'orange'};
