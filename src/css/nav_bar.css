@@ -1,9 +1,11 @@
 .nav-ul {
     font-family: 'Permanent Marker', cursive;
-    font-size: 3.5em;
     line-height: 1.6rem;
     display: flex;
     justify-content: space-around;
+}
+.nav-li {
+  font-size: 3.5em;
 }
 
 #menu {
