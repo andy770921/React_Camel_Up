@@ -573,152 +573,155 @@ class ThreeScene extends Component {
         this.dice.updateBodyFromMesh();
 
         // ADD to REACT STATE
-        this.setState(prevState => ({
+        this.setState(() => ({
             rigidBody: { obj: this.dice.object.body, id: 61, triggerRolling: false }
         }));
-
-
+        
+        // ADD RESIZE EVENT for RESET CAMERA ASPECT RATIO AND SCENE SIZE
         window.addEventListener('resize', this.onWindowResize, false);
 
-        // TESTING KEY
-        document.body.addEventListener("keydown", e => {
-            // TEST 時，在此指定: a. 要跳幾步 ( step, nextBoxNum, nextLevel ) b. 哪一隻駱駝跳 ( jumpCamelId )
-            switch (e.keyCode) {
-                case 73: // press i
-                    {
-                        let jumpCamelId = 0;
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(0, 1), nextLevel: this.setNextLevel(0, 1, jumpCamelId), run: true }
-                            }],
-                            step: 1,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 74: // press j
-                    {
-                        let jumpCamelId = 0;
-                        console.log("key J");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(0, 2), nextLevel: this.setNextLevel(0, 2, jumpCamelId), run: true }
-                            }],
-                            step: 2,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 75: // press k
-                    {
-                        let jumpCamelId = 0;
-                        console.log("key K");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(0, 3), nextLevel: this.setNextLevel(0, 3, jumpCamelId), run: true }
-                            }],
-                            step: 3,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 76: // press l
-                    {
-                        let jumpCamelId = 1;
-                        console.log("key L");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(1, 1), nextLevel: this.setNextLevel(1, 1, jumpCamelId), run: true }
-                            }],
-                            step: 1,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 32: // press space
-                    {
-                        let jumpCamelId = 1;
-                        console.log("key space");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(1, 2), nextLevel: this.setNextLevel(1, 2, jumpCamelId), run: true }
-                            }],
-                            step: 2,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 81: // press q
-                    {
-                        let jumpCamelId = 2;
-                        console.log("key Q");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(2, 1), nextLevel: this.setNextLevel(2, 1, jumpCamelId), run: true }
-                            }],
-                            step: 1,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                case 87: // press w
-                    {
-                        let jumpCamelId = 3;
-                        console.log("key W");
-                        jumpInfo[jumpCamelId].triggerJump = true;
-                        jumpInfo[jumpCamelId].onGround = false;
-                        this.setState(prevState => ({
-                            camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
-                            {
-                                ...prevState.camels.find(element => (jumpCamelId === element.id)),
-                                ...{ nextBoxNum: this.setNextBox(3, 1), nextLevel: this.setNextLevel(3, 1, jumpCamelId), run: true }
-                            }],
-                            step: 1,
-                            targetJumpCamelId: jumpCamelId,
-                            upperCamels: this.setUpperCamelsArray(jumpCamelId)
-                        }));
-                        break;
-                    }
-                default:
-                    return;
-            }
-        });
+        // ADD TESTING KEY
+        document.body.addEventListener("keydown", this.testKey);
     }
 
+    testKey = (e) => {            
+        // TEST 時，在此指定: a. 要跳幾步 ( step, nextBoxNum, nextLevel ) b. 哪一隻駱駝跳 ( jumpCamelId )
+        switch (e.keyCode) {
+            case 73: // press i
+                {
+                    let jumpCamelId = 0;
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(0, 1), nextLevel: this.setNextLevel(0, 1, jumpCamelId), run: true }
+                        }],
+                        step: 1,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 74: // press j
+                {
+                    let jumpCamelId = 0;
+                    console.log("key J");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(0, 2), nextLevel: this.setNextLevel(0, 2, jumpCamelId), run: true }
+                        }],
+                        step: 2,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 75: // press k
+                {
+                    let jumpCamelId = 0;
+                    console.log("key K");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(0, 3), nextLevel: this.setNextLevel(0, 3, jumpCamelId), run: true }
+                        }],
+                        step: 3,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 76: // press l
+                {
+                    let jumpCamelId = 1;
+                    console.log("key L");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(1, 1), nextLevel: this.setNextLevel(1, 1, jumpCamelId), run: true }
+                        }],
+                        step: 1,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 32: // press space
+                {
+                    let jumpCamelId = 1;
+                    console.log("key space");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(1, 2), nextLevel: this.setNextLevel(1, 2, jumpCamelId), run: true }
+                        }],
+                        step: 2,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 81: // press q
+                {
+                    let jumpCamelId = 2;
+                    console.log("key Q");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(2, 1), nextLevel: this.setNextLevel(2, 1, jumpCamelId), run: true }
+                        }],
+                        step: 1,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            case 87: // press w
+                {
+                    let jumpCamelId = 3;
+                    console.log("key W");
+                    jumpInfo[jumpCamelId].triggerJump = true;
+                    jumpInfo[jumpCamelId].onGround = false;
+                    this.setState(prevState => ({
+                        camels: [...prevState.camels.filter(element => (jumpCamelId !== element.id)),
+                        {
+                            ...prevState.camels.find(element => (jumpCamelId === element.id)),
+                            ...{ nextBoxNum: this.setNextBox(3, 1), nextLevel: this.setNextLevel(3, 1, jumpCamelId), run: true }
+                        }],
+                        step: 1,
+                        targetJumpCamelId: jumpCamelId,
+                        upperCamels: this.setUpperCamelsArray(jumpCamelId)
+                    }));
+                    break;
+                }
+            default:
+                return;
+            }
+
+    }
     componentWillUnmount() {
         this.stop();
         this.mount.removeChild(this.renderer.domElement);
         window.removeEventListener('resize', this.onWindowResize, false);
+        document.body.removeEventListener("keydown", this.testKey);
     }
     start = () => {
         if (!this.frameId) {
