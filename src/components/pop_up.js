@@ -91,14 +91,14 @@ const PopUp = (props) => {
         }
     }
     const gameStartContent =
-        <React.Fragment>
+        <>
         <div className="start-text" style={(playerData.isLoadSucceed)? {} : { display: 'none'}}>Press to start the game...</div>
         <button className="btn btn-start-style" 
                 disabled={!playerData.isLoadSucceed} 
                 onClick={gameStart} 
                 style={(playerData.isLoadSucceed)? {} : { display: 'none'}}> 
                 Game Start </button>
-        </React.Fragment>;
+        </>;
 
     return (
         <div className="avgrund-ready">
