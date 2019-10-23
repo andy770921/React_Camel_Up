@@ -13,14 +13,12 @@ import HomeContextProvider from './contexts/homeContext';
 function App() {
     return (
         <HashRouter>
-            <>
-                <HomeContextProvider>
-                    <Route exact path="/" component={Home}/>
-                    <Route path="/tutorials" component={Tutorials} />
-                    <Route path="/game" component={GameEntry} /> 
-                    <Route path="/about" component={About} />
-                </HomeContextProvider> 
-            </>
+            <HomeContextProvider>
+                <Route exact path="/" component={Home} />
+                <Route path="/tutorials" component={Tutorials} />
+                <Route path="/game" component={GameEntry} />
+                <Route path="/about" component={About} />
+            </HomeContextProvider>
         </HashRouter>
     );
 }
