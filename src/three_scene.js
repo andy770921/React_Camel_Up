@@ -658,10 +658,10 @@ class ThreeScene extends Component {
                     }));
                     break;
                 }
-            case 32: // press space
+            case 186: // press ;
                 {
                     let jumpCamelId = 1;
-                    console.log("key space");
+                    console.log("key ;");
                     jumpInfo[jumpCamelId].triggerJump = true;
                     jumpInfo[jumpCamelId].onGround = false;
                     this.setState(prevState => ({
