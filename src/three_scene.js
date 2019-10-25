@@ -8,9 +8,10 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import * as CANNON from "cannon";
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
-import OrbitControls from 'three-orbitcontrols';
 import { PlayerContext } from './contexts/playerContext';
 import GameBtn from './components/game_btn';
+// import OrbitControls from 'three-orbitcontrols';
+// enable OrbitControls when testing camera
 
 class physicalWorld {
     // constructor 括號內，先寫者意義為，用 let jumpInfo = new physicalWorld({ x = 50 }); ，指定其中一個物件內容後，其他內容的預設值
