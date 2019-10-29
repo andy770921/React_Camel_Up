@@ -121,7 +121,7 @@ const GameEnd = (props) => {
     ) : ("");
 
     let winnerPlayer = "";
-    const sortedWinnerArray = finalMoneyArray.sort(function(a,b) { return b.moneyTo - a.moneyTo});
+    const sortedWinnerArray = finalMoneyArray.sort(function(a,b) {return b.moneyTo - a.moneyTo});
 
     if (sortedWinnerArray[0].moneyTo > sortedWinnerArray[1].moneyTo ){
         winnerPlayer = sortedWinnerArray[0].name;
@@ -141,9 +141,9 @@ const GameEnd = (props) => {
         <div className="flex-column"> 
             <div className="banner end-info-title game-finish-text"> Game Finished! </div>
             <div className="end-info-content">
-                <div className="end-content-title"> Camels Final Ranking: <br/> </div>
+                <div className="end-content-title"> Camels Final Ranking: <br/></div>
                 <div className="end-camel-color">{camelsRankingList} </div>
-                <div className="end-content-title"> Player's Final Money: <br/> </div>
+                <div className="end-content-title"> Player's Final Money: <br/></div>
                 <div className="end-content-flex">{playersRankingList}</div>
                 <div className="end-content-title pos-relative"> The Winner is ... </div>
                 <div className="banner end-info-title winner-name"> {winnerPlayer} </div>
@@ -151,17 +151,14 @@ const GameEnd = (props) => {
             </div>
             
             <div className="flex-row btn-div game-end-btn-div">
-                <button className="btn game-end-btn" onClick={()=>{ triggerPop(); props.gameRestart();
-                    }}>
+                <button className="btn game-end-btn" onClick={()=>{triggerPop(); props.gameRestart();}}>
                     Restart</button>
-                <button className="btn game-end-btn" onClick={()=>{ props.history.push("/"); }}>
+                <button className="btn game-end-btn" onClick={()=>{props.history.push("/");}}>
                     Exit</button>
             </div>
         </div>;
 
-    return (
-        gameEndMsg
-    );
+    return gameEndMsg;
 }
 
 export default withRouter(GameEnd);

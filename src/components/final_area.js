@@ -6,8 +6,8 @@ import { FinalContext } from '../contexts/finalContext';
 
 const FinalArea = () => {
     const { finalCards } = useContext(FinalContext);
-    const finalCardList = finalCards.cards.length ? (
-        finalCards.cards.map((element, i) => {
+    const finalCardList = finalCards.cards.length !== 0 ? (
+        finalCards.cards.map((element) => {
             if (element.rank ==="top"){
             return (
                 <div key={(element.order + 2000) * (element.order + 50)} className={`final-area-top-div final-area-top-pos${element.order}`}>

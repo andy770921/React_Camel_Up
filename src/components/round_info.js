@@ -12,20 +12,6 @@ const RoundInfo = () => {
     const { playerData, dispatch } = useContext(PlayerContext);
     const camelsRankingList = Object.keys(playerData.roundInfo).length ? (
         playerData.roundInfo.camelsRanking.map((element, i) => {
-            // let rankingWords = "";
-            // switch(i){
-            //     case 0:
-            //         rankingWords = "1st";
-            //         break;
-            //     case 1:
-            //         rankingWords = "2nd";
-            //         break;
-            //     case 2:
-            //         rankingWords = "3rd";
-            //         break;
-            //     default:
-            //         rankingWords = `${i + 1}th`;
-            // }
             let colorHex = "";
             switch (element) {
                 case "red":
@@ -80,9 +66,7 @@ const RoundInfo = () => {
             </div>
         </div>;
 
-    return (
-        infoMsg
-    );
+    return infoMsg;
 }
 
 export default RoundInfo;

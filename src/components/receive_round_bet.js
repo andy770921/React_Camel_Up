@@ -22,9 +22,7 @@ const ReveiveRoundBet = () => {
             </div>
         </div>;
 
-    return (
-        confirmMsg
-    );
+    return confirmMsg;
 }
 
 export default ReveiveRoundBet;

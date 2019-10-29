@@ -6,7 +6,7 @@ import { PopupContext } from '../contexts/popupContext';
 import { PlayerContext } from '../contexts/playerContext';
 import { FinalContext } from '../contexts/finalContext';
 import { TimelineMax, CSSPlugin, AttrPlugin } from "gsap/all";
-const plugins = [CSSPlugin, AttrPlugin]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler...
+const plugins = [CSSPlugin, AttrPlugin]; //without this line, CSSPlugin and AttrPlugin may get dropped by your bundler
 
 const FinalBet = () => {
 
@@ -81,7 +81,7 @@ const FinalBet = () => {
 
     const filteredTopCards = filterCards("top");
     const filteredLastCards = filterCards("last");
-    const finalTopCardList = filteredTopCards.length ? (
+    const finalTopCardList = filteredTopCards.length !== 0 ? (
         filteredTopCards.map((element) => {
             return (
                 <div key={element.id + 9000} id={`finalCard_${element.id + 9000}`} className="final-card-div" onClick={(e) => selectTopCard(e)} color={element.color}>
@@ -89,7 +89,7 @@ const FinalBet = () => {
                 </div>)
         })
     ) : ("");
-    const finalLastCardList = filteredLastCards.length ? (
+    const finalLastCardList = filteredLastCards.length !== 0 ? (
         filteredLastCards.map((element) => {
             return (
                 <div key={element.id + 9500} id={`finalCard_${element.id + 9500}`} className="final-card-div" onClick={(e) => selectLastCard(e)} color={element.color}>
@@ -114,9 +114,7 @@ const FinalBet = () => {
             </div>
         </div>;
 
-    return (
-        finalCardPage
-    );
+    return finalCardPage;
 }
 
 export default FinalBet;

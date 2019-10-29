@@ -70,9 +70,7 @@ const RoundBet = () => {
             </div>
         </div>;
 
-    return (
-        roundCardPage
-    );
+    return roundCardPage;
 }
 
 export default RoundBet;
